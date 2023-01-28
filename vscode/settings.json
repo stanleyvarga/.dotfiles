@@ -5,10 +5,8 @@
     📢 DESCRIPTION:  
     ---------------------------------------------------------------------------
     This is my custom config for the ultimate visual studio code experience. 
-    You can find my article
-    🔗 at <TODO: insert article link>
-    👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
-  */
+    🔗 Read my article at <TODO: insert article link>
+    👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇*/
 
   // sync ID for my configuration using settings sync
   // 🔗 https://code.visualstudio.com/docs/editor/settings-sync
@@ -23,10 +21,12 @@
       1.3 🤹 Formatting
     2. 📺 Visual Settings
       2.1 🔁 Brackets highlight
-    3. 🗄️ File Associations 
-    4. 📟 Terminal 
-    5. 🖌️ Typography
-  */
+    3. 📟 Terminal 
+    4. 🖌️ Typography
+    5. 🗄️ File Associations
+    6. 🙊 Language Specific Settings
+    7. 👐 VIM
+    8. 🦦 Other*/
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
@@ -47,8 +47,7 @@
     3. Let's see whether this won't get into my way in the future
         "terminal.integrated.copyOnSelection": true,
     4. Let's see whether seeing only last part of the breadcrumbs will be enough
-      "breadcrumbs.filePath": "last",
-    5.
+      "breadcrumbs.filePath": "last"*/
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
@@ -57,9 +56,12 @@
   // Save yourself from pressing <COMMAND> + <S> hundreds of times per day
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 2000,
-
   // Moves files/folders to the OS trash (recycle bin on Windows) when deleting. Disabling this will delete files/folders permanently.
   "files.enableTrash": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
@@ -89,7 +91,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // I's a common practice to insert new-line character at the end of the file
   "files.insertFinalNewline": true,
-
   // I'm strong believer in formatting on save and paste
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -114,13 +115,11 @@
   "editor.renderLineHighlight": "all",
   "editor.renderLineHighlightOnlyWhenFocus": false,
   "editor.roundedSelection": true,
-
   // Tiny scrollbar size
   "editor.scrollbar.horizontalScrollbarSize": 5,
   "editor.scrollbar.verticalScrollbarSize": 8,
   // This avoids so much whitespace on file end
   "editor.scrollBeyondLastLine": false,
-
   "editor.smoothScrolling": true,
   "workbench.sideBar.location": "right",
   "editor.padding.top": 0,
@@ -153,7 +152,6 @@
   "editor.stickyScroll.enabled": true,
   // 🧪 Experiment
   "editor.stickyScroll.maxLineCount": 8,
-
   "editor.minimap.renderCharacters": true,
   "editor.insertSpaces": false,
   "editor.wordWrap": "off",
@@ -164,22 +162,65 @@
   "workbench.colorCustomizations": {
     "inlineparameters.annotationBackground": "#0000"
   },
-
   // Use <Command> + <w>
   "workbench.editor.tabCloseButton": "off",
   // Useful when you have a lot of tabs open
   "workbench.editor.wrapTabs": true,
-
-  "window.titleSeparator": " ~ ",
-  "window.title": "${activeEditorShort}${separator}${rootName}",
-
+  "window.titleSeparator": " 👉 ",
+  "window.title": "${rootName}${separator}${activeEditorShort}",
   // 🧪 Experiment for both filePath & symbolPath
   "breadcrumbs.filePath": "last",
   "breadcrumbs.symbolPath": "last",
 
   // ~ ---------------------------------------------------------------------- ~
 
-  // 3. 🗄️ File Associations
+  // 3. 📟 Terminal
+  // 🧪 Experiment
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": true,
+
+  "terminal.integrated.smoothScrolling": false,
+  "terminal.integrated.fontFamily": "IBM Plex Mono",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.lineHeight": 1.2,
+
+  // ~ ---------------------------------------------------------------------- ~
+
+  // 4. 🖌️ Typography
+
+  /* 🏆 My Favorites
+    1. IBM Plex Mono
+    2. Input Mono
+    3. JetBrains Mono
+    4. Fira Code
+    5. Cascadia Code Regular*/
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "IBM Plex Mono",
+  // "editor.fontSize": 13,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "Input Mono",
+  // "editor.fontSize": 12.5,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "Cascadia Code Regular",
+  // "editor.fontSize": 13.5,
+  // "editor.lineHeight": 23,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "Fira Code",
+  // "editor.fontSize": 13,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontSize": 13,
+  "editor.letterSpacing": 0.25,
+
+  "editor.fontLigatures": true,
+  "editor.fontVariations": true,
+  "editor.fontWeight": "400",
+  "editor.lineHeight": 23,
+
+  // ~ ---------------------------------------------------------------------- ~
+
+  // 5. 🗄️ File Associations
   "files.associations": {
     "*.json": "json",
     "Dockerfile-*": "dockerfile"
@@ -218,127 +259,32 @@
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
 
   // ~ ---------------------------------------------------------------------- ~
 
-  // 4. 📟 Terminal
-  // 🧪 Experiment
-  "terminal.integrated.copyOnSelection": true,
-
-  "terminal.integrated.cursorBlinking": true,
-  "terminal.integrated.smoothScrolling": false,
-
-  "terminal.integrated.fontFamily": "IBM Plex Mono",
-  "terminal.integrated.fontSize": 13,
-  "terminal.integrated.lineHeight": 1.2,
-  // ~ ---------------------------------------------------------------------- ~
-
-  // 5. 🖌️ Typography
-
-  /* 🏆 My Favorites
-    1. IBM Plex Mono
-    2. Input Mono
-    3. JetBrains Mono
-    4. Fira Code
-    5. Cascadia Code Regular*/
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "IBM Plex Mono",
-  // "editor.fontSize": 13,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Input Mono",
-  // "editor.fontSize": 12.5,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Cascadia Code Regular",
-  // "editor.fontSize": 13.5,
-  // "editor.lineHeight": 23,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Fira Code",
-  // "editor.fontSize": 13,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  "editor.fontFamily": "JetBrains Mono",
-  "editor.fontSize": 13,
-  "editor.letterSpacing": 0.25,
-
-  "editor.fontLigatures": true,
-  "editor.fontVariations": true,
-  "editor.fontWeight": "400",
-  "editor.lineHeight": 23,
-
-  // ~ ---------------------------------------------------------------------- ~
-
+  // 6. 🙊 Language Specific Settings
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "yaml.schemas": {
     "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
-
-  "vetur.experimental.templateInterpolationService": true,
-  // Research this
-  "vetur.completion.autoImport": true,
-
-  "editor.multiCursorModifier": "ctrlCmd",
-  // SCSS
-  "vetur.validation.style": false,
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false,
-  // Vue.js
-  "vetur.validation.template": false,
-  "vetur.format.defaultFormatter.scss": "prettier",
-  "vetur.format.defaultFormatter.css": "prettier",
-  "vetur.format.defaultFormatter.js": "prettier",
-  "vetur.format.defaultFormatter.ts": "none",
-  "vetur.format.defaultFormatter.html": "prettier",
-  "vetur.format.enable": true,
-
-  // JavaScript
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-
-  // PHP Settings
   "emmet.triggerExpansionOnTab": true,
-  "blade.format.enable": true,
-  // "[blade]": {
-  //   "editor.autoClosingBrackets": "always",
-  //   "editor.defaultFormatter": "shufo.vscode-blade-formatter"
-  // },
-  // "[php]": {
-  //   "editor.formatOnSave": true,
-  //   "editor.defaultFormatter": "junstyle.php-cs-fixer",
-  // },
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
   "php-cs-fixer.lastDownload": 1674549903159,
-
-  "testMate.cpp.log.userId": "673a2d99c308547bb48dc7fff62db2e48bd6a1a3",
-  "testMate.cpp.log.logSentry": "enable",
-
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "tailwindCSS.includeLanguages": {
+    "javascriptreact": "html",
+    "typescriptreact": "html",
+    "plaintext": "html"
+  },
 
-  "workbench.iconTheme": "material-icon-theme",
-  "vva.trustedDomain": true,
-  "sync.forceUpload": true,
-  // "javascript.validate.enable": false,
-  // "javascript.suggestionActions.enabled": false
+  // ~ ---------------------------------------------------------------------- ~
 
-  "git.autofetch": true,
-  "git.confirmSync": false,
-  "gitlens.views.branches.branches.layout": "list",
-  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
-  //  ##::::'##::'######:::'######:::'#######::'########::'########:'##::::'##:'####:'##::::'##:
-  //  ##:::: ##:'##... ##:'##... ##:'##.... ##: ##.... ##: ##.....:: ##:::: ##:. ##:: ###::'###:
-  //  ##:::: ##: ##:::..:: ##:::..:: ##:::: ##: ##:::: ##: ##::::::: ##:::: ##:: ##:: ####'####:
-  //  ##:::: ##:. ######:: ##::::::: ##:::: ##: ##:::: ##: ######::: ##:::: ##:: ##:: ## ### ##:
-  // . ##:: ##:::..... ##: ##::::::: ##:::: ##: ##:::: ##: ##...::::. ##:: ##::: ##:: ##. #: ##:
-  // :. ## ##:::'##::: ##: ##::: ##: ##:::: ##: ##:::: ##: ##::::::::. ## ##:::: ##:: ##:.:: ##:
-  // ::. ###::::. ######::. ######::. #######:: ########:: ########:::. ###::::'####: ##:::: ##:
-  // :::...::::::......::::......::::.......:::........:::........:::::...:::::....::..:::::..::
+  // 7. 👐 VIM
   "vim.easymotion": true,
   "vim.incsearch": true,
   "vim.useSystemClipboard": true,
@@ -442,14 +388,16 @@
     "<C-a>": false,
     "<C-f>": false
   },
-  "workbench.colorTheme": "Moegi Dark",
-  "redhat.telemetry.enabled": false,
 
-  "tailwindCSS.includeLanguages": {
-    "javascriptreact": "html",
-    "typescriptreact": "html",
-    "plaintext": "html"
-  },
+  // ~ ---------------------------------------------------------------------- ~
 
-  "prettier.configPath": ".prettierrc.js"
+  // 8. 🦦 Other
+  "prettier.configPath": ".prettierrc.js",
+  "workbench.colorTheme": "Tokyo Night Storm",
+  "workbench.iconTheme": "material-icon-theme",
+  "sync.forceUpload": true,
+
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "gitlens.views.branches.branches.layout": "list"
 }
