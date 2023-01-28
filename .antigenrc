@@ -1,3 +1,4 @@
+
 # Load oh-my-zsh library
 antigen use oh-my-zsh
 
@@ -14,14 +15,15 @@ antigen bundle junegunn/fzf
 antigen bundle wting/autojump
 antigen bundle zpm-zsh/colors
 antigen bundle rupa/z
-antigen bundle web-search
-antigen bundle jeffreytse/zsh-vi-mode
-antigen bundle michaelaquilina/zsh-you-should-use
+#antigen bundle web-search
+# antigen bundle jeffreytse/zsh-vi-mode
+#antigen bundle michaelaquilina/zsh-you-should-use
 # antigen bundle ahmubashshir/zinsults
 antigen bundle changyuheng/fz
 
 # Select theme
-antigen bundle denysdovhan/spaceship-prompt
+antigen theme denysdovhan/spaceship-prompt
+#antigen theme robbyrussell
 
 # Tell Antigen that you're done
 antigen apply

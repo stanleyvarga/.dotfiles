@@ -1,26 +1,15 @@
-# AWESOME FONTS
-# https://patorjk.com/software/taag/#p=display&h=2&f=Banner3-D&t=text%0A
 # FONT USED BELOW - BANNER 3D
-
-# Load Antigen
+# https://patorjk.com/software/taag/#p=display&h=2&f=Banner3-D&t=text%0A
 
 export DOTFILES="$HOME/.dotfiles"
-
 source "$DOTFILES/antigen.zsh"
-# source "$DOTFILES/system/.links.zsh"
-
-# Load Antigen configurations
 antigen init "$HOME/.dotfiles/.antigenrc"
 
-# Export preffered paths
-export PATH="/usr/local/opt/php@7.3/bin:$PATH"
-export PATH="/usr/local/opt/php@7.3/sbin:$PATH"
+export PATH="/usr/local/bin:$PATH" 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
-# export PATH="$PATH:/opt/homebrew/bin/node"
-export PATH="$PATH:/$HOME/.nvm/versions/node/v16.14.2/bin/node"
-export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:/$HOME/Library/Android/sdk/platform-tools"
+export PATH="/opt/homebrew/bin:$PATH"
 
 # :'######:::'########:'##::: ##:'########:'########:::::'###::::'##::::::::::::'###::::'##:::::::'####::::'###:::::'######::'########::'######::
 # '##... ##:: ##.....:: ###:: ##: ##.....:: ##.... ##:::'## ##::: ##:::::::::::'## ##::: ##:::::::. ##::::'## ##:::'##... ##: ##.....::'##... ##:
@@ -44,6 +33,12 @@ alias bat="bat -p"
 # ::: ##:::: ########: ##:::. ##: ##:::: ##:'####: ##::. ##: ##:::: ##: ########:
 # :::..:::::........::..:::::..::..:::::..::....::..::::..::..:::::..::........::
 
+alias zshrc="code ~/.zshrc"
+alias atgrc="code ~/.dotfiles/.antigenrc"
+alias rc="source ~/.zshrc" # reload source
+alias c="clear"
+alias x="exit" # close terminal
+
 # Directories Lookup
 d='dirs -v | head -10'
 1='cd -'
@@ -56,6 +51,8 @@ d='dirs -v | head -10'
 8='cd -8'
 9='cd -9'
 
+#atuin
+alias at="atuin"
 ## Files lookup
 grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
@@ -67,6 +64,11 @@ alias awk4="awk '{print \$4}'"
 
 ## Network
 alias localip="ipconfig getifaddr en0"
+
+# Create a folder and move into it in one command
+function mkcd() { mkdir -p "$@" && cd "$_"; }
+
+alias rmderived="rm -rf ~/Library/Developer/Xcode/DerivedData"
 
 ## GIT
 ## Git Push to Current Origin and set upstream current branch
@@ -88,13 +90,6 @@ alias lS='exa -1'			                                                  # one colu
 alias lt='exa --tree --level=2'                                         # tree
 
 alias -g G='| grep -i'
-alias zshrc="code ~/.zshrc"
-alias atgrc="code ~/.dotfiles/.antigenrc"
-alias c="clear"
-alias x="exit" # close terminal
-alias e="code -n ~/.zshrc" # edit source
-alias r="source ~/.zshrc" # reload source
-alias t="htop"
 
 # System
 alias runp='lsof -ni'
@@ -243,10 +238,13 @@ fh() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# pnpm
+eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/robbyrussel.omp.json)"
+
 export PNPM_HOME="/Users/stanislav.varga/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-# pnpm end
+
+
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
