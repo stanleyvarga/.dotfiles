@@ -13,3 +13,4 @@ ln -s -f ~/.dotfiles/.tmux/.tmux.conf.local ~/.tmux.conf.local
 
 # VS CODE
 ln -s ~/.dotfiles/vscode/settings.json "/Users/$USER/Library/Application Support/Code/User/settings.json"
+ln -s ~/.dotfiles/vscode/keybindings.json "/Users/$USER/Library/Application Support/Code/User/keybindings.json"
