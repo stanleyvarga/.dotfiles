@@ -1,10 +1,14 @@
 {
   /*
-    🧑 AUTHOR:      Stanley Varga
-    🧑‍💻 GITHUB:      https://github.com/stanleyvarga
-    📰 DESCRIPTION: 
+    🧑 AUTHOR:       Stanley Varga
+    🧑‍💻 GITHUB:       https://github.com/stanleyvarga
+    📢 DESCRIPTION:  
     This is my custom config for the ultimate visual studio code experience. 
-    You can find my article here <TODO: insert article link>*/
+    You can find my article here <TODO: insert article link>
+  */
+
+  // sync ID for my configuration using settings sync
+  // 🔗 https://code.visualstudio.com/docs/editor/settings-sync
   "sync.gist": "80d4ec661ea386531a2d1c630947ec83",
 
   /* 📑 TABLE OF CONTENTS
@@ -219,6 +223,7 @@
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.smoothScrolling": false,
   // ~ ---------------------------------------------------------------------- ~
+
   // IBM Plex Mono specific font settings
   // "editor.fontFamily": "'IBM Plex Mono', monospace",
   // "editor.fontSize": 13,
