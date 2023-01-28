@@ -1,4 +1,46 @@
 [
+  /*
+    🧑 AUTHOR:       Stanley Varga
+    🧑‍💻 GITHUB:       https://github.com/stanleyvarga
+    📢 DESCRIPTION:  
+    ---------------------------------------------------------------------------
+    These are my lovely keybindings I use for the ultimate visual studio code 
+    experience. You can find them explained with demonstrations in my article 
+    🔗 at <TODO: insert article link>
+    👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
+  */
+
+  /* ~~ ----------------------------------------------------------------- ~~ */
+
+  /* 📑 TABLE OF CONTENTS
+
+    1. 📝 Suggestions
+    2. 🧘 Editing Experience
+    3. 📟 VIM
+   */
+
+  /* ~~ ----------------------------------------------------------------- ~~ */
+
+  // 1. 📝 Suggestions
+  {
+    "key": "k",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "j",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": ";",
+    "command": "acceptAlternativeSelectedSuggestion",
+    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+  },
+
+  /* ~~ ----------------------------------------------------------------- ~~ */
+
+  // 2. 🧘 Editing Experience
   {
     "key": "ctrl+k",
     "command": "editorScroll",
@@ -6,33 +48,20 @@
       "by": "line",
       "to": "up",
       "revealCursor": true,
-      "value": 15
+      "value": 20
     },
     "when": "editorFocus"
   },
   {
-    "key": "ctrl+j", // whatever keybinding you like
+    "key": "ctrl+j",
     "command": "editorScroll",
     "args": {
       "by": "line",
       "to": "down",
-      "revealCursor": true, // set to true if you did want to move the cursor
-      // false is the default
-      "value": 15
+      "revealCursor": true,
+      "value": 20
     },
     "when": "editorFocus"
-  },
-  {
-    "command": "vscode-neovim.compositeEscape1",
-    "key": "j",
-    "when": "neovim.mode == insert && editorTextFocus",
-    "args": "j"
-  },
-  {
-    "command": "vscode-neovim.compositeEscape2",
-    "key": "k",
-    "when": "neovim.mode == insert && editorTextFocus",
-    "args": "k"
   },
   {
     "key": "ctrl+g j",
@@ -60,34 +89,20 @@
     "command": "workbench.action.previousEditor",
     "when": "editorTextFocus && vim.mode != 'Insert'"
   },
+
+  /* ~~ ----------------------------------------------------------------- ~~ */
+
+  // 3. 📟 VIM
   {
-    "key": "cmd+down",
-    "command": "-selectNextSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-  },
-  {
-    "key": "k",
-    "command": "selectPrevSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-  },
-  {
+    "command": "vscode-neovim.compositeEscape1",
     "key": "j",
-    "command": "selectNextSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "j"
   },
   {
-    "key": "cmd+up",
-    "command": "-selectPrevSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
-  },
-  {
-    "key": ";",
-    "command": "acceptAlternativeSelectedSuggestion",
-    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
-  },
-  {
-    "key": "shift+tab",
-    "command": "-acceptAlternativeSelectedSuggestion",
-    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+    "command": "vscode-neovim.compositeEscape2",
+    "key": "k",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "k"
   }
 ]

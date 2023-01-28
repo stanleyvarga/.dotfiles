@@ -3,8 +3,11 @@
     🧑 AUTHOR:       Stanley Varga
     🧑‍💻 GITHUB:       https://github.com/stanleyvarga
     📢 DESCRIPTION:  
+    ---------------------------------------------------------------------------
     This is my custom config for the ultimate visual studio code experience. 
-    You can find my article here <TODO: insert article link>
+    You can find my article
+    🔗 at <TODO: insert article link>
+    👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
   */
 
   // sync ID for my configuration using settings sync
@@ -12,6 +15,7 @@
   "sync.gist": "80d4ec661ea386531a2d1c630947ec83",
 
   /* 📑 TABLE OF CONTENTS
+    📢 NOTE: Highlight point and <COMMAND>+<F> to jump to it
 
     1. 🧘 Editing Experience
       1.1 ⏲️ AutoSave
@@ -20,7 +24,9 @@
     2. 📺 Visual Settings
       2.1 🔁 Brackets highlight
     3. 🗄️ File Associations 
-    4. 📟 Terminal */
+    4. 📟 Terminal 
+    5. 🖌️ Typography
+  */
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
@@ -47,7 +53,8 @@
   /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 1. 🧘 Editing Experience
-  // 1.1 ⏲️ Save yourself from pressing <COMMAND> + <S> hundreds of times per day
+  // 1.1 ⏲️ AutoSave
+  // Save yourself from pressing <COMMAND> + <S> hundreds of times per day
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 2000,
 
@@ -102,6 +109,7 @@
   "editor.guides.highlightActiveIndentation": false,
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+
   // Highlight line and gutter alike ❤️‍🔥
   "editor.renderLineHighlight": "all",
   "editor.renderLineHighlightOnlyWhenFocus": false,
@@ -222,45 +230,45 @@
 
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.smoothScrolling": false,
+
+  "terminal.integrated.fontFamily": "IBM Plex Mono",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.lineHeight": 1.2,
   // ~ ---------------------------------------------------------------------- ~
 
-  // IBM Plex Mono specific font settings
-  // "editor.fontFamily": "'IBM Plex Mono', monospace",
+  // 5. 🖌️ Typography
+
+  /* 🏆 My Favorites
+    1. IBM Plex Mono
+    2. Input Mono
+    3. JetBrains Mono
+    4. Fira Code
+    5. Cascadia Code Regular*/
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "IBM Plex Mono",
   // "editor.fontSize": 13,
-  // "editor.lineHeight": 22,
-  // "editor.fontWeight": "400",
-
-  // Consolas specific font settings
-  // "editor.fontFamily": "Consolas, monospace",
-  //   "editor.fontSize": 13,
-  //   "editor.lineHeight": 23,
-
-  // "editor.fontFamily": "'Cascadia Code', sans-serif",
-  // "editor.fontSize": 13,
-  // "editor.lineHeight": 23,
-  // "editor.fontWeight": "400",
-
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Input Mono",
   // "editor.fontSize": 12.5,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "Cascadia Code Regular",
+  // "editor.fontSize": 13.5,
   // "editor.lineHeight": 23,
-  // "editor.fontWeight": "400",
-
-  "editor.fontFamily": "Fira Code",
-  "editor.fontSize": 12,
-  "editor.lineHeight": 22,
-  "editor.fontWeight": "400",
-
-  // "editor.fontFamily": "'JetBrains Mono', monospace",
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "Fira Code",
   // "editor.fontSize": 13,
-  // "editor.lineHeight": 23,
-  // "editor.letterSpacing": 0.25,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontSize": 13,
+  "editor.letterSpacing": 0.25,
 
-  // Terminal settings
-  "terminal.integrated.fontFamily": "'JetBrains Mono', monospace",
-  "terminal.integrated.fontSize": 14,
-  "terminal.integrated.lineHeight": 1.15,
+  "editor.fontLigatures": true,
+  "editor.fontVariations": true,
+  "editor.fontWeight": "400",
+  "editor.lineHeight": 23,
 
-  "editor.fontLigatures": "'zero'",
+  // ~ ---------------------------------------------------------------------- ~
 
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
