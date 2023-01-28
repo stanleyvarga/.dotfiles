@@ -399,5 +399,5 @@
 
   "git.autofetch": true,
   "git.confirmSync": false,
-  "gitlens.views.branches.branches.layout": "list"
+  "projectManager.sortList": "Recent"
 }
