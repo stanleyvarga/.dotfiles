@@ -1,0 +1,442 @@
+{
+  /*
+    🧑 AUTHOR:      Stanley Varga
+    🧑‍💻 GITHUB:      https://github.com/stanleyvarga
+    📰 DESCRIPTION: 
+    This is my custom config for the ultimate visual studio code experience. 
+    You can find my article here <TODO: insert article link>*/
+  "sync.gist": "80d4ec661ea386531a2d1c630947ec83",
+
+  /* 📑 TABLE OF CONTENTS
+
+    1. 🧘 Editing Experience
+      1.1 ⏲️ AutoSave
+      1.2 📝 Suggestions
+      1.3 🤹 Formatting
+    2. 📺 Visual Settings
+      2.1 🔁 Brackets highlight
+    3. 🗄️ File Associations 
+    4. 📟 Terminal */
+
+  /* ~~ ----------------------------------------------------------------- ~~ */
+
+  /*  💁 TIPS
+    1. acceptAlternativeSelectedSuggestion
+      In KeyBindings add binding for character <;> as
+      `acceptAlternativeSelectedSuggestion`. This will enable you to press
+      <;> and accept the suggestion with much less distance for your
+      hands to travel 🧳*/
+
+  /* ~~ ----------------------------------------------------------------- ~~ */
+
+  /* 🧪 Ongoing Experiments
+    1. Let's see whether this is useful
+      "editor.wordBasedSuggestions": true,
+    2. Let's see whether 5 (default) is enough
+      "editor.stickyScroll.maxLineCount": 8,
+    3. Let's see whether this won't get into my way in the future
+        "terminal.integrated.copyOnSelection": true,
+    4. Let's see whether seeing only last part of the breadcrumbs will be enough
+      "breadcrumbs.filePath": "last",
+    5.
+
+  /* ~~ ----------------------------------------------------------------- ~~ */
+
+  // 1. 🧘 Editing Experience
+  // 1.1 ⏲️ Save yourself from pressing <COMMAND> + <S> hundreds of times per day
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 2000,
+
+  // Moves files/folders to the OS trash (recycle bin on Windows) when deleting. Disabling this will delete files/folders permanently.
+  "files.enableTrash": true,
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+
+  // 1.2 📝 Suggestions
+  // 🧪 Experimenting with this setting
+  "editor.wordBasedSuggestions": true,
+  "editor.quickSuggestions": {
+    "other": "on",
+    "strings": false,
+    "comments": false
+  },
+  // 🍭 12 is the perfect sweetspot
+  "editor.suggestFontSize": 12,
+  // I like to slightly increase suggestions list line height. Very slightly
+  "editor.suggestLineHeight": 25,
+  "editor.acceptSuggestionOnEnter": "smart",
+  // Controls whether sorting favours words that appear close to the cursor
+  "editor.suggest.localityBonus": true,
+  // This is one of the most important setting. It determines how
+  // your suggestions get organized and displayed.
+  "editor.snippetSuggestions": "bottom",
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+
+  // 1.3 🤹 Formatting
+  // Use Prettier or other formatter. It will change your life for the better.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // I's a common practice to insert new-line character at the end of the file
+  "files.insertFinalNewline": true,
+
+  // I'm strong believer in formatting on save and paste
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+
+  // ~ ---------------------------------------------------------------------- ~
+
+  // 2. 📺 Visual Settings
+  // 2.1 🔁 Brackets highlight
+  // You must try this setting 😇. It's visually pleasing
+  "editor.guides.bracketPairs": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  // This gives horizontal highlight and I personally like it
+  // to be set on "active" as it removes some highlight clutter away
+  "editor.guides.bracketPairsHorizontal": "active",
+  "editor.guides.highlightActiveIndentation": false,
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // Highlight line and gutter alike ❤️‍🔥
+  "editor.renderLineHighlight": "all",
+  "editor.renderLineHighlightOnlyWhenFocus": false,
+  "editor.roundedSelection": true,
+
+  // Tiny scrollbar size
+  "editor.scrollbar.horizontalScrollbarSize": 5,
+  "editor.scrollbar.verticalScrollbarSize": 8,
+  // This avoids so much whitespace on file end
+  "editor.scrollBeyondLastLine": false,
+
+  "editor.smoothScrolling": true,
+  "workbench.sideBar.location": "right",
+  "editor.padding.top": 0,
+  // Since i'm using VIM extension, I want relative numbers
+  "editor.lineNumbers": "relative",
+  // 👀 Expand with line option will sprinkle your editing by cute animation that is a sight to see
+  "editor.cursorBlinking": "expand",
+  "editor.cursorStyle": "line",
+  // 📜 When pressing <Option> you can scroll 5x the speed of regular scroll
+  "editor.fastScrollSensitivity": 5,
+  // 🗺️ In general I dislike minimap, but in some cases, having it "autohide" on right makes sense.
+  "editor.minimap.enabled": true,
+  "editor.minimap.autohide": true,
+  "editor.minimap.side": "right",
+  //  🗺️ Proportions of your line-height and font-size will be reflected on mini-map
+  "editor.minimap.size": "proportional",
+  // 😊 80 columns is the perfect width. It's not too noisy and still looks cool
+  "editor.minimap.maxColumn": 80,
+  // 🤏 this might battle against your prettier settings,
+  // but if you can, set your settings for 2. Thank me later
+  "editor.tabSize": 2,
+  // 🧑‍🎓 I suggest this setting as you can always learn more about new settings
+  "workbench.tips.enabled": true,
+  // Disabled glyphMargin for all files, except [json]
+  // in json files there might be values to toggle with ease by clicking on
+  // left-side glyphMarging menu
+  "editor.glyphMargin": false,
+  // If you like to see what class/component/function you are
+  // you will very much like this
+  "editor.stickyScroll.enabled": true,
+  // 🧪 Experiment
+  "editor.stickyScroll.maxLineCount": 8,
+
+  "editor.minimap.renderCharacters": true,
+  "editor.insertSpaces": false,
+  "editor.wordWrap": "off",
+  "workbench.view.alwaysShowHeaderActions": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.tree.indent": 12,
+  "workbench.colorCustomizations": {
+    "inlineparameters.annotationBackground": "#0000"
+  },
+
+  // Use <Command> + <w>
+  "workbench.editor.tabCloseButton": "off",
+  // Useful when you have a lot of tabs open
+  "workbench.editor.wrapTabs": true,
+
+  "window.titleSeparator": " ~ ",
+  "window.title": "${activeEditorShort}${separator}${rootName}",
+
+  // 🧪 Experiment for both filePath & symbolPath
+  "breadcrumbs.filePath": "last",
+  "breadcrumbs.symbolPath": "last",
+
+  // ~ ---------------------------------------------------------------------- ~
+
+  // 3. 🗄️ File Associations
+  "files.associations": {
+    "*.json": "json",
+    "Dockerfile-*": "dockerfile"
+  },
+  "[json]": {
+    "editor.glyphMargin": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[makefile]": {
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "[blade]": {
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "junstyle.php-cs-fixer"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+
+  // ~ ---------------------------------------------------------------------- ~
+
+  // 4. 📟 Terminal
+  // 🧪 Experiment
+  "terminal.integrated.copyOnSelection": true,
+
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.smoothScrolling": false,
+  // ~ ---------------------------------------------------------------------- ~
+  // IBM Plex Mono specific font settings
+  // "editor.fontFamily": "'IBM Plex Mono', monospace",
+  // "editor.fontSize": 13,
+  // "editor.lineHeight": 22,
+  // "editor.fontWeight": "400",
+
+  // Consolas specific font settings
+  // "editor.fontFamily": "Consolas, monospace",
+  //   "editor.fontSize": 13,
+  //   "editor.lineHeight": 23,
+
+  // "editor.fontFamily": "'Cascadia Code', sans-serif",
+  // "editor.fontSize": 13,
+  // "editor.lineHeight": 23,
+  // "editor.fontWeight": "400",
+
+  // "editor.fontFamily": "Input Mono",
+  // "editor.fontSize": 12.5,
+  // "editor.lineHeight": 23,
+  // "editor.fontWeight": "400",
+
+  "editor.fontFamily": "Fira Code",
+  "editor.fontSize": 12,
+  "editor.lineHeight": 22,
+  "editor.fontWeight": "400",
+
+  // "editor.fontFamily": "'JetBrains Mono', monospace",
+  // "editor.fontSize": 13,
+  // "editor.lineHeight": 23,
+  // "editor.letterSpacing": 0.25,
+
+  // Terminal settings
+  "terminal.integrated.fontFamily": "'JetBrains Mono', monospace",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.15,
+
+  "editor.fontLigatures": "'zero'",
+
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "yaml.schemas": {
+    "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+
+  "vetur.experimental.templateInterpolationService": true,
+  // Research this
+  "vetur.completion.autoImport": true,
+
+  "editor.multiCursorModifier": "ctrlCmd",
+  // SCSS
+  "vetur.validation.style": false,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  // Vue.js
+  "vetur.validation.template": false,
+  "vetur.format.defaultFormatter.scss": "prettier",
+  "vetur.format.defaultFormatter.css": "prettier",
+  "vetur.format.defaultFormatter.js": "prettier",
+  "vetur.format.defaultFormatter.ts": "none",
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.format.enable": true,
+
+  // JavaScript
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  // PHP Settings
+  "emmet.triggerExpansionOnTab": true,
+  "blade.format.enable": true,
+  // "[blade]": {
+  //   "editor.autoClosingBrackets": "always",
+  //   "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+  // },
+  // "[php]": {
+  //   "editor.formatOnSave": true,
+  //   "editor.defaultFormatter": "junstyle.php-cs-fixer",
+  // },
+  "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
+  "php-cs-fixer.lastDownload": 1674549903159,
+
+  "testMate.cpp.log.userId": "673a2d99c308547bb48dc7fff62db2e48bd6a1a3",
+  "testMate.cpp.log.logSentry": "enable",
+
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "workbench.iconTheme": "material-icon-theme",
+  "vva.trustedDomain": true,
+  "sync.forceUpload": true,
+  // "javascript.validate.enable": false,
+  // "javascript.suggestionActions.enabled": false
+
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "gitlens.views.branches.branches.layout": "list",
+  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+  //  ##::::'##::'######:::'######:::'#######::'########::'########:'##::::'##:'####:'##::::'##:
+  //  ##:::: ##:'##... ##:'##... ##:'##.... ##: ##.... ##: ##.....:: ##:::: ##:. ##:: ###::'###:
+  //  ##:::: ##: ##:::..:: ##:::..:: ##:::: ##: ##:::: ##: ##::::::: ##:::: ##:: ##:: ####'####:
+  //  ##:::: ##:. ######:: ##::::::: ##:::: ##: ##:::: ##: ######::: ##:::: ##:: ##:: ## ### ##:
+  // . ##:: ##:::..... ##: ##::::::: ##:::: ##: ##:::: ##: ##...::::. ##:: ##::: ##:: ##. #: ##:
+  // :. ## ##:::'##::: ##: ##::: ##: ##:::: ##: ##:::: ##: ##::::::::. ## ##:::: ##:: ##:.:: ##:
+  // ::. ###::::. ######::. ######::. #######:: ########:: ########:::. ###::::'####: ##:::: ##:
+  // :::...::::::......::::......::::.......:::........:::........:::::...:::::....::..:::::..::
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+
+  "vim.leader": ",",
+
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)",
+  "vim.surround": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<ESC>"]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<leader>", ":"],
+      "commands": ["workbench.action.showCommands"]
+    },
+    {
+      "before": ["<leader>", "m"],
+      "commands": ["bookmarks.toggle"]
+    },
+    {
+      "before": ["<leader>", "b"],
+      "commands": ["bookmarks.list"]
+    }
+  ],
+  "vim.operatorPendingModeKeyBindingsNonRecursive": [
+    {
+      "before": ["("],
+      "after": ["i("]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["<shift>", "j"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.nextEditor"
+        }
+      ]
+    },
+    {
+      "before": ["<ESC>"],
+      "after": [],
+      "commands": [
+        {
+          "command": ":nohl"
+        }
+      ]
+    },
+    {
+      "before": ["x"],
+      "after": ["\"", "_", "x"]
+    },
+    {
+      "before": ["<Leader>", "/"],
+      "commands": [":noh"]
+    },
+    {
+      "before": ["leader", "w"],
+      "commands": ["workbench.action.files.save"]
+    },
+    {
+      "before": ["<Leader>", "P"],
+      "commands": ["workbench.action.showCommands"]
+    },
+    {
+      "before": ["<Leader>", "p"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["<Leader>", "t"],
+      "commands": ["workbench.action.gotoSymbol"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false
+  },
+  "workbench.colorTheme": "Moegi Dark",
+  "redhat.telemetry.enabled": false,
+
+  "tailwindCSS.includeLanguages": {
+    "javascriptreact": "html",
+    "typescriptreact": "html",
+    "plaintext": "html"
+  },
+
+  "prettier.configPath": ".prettierrc.js"
+}
