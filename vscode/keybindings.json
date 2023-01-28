@@ -1,0 +1,93 @@
+[
+  {
+    "key": "ctrl+k",
+    "command": "editorScroll",
+    "args": {
+      "by": "line",
+      "to": "up",
+      "revealCursor": true,
+      "value": 15
+    },
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+j", // whatever keybinding you like
+    "command": "editorScroll",
+    "args": {
+      "by": "line",
+      "to": "down",
+      "revealCursor": true, // set to true if you did want to move the cursor
+      // false is the default
+      "value": 15
+    },
+    "when": "editorFocus"
+  },
+  {
+    "command": "vscode-neovim.compositeEscape1",
+    "key": "j",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "j"
+  },
+  {
+    "command": "vscode-neovim.compositeEscape2",
+    "key": "k",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "k"
+  },
+  {
+    "key": "ctrl+g j",
+    "command": "workbench.action.focusBelowGroup"
+  },
+  {
+    "key": "ctrl+g k",
+    "command": "workbench.action.focusAboveGroup"
+  },
+  {
+    "key": "ctrl+g h",
+    "command": "workbench.action.focusLeftGroup"
+  },
+  {
+    "key": "ctrl+g l",
+    "command": "workbench.action.focusRightGroup"
+  },
+  {
+    "key": "shift+k",
+    "command": "workbench.action.nextEditor",
+    "when": "editorTextFocus && vim.mode != 'Insert'"
+  },
+  {
+    "key": "shift+j",
+    "command": "workbench.action.previousEditor",
+    "when": "editorTextFocus && vim.mode != 'Insert'"
+  },
+  {
+    "key": "cmd+down",
+    "command": "-selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "k",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "j",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "cmd+up",
+    "command": "-selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": ";",
+    "command": "acceptAlternativeSelectedSuggestion",
+    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "shift+tab",
+    "command": "-acceptAlternativeSelectedSuggestion",
+    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+  }
+]
