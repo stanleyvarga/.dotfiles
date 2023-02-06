@@ -5,6 +5,8 @@ export DOTFILES="$HOME/.dotfiles"
 source "$DOTFILES/antigen.zsh"
 antigen init "$HOME/.dotfiles/.antigenrc"
 
+
+
 export PATH="/usr/local/bin:$PATH" 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
@@ -248,3 +250,6 @@ export PATH="$PNPM_HOME:$PATH"
 
 
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+
+# LOAD INIT COMMANDS
+source "$DOTFILES/.zsh.init" 

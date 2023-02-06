@@ -22,8 +22,8 @@ antigen bundle rupa/z
 antigen bundle changyuheng/fz
 
 # Select theme
-antigen theme denysdovhan/spaceship-prompt
-#antigen theme robbyrussell
+#antigen theme denysdovhan/spaceship-prompt
+antigen theme robbyrussell
 
 # Tell Antigen that you're done
 antigen apply

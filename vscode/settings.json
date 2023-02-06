@@ -2,18 +2,15 @@
   /*
     🧑 AUTHOR:       Stanley Varga
     🧑‍💻 GITHUB:       https://github.com/stanleyvarga
+    🗓️ Created:      28.01.2023
     📢 DESCRIPTION:  
     ---------------------------------------------------------------------------
     This is my custom config for the ultimate visual studio code experience. 
     🔗 Read my article at <TODO: insert article link>
     👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇*/
 
-  // sync ID for my configuration using settings sync
-  // 🔗 https://code.visualstudio.com/docs/editor/settings-sync
-  "sync.gist": "80d4ec661ea386531a2d1c630947ec83",
-
   /* 📑 TABLE OF CONTENTS
-    📢 NOTE: Highlight point and <COMMAND>+<F> to jump to it
+    📢 NOTE: Highlight numbered list item and <COMMAND> <F> to jump to it 🦘
 
     1. 🧘 Editing Experience
       1.1 ⏲️ AutoSave
@@ -21,6 +18,7 @@
       1.3 🤹 Formatting
     2. 📺 Visual Settings
       2.1 🔁 Brackets highlight
+      2.2 🍞 Breadcrumbs
     3. 📟 Terminal 
     4. 🖌️ Typography
     5. 🗄️ File Associations
@@ -35,19 +33,33 @@
       In KeyBindings add binding for character <;> as
       `acceptAlternativeSelectedSuggestion`. This will enable you to press
       <;> and accept the suggestion with much less distance for your
-      hands to travel 🧳*/
+      hands to travel 🧳
+    1.2 Also, remap selectPrevSuggestion & selectNextSuggestion to <j> & <k>
+      This will improve your life dramatically, as you do not have to reach
+      to arrows. If you already have a proved key binding,
+      forget that I said anything and use what you find comfortable 💪
+    2. Fast key repeat and key repetition
+      TODO: write on how to enable this on Mac
+    3. Forget about Return (Backspace)
+      If you use VIM extension or simply you have too far to reach to when
+      using Return, simply remap it to <COMMAND> + <;> so that you can
+      always reach it from homerow position. You're welcome 💘
+      👀 Just peek into my keybindings.json to learn more 🎓
+    */
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
   /* 🧪 Ongoing Experiments
-    1. Let's see whether this is useful
+    1. Is this useful? 
       "editor.wordBasedSuggestions": true,
-    2. Let's see whether 5 (default) is enough
+    2. 5 (default) is it enough?
       "editor.stickyScroll.maxLineCount": 8,
-    3. Let's see whether this won't get into my way in the future
+    3. Does this interfere with my copy-n-paste workflow
         "terminal.integrated.copyOnSelection": true,
-    4. Let's see whether seeing only last part of the breadcrumbs will be enough
-      "breadcrumbs.filePath": "last"*/
+    4. 🧪 Experiment for both filePath & symbolPath
+      "breadcrumbs.filePath": "last" - this does not work for me
+      "breadcrumbs.symbolPath": "last" - Still testing
+      */
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
@@ -56,8 +68,6 @@
   // Save yourself from pressing <COMMAND> + <S> hundreds of times per day
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 2000,
-  // Moves files/folders to the OS trash (recycle bin on Windows) when deleting. Disabling this will delete files/folders permanently.
-  "files.enableTrash": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
@@ -74,15 +84,15 @@
     "comments": false
   },
   // 🍭 12 is the perfect sweetspot
-  "editor.suggestFontSize": 12,
+  "editor.suggestFontSize": 13,
   // I like to slightly increase suggestions list line height. Very slightly
   "editor.suggestLineHeight": 25,
   "editor.acceptSuggestionOnEnter": "smart",
   // Controls whether sorting favours words that appear close to the cursor
-  "editor.suggest.localityBonus": true,
+  "editor.suggest.localityBonus": false,
   // This is one of the most important setting. It determines how
   // your suggestions get organized and displayed.
-  "editor.snippetSuggestions": "bottom",
+  "editor.snippetSuggestions": "inline",
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
@@ -108,6 +118,13 @@
   // to be set on "active" as it removes some highlight clutter away
   "editor.guides.bracketPairsHorizontal": "active",
   "editor.guides.highlightActiveIndentation": false,
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+
+  // 2.2 🍞 Breadcrumbs
+  // 🧪 Experiment for both filePath & symbolPath
+  "breadcrumbs.filePath": "on",
+  "breadcrumbs.symbolPath": "last",
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
@@ -168,9 +185,6 @@
   "workbench.editor.wrapTabs": true,
   "window.titleSeparator": " 👉 ",
   "window.title": "${rootName}${separator}${activeEditorShort}",
-  // 🧪 Experiment for both filePath & symbolPath
-  "breadcrumbs.filePath": "last",
-  "breadcrumbs.symbolPath": "last",
 
   // ~ ---------------------------------------------------------------------- ~
 
@@ -209,9 +223,11 @@
   // "editor.fontFamily": "Fira Code",
   // "editor.fontSize": 13,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "Martian Mono",
+  // "editor.fontSize": 11.5,
   "editor.fontFamily": "JetBrains Mono",
   "editor.fontSize": 13,
-  "editor.letterSpacing": 0.25,
+  "editor.letterSpacing": 0.2,
 
   "editor.fontLigatures": true,
   "editor.fontVariations": true,
@@ -272,7 +288,7 @@
   },
   "emmet.triggerExpansionOnTab": true,
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1674549903159,
+  "php-cs-fixer.lastDownload": 1675254836753,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -393,11 +409,14 @@
 
   // 8. 🦦 Other
   "prettier.configPath": ".prettierrc.js",
-  "workbench.colorTheme": "Tokyo Night Storm",
+  "workbench.colorTheme": "Moegi Dark",
   "workbench.iconTheme": "material-icon-theme",
   "sync.forceUpload": true,
 
   "git.autofetch": true,
   "git.confirmSync": false,
-  "projectManager.sortList": "Recent"
+  "projectManager.sortList": "Recent",
+  "redhat.telemetry.enabled": true,
+  // Moves files/folders to the OS trash (recycle bin on Windows) when deleting. Disabling this will delete files/folders permanently.
+  "files.enableTrash": true
 }

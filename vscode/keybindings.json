@@ -2,6 +2,7 @@
   /*
     🧑 AUTHOR:       Stanley Varga
     🧑‍💻 GITHUB:       https://github.com/stanleyvarga
+    🗓️ Created:      28.01.2023
     📢 DESCRIPTION:  
     ---------------------------------------------------------------------------
     These are my lovely keybindings I use for the ultimate visual studio code 
@@ -15,7 +16,8 @@
 
     1. 📝 Suggestions
     2. 🧘 Editing Experience
-    3. 📟 VIM*/
+    3. 📟 VIM
+  */
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
@@ -86,6 +88,16 @@
     "key": "shift+j",
     "command": "workbench.action.previousEditor",
     "when": "editorTextFocus && vim.mode != 'Insert'"
+  },
+  {
+    "key": "cmd+;",
+    "command": "deleteLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+cmd+;",
+    "command": "deleteRight",
+    "when": "textInputFocus"
   },
 
   /* ~~ ----------------------------------------------------------------- ~~ */
