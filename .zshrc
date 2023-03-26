@@ -118,6 +118,13 @@ alias vimrc="nvim ~/.dotfiles/nvim/.nvimrc"
 #  ##:. ###: ##:::::::: ##:.:: ##:
 #  ##::. ##: ##:::::::: ##:::: ##:
 # ..::::..::..:::::::::..:::::..::
+
+alias y="yarn"
+alias yd="yarn dev"
+alias ya="yarn android"
+
+
+
 alias rnm="rm -rf node_modules package-json.lock"
 alias rbn="rm -rf build node_modules"
 alias rap="rm -rf build coverage node_modules package-lock.json && npm i"
@@ -196,6 +203,7 @@ alias weather="curl wttr.in"
 # Servers
 alias sauron="ssh forge@167.99.142.20"
 alias smaug="ssh forge@157.230.28.157"
+alias globalfinance="ssh forge@167.71.35.124"
 
 ## ZSH VIM Settings
 # Only changing the escape key to `jk` in insert mode, we still

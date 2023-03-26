@@ -3,14 +3,13 @@
     🧑 AUTHOR:       Stanley Varga
     🧑‍💻 GITHUB:       https://github.com/stanleyvarga
     🗓️ Created:      28.01.2023
-    📢 DESCRIPTION:  
+    📢 DESCRIPTION:  👇
     ---------------------------------------------------------------------------
     This is my custom config for the ultimate visual studio code experience. 
-    🔗 Read my article at <TODO: insert article link>
-    👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇*/
+    🔗 Read my article at <TODO: insert article link>*/
 
   /* 📑 TABLE OF CONTENTS
-    📢 NOTE: Highlight numbered list item and <COMMAND> <F> to jump to it 🦘
+    📢 INFO: Highlight numbered list item and <COMMAND> <F> to jump to it 🦘
 
     1. 🧘 Editing Experience
       1.1 ⏲️ AutoSave
@@ -24,7 +23,9 @@
     5. 🗄️ File Associations
     6. 🙊 Language Specific Settings
     7. 👐 VIM
-    8. 🦦 Other*/
+    8. 🦦 Other
+      8.1 📊 CodeMetrics Extension Settings
+    */
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
@@ -50,16 +51,20 @@
   /* ~~ ----------------------------------------------------------------- ~~ */
 
   /* 🧪 Ongoing Experiments
+
     1. Is this useful? 
       "editor.wordBasedSuggestions": true,
     2. 5 (default) is it enough?
       "editor.stickyScroll.maxLineCount": 8,
     3. Does this interfere with my copy-n-paste workflow
         "terminal.integrated.copyOnSelection": true,
-    4. 🧪 Experiment for both filePath & symbolPath
+    4. Experiment for both filePath & symbolPath
       "breadcrumbs.filePath": "last" - this does not work for me
       "breadcrumbs.symbolPath": "last" - Still testing
-      */
+    5. Experiment with to see whether seeing complexity message
+       even for non-complex code blocks is a pure overhead
+      "codemetrics.basics.CodeLensHiddenUnder": 4,   
+    */
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
@@ -73,7 +78,7 @@
     "source.fixAll.eslint": true
   },
 
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 1.2 📝 Suggestions
   // 🧪 Experimenting with this setting
@@ -94,7 +99,7 @@
   // your suggestions get organized and displayed.
   "editor.snippetSuggestions": "inline",
 
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 1.3 🤹 Formatting
   // Use Prettier or other formatter. It will change your life for the better.
@@ -105,9 +110,9 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
 
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
-  // ~ ---------------------------------------------------------------------- ~
+  /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 2. 📺 Visual Settings
   // 2.1 🔁 Brackets highlight
@@ -119,14 +124,14 @@
   "editor.guides.bracketPairsHorizontal": "active",
   "editor.guides.highlightActiveIndentation": false,
 
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 2.2 🍞 Breadcrumbs
   // 🧪 Experiment for both filePath & symbolPath
   "breadcrumbs.filePath": "on",
   "breadcrumbs.symbolPath": "last",
 
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // Highlight line and gutter alike ❤️‍🔥
   "editor.renderLineHighlight": "all",
@@ -186,7 +191,7 @@
   "window.titleSeparator": " 👉 ",
   "window.title": "${rootName}${separator}${activeEditorShort}",
 
-  // ~ ---------------------------------------------------------------------- ~
+  /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 3. 📟 Terminal
   // 🧪 Experiment
@@ -198,43 +203,44 @@
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.lineHeight": 1.2,
 
-  // ~ ---------------------------------------------------------------------- ~
+  /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 4. 🖌️ Typography
 
   /* 🏆 My Favorites
-    1. IBM Plex Mono
+    1. JetBrains Mono
+       IBM Plex Mono
     2. Input Mono
-    3. JetBrains Mono
-    4. Fira Code
-    5. Cascadia Code Regular*/
+    3. Fira Code
+    4. Cascadia Code Regular*/
 
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "IBM Plex Mono",
-  // "editor.fontSize": 13,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Input Mono",
-  // "editor.fontSize": 12.5,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Cascadia Code Regular",
   // "editor.fontSize": 13.5,
-  // "editor.lineHeight": 23,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "Input Mono",
+  // "editor.fontSize": 13,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "Cascadia Code Mono",
+  // "editor.fontSize": 13.5,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Fira Code",
   // "editor.fontSize": 13,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Martian Mono",
-  // "editor.fontSize": 11.5,
+  // "editor.fontSize": 12,
+  // "editor.lineHeight": 25,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   "editor.fontFamily": "JetBrains Mono",
   "editor.fontSize": 13,
   "editor.letterSpacing": 0.2,
-
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   "editor.fontLigatures": true,
   "editor.fontVariations": true,
   "editor.fontWeight": "400",
   "editor.lineHeight": 23,
 
-  // ~ ---------------------------------------------------------------------- ~
+  /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 5. 🗄️ File Associations
   "files.associations": {
@@ -278,17 +284,17 @@
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
 
-  // ~ ---------------------------------------------------------------------- ~
+  /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 6. 🙊 Language Specific Settings
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "yaml.schemas": {
-    "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.2/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "emmet.triggerExpansionOnTab": true,
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1675254836753,
+  "php-cs-fixer.lastDownload": 1679494793694,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -298,7 +304,7 @@
     "plaintext": "html"
   },
 
-  // ~ ---------------------------------------------------------------------- ~
+  /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 7. 👐 VIM
   "vim.easymotion": true,
@@ -405,11 +411,11 @@
     "<C-f>": false
   },
 
-  // ~ ---------------------------------------------------------------------- ~
+  /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 8. 🦦 Other
   "prettier.configPath": ".prettierrc.js",
-  "workbench.colorTheme": "Moegi Dark",
+  "workbench.colorTheme": "GitHub Dark Default",
   "workbench.iconTheme": "material-icon-theme",
   "sync.forceUpload": true,
 
@@ -417,6 +423,50 @@
   "git.confirmSync": false,
   "projectManager.sortList": "Recent",
   "redhat.telemetry.enabled": true,
-  // Moves files/folders to the OS trash (recycle bin on Windows) when deleting. Disabling this will delete files/folders permanently.
-  "files.enableTrash": true
+  // Moves files/folders to the OS trash (recycle bin on Windows) when deleting.
+  // Disabling this will delete files/folders permanently.
+  "files.enableTrash": true,
+  "atlascode.jira.lastCreateSiteAndProject": {
+    "siteId": "",
+    "projectKey": "ALLF"
+  },
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+
+  // 8.1 📊 CodeMetrics Extension Settings
+  // Let's keep it in jsx/tsx as well, as it can pin-point
+  // complex functions in these files as well
+  "codemetrics.basics.EnabledForJSX": true,
+  "codemetrics.basics.EnabledForTSX": true,
+  "codemetrics.basics.EnabledForHTML": false,
+  // 🧪 Experiment
+  "codemetrics.basics.CodeLensHiddenUnder": 4,
+  "codemetrics.basics.ComplexityLevelLowDescription": "⚡",
+  "codemetrics.basics.ComplexityLevelNormalDescription": "♻️ It's time to refactor...",
+  "codemetrics.basics.ComplexityLevelHighDescription": "¯(°_o)/¯ Split this up! It's too complex 👇",
+  "codemetrics.basics.ComplexityLevelExtremeDescription": "(╯°□°）╯︵ ┻━┻ ...THEFUCK!",
+
+  // 👀 I will have to experiment with these along the way
+  // observing what I would call a complexity
+  "codemetrics.nodeconfiguration.ReturnStatement": 0,
+  "codemetrics.nodeconfiguration.CaseClause": 0,
+  "codemetrics.nodeconfiguration.DefaultClause": 0,
+  "codemetrics.nodeconfiguration.FunctionDeclaration": 0,
+  "codemetrics.nodeconfiguration.ArrowFunction": 0,
+  "codemetrics.nodeconfiguration.JsxElement": 0,
+  "codemetrics.nodeconfiguration.JsxSelfClosingElement": 0,
+  "codemetrics.nodeconfiguration.": 0,
+  "editor.inlineSuggest.enabled": true
+  // Other cool textmojis
+  // (╯°□°）╯︵ ┻━┻   the fuck
+  // ヽ(｀⌒´)ﾉ        angry
+  // \_(ツ)_/¯        dunno
+  // \_(-_-)_/        dunno
+  // ¯\(°_o)/¯        dunno
+  // (҂◡_◡)           injured life
+  // (∩ᵔᵕᵔ)⊃━☆ﾟ.*･｡ﾟ   wizard
+  // \(ᵔᵕᵔ)/          happy
+  // (~˘▾˘)~          everything is fine
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 }
