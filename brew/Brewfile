@@ -1,11 +1,14 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "jandedobbeleer/oh-my-posh"
 tap "shivammathur/php"
+
 brew "jpeg-xl"
 brew "aom"
 brew "atuin"
+brew "bat"
 brew "boost"
 brew "curl"
 brew "freetds"
@@ -25,8 +28,8 @@ brew "libarchive"
 brew "pango"
 brew "ffmpeg"
 brew "fileicon"
+brew "fzf"
 brew "jq"
-brew "just"
 brew "node"
 brew "numpy"
 brew "nvm"
@@ -42,6 +45,17 @@ brew "trash"
 brew "watchman"
 brew "yarn"
 brew "youtube-dl"
+brew "zoxide"
 brew "jandedobbeleer/oh-my-posh/oh-my-posh"
 brew "shivammathur/php/php@8.0"
+cask "font-fira-code-nerd-font"
+
+brew "httpie"
 cask "warp"
+cask 'docker'
+cask 'figma'
+cask 'firefox'
+cask 'google-chrome'
+cask 'slack'
+cask 'tableplus'
+cask 'visual-studio-code'
