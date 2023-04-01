@@ -47,8 +47,6 @@ d='dirs -v | head -10'
 8='cd -8'
 9='cd -9'
 
-## atuin
-alias at="atuin"
 ## Files lookup
 grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias -g G='| grep -i'
@@ -101,7 +99,6 @@ alias vimrc="nvim ~/.dotfiles/nvim/.nvimrc"
 #  ##:. ###: ##:::::::: ##:.:: ##:
 #  ##::. ##: ##:::::::: ##:::: ##:
 # ..::::..::..:::::::::..:::::..::
-
 alias y="yarn"
 alias yd="yarn dev"
 alias ya="yarn android"
@@ -172,7 +169,6 @@ alias sa="sail artisan"
 alias sakg="sail artisan key:generate"
 alias sam="sail artisan migrate"
 alias sc="sail composer"
-
 alias cpenv="cp .env.example .env"
 
 ## Utilities
@@ -198,12 +194,6 @@ ZVM_VI_ESCAPE_BINDKEY=jk
 #  ##::::::: ##:::: ##: ##:. ###: ##::: ##:::: ##::::: ##:: ##:::: ##: ##:. ###:'##::: ##:
 #  ##:::::::. #######:: ##::. ##:. ######::::: ##::::'####:. #######:: ##::. ##:. ######::
 # ..:::::::::.......:::..::::..:::......::::::..:::::....:::.......:::..::::..:::......:::
-
-## fh - search in your command history and execute selected command
-fh() {
-  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ## Cheatshet for everything you need
 ## For example you forgot how to use map-like function for Objects
@@ -231,11 +221,23 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/robbyrussel.omp.json)"
-
 export PNPM_HOME="/Users/stanislav.varga/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+
+# '########:'########:'########::'##::::'##:'####:'##::: ##::::'###::::'##:::::::
+# ... ##..:: ##.....:: ##.... ##: ###::'###:. ##:: ###:: ##:::'## ##::: ##:::::::
+# ::: ##:::: ##::::::: ##:::: ##: ####'####:: ##:: ####: ##::'##:. ##:: ##:::::::
+# ::: ##:::: ######::: ########:: ## ### ##:: ##:: ## ## ##:'##:::. ##: ##:::::::
+# ::: ##:::: ##...:::: ##.. ##::: ##. #: ##:: ##:: ##. ####: #########: ##:::::::
+# ::: ##:::: ##::::::: ##::. ##:: ##:.:: ##:: ##:: ##:. ###: ##.... ##: ##:::::::
+# ::: ##:::: ########: ##:::. ##: ##:::: ##:'####: ##::. ##: ##:::: ##: ########:
+# :::..:::::........::..:::::..::..:::::..::....::..::::..::..:::::..::........::
+## ATUIN - A CLI for your shell history
+alias h="atuin"
+alias hs="atuin search -i" #interative history search
+alias hsf="atuin search --exclude-exit 0 -i" #failed commands
+alias hss="atuin search --exit 0 -i" # successful commands
 
 # :'######:::'######::'########::'####:'########::'########::'######::
 # '##... ##:'##... ##: ##.... ##:. ##:: ##.... ##:... ##..::'##... ##:
@@ -246,5 +248,14 @@ export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 # . ######::. ######:: ##:::. ##:'####: ##::::::::::: ##::::. ######::
 # :......::::......:::..:::::..::....::..::::::::::::..::::::......:::
 source "$HOME/.zsh.init" 
+# eval "$(oh-my-posh init zsh --config $DOTFILES/oh-my-posh/amro.omp.json)"
+eval "$(oh-my-posh init zsh --config $DOTFILES/oh-my-posh/robbyrussel.omp.json)"
+eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
 
-alias "reload-icons"="zx ~/.dotfiles/macos/dock-icons.mjs"
+## Reloads for various configs
+alias reload:icons="zx ~/.dotfiles/macos/dock-icons.mjs"
+alias r:icons="zx ~/.dotfiles/macos/dock-icons.mjs"
+alias reload:zsh="source ~/.zshrc"
+alias r:zsh="source ~/.zshrc"
+
