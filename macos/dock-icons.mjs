@@ -16,12 +16,13 @@ const map = (fn) => (arr) => arr.map(fn)
 const filter = (fn) => (arr) => arr.filter(fn)
 const isEmptyString = (str) => str !== ''
 const toString = (unknown) => unknown.toString()
+const removeFromFileNames = (dir) => dir.replace(PATH_ICONS, '').replace(PATH_APPLICATIONS, '').replace(/\//g, '').replace('.app', '')
 
-const parseDirList = pipe(
+const clearAppNames = pipe(
 		toString,
 		splitByNewLine,
 		filter(isEmptyString),
-		map((dir) => dir.replace(PATH_ICONS, '').replace(PATH_APPLICATIONS, '').replace(/\//g, '').replace('.app', '')),
+		map(removeFromFileNames),
 )
 
 const setFileIcon = async (app) => {
@@ -37,8 +38,8 @@ void async function () {
 	let iconDirectories = await $`ls -d ${PATH_ICONS}/*/`
 	let appDirectories = await $`ls -d ${PATH_APPLICATIONS}/*/`
 
-	iconDirectories = parseDirList(iconDirectories)
-	appDirectories = parseDirList(appDirectories)
+	iconDirectories = clearAppNames(iconDirectories)
+	appDirectories = clearAppNames(appDirectories)
 	
 	intersect(iconDirectories, appDirectories).forEach(setFileIcon)
 

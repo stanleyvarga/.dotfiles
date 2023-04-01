@@ -2,10 +2,9 @@
 # https://patorjk.com/software/taag/#p=display&h=2&f=Banner3-D&t=text%0A
 
 export DOTFILES="$HOME/.dotfiles"
-source "$DOTFILES/antigen.zsh"
-antigen init "$HOME/.dotfiles/.antigenrc"
 
-
+source "$DOTFILES/antigen/antigen.zsh"
+antigen init "$HOME/.antigenrc"
 
 export PATH="/usr/local/bin:$PATH" 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -24,24 +23,19 @@ export PATH="/opt/homebrew/bin:$PATH"
 alias dev="cd ~/Documents/devspace"
 alias work="cd ~/Documents/brackets"
 
+## colorful cat alternative
 alias bat="bat -p"
-
-# '########:'########:'########::'##::::'##:'####:'##::: ##::::'###::::'##:::::::
-# ... ##..:: ##.....:: ##.... ##: ###::'###:. ##:: ###:: ##:::'## ##::: ##:::::::
-# ::: ##:::: ##::::::: ##:::: ##: ####'####:: ##:: ####: ##::'##:. ##:: ##:::::::
-# ::: ##:::: ######::: ########:: ## ### ##:: ##:: ## ## ##:'##:::. ##: ##:::::::
-# ::: ##:::: ##...:::: ##.. ##::: ##. #: ##:: ##:: ##. ####: #########: ##:::::::
-# ::: ##:::: ##::::::: ##::. ##:: ##:.:: ##:: ##:: ##:. ###: ##.... ##: ##:::::::
-# ::: ##:::: ########: ##:::. ##: ##:::: ##:'####: ##::. ##: ##:::: ##: ########:
-# :::..:::::........::..:::::..::..:::::..::....::..::::..::..:::::..::........::
+alias cat="bat"
 
 alias zshrc="code ~/.zshrc"
 alias atgrc="code ~/.dotfiles/.antigenrc"
-alias rc="source ~/.zshrc" # reload source
+## reload source
+alias rc="source ~/.zshrc"
 alias c="clear"
-alias x="exit" # close terminal
+## close terminal
+alias x="exit"
 
-# Directories Lookup
+## Directories Lookup
 d='dirs -v | head -10'
 1='cd -'
 2='cd -2'
@@ -53,31 +47,23 @@ d='dirs -v | head -10'
 8='cd -8'
 9='cd -9'
 
-#atuin
+## atuin
 alias at="atuin"
 ## Files lookup
 grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
-
-## A few useful aliases
-alias awk1="awk '{print \$1}'"
-alias awk2="awk '{print \$2}'"
-alias awk3="awk '{print \$3}'"
-alias awk4="awk '{print \$4}'"
+alias -g G='| grep -i'
 
 ## Network
 alias localip="ipconfig getifaddr en0"
 
-# Create a folder and move into it in one command
+## Create a folder and move into it in one command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
-
-alias rmderived="rm -rf ~/Library/Developer/Xcode/DerivedData"
 
 ## GIT
 ## Git Push to Current Origin and set upstream current branch
 alias gpo="git push --set-upstream origin"
 alias gb='git branch'
 alias gco='git checkout'
-
 
 ## EXA Aliases
 alias ls='exa'                                                         # ls
@@ -86,14 +72,11 @@ alias ll='exa -lbGF --git'                                             # long li
 alias llm='exa -lbGF --git --sort=modified'                            # long list, modified date sort
 alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'  # all list
 alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
-
-## speciality views
+## Speciality views
 alias lS='exa -1'			                                                  # one column, just names
 alias lt='exa --tree --level=2'                                         # tree
 
-alias -g G='| grep -i'
-
-# System
+## System
 alias runp='lsof -ni'
 alias sshdir='cd ~/.ssh'
 alias copyssh="pbcopy < $HOME/.ssh/id_rsa.pub"
@@ -123,8 +106,6 @@ alias y="yarn"
 alias yd="yarn dev"
 alias ya="yarn android"
 
-
-
 alias rnm="rm -rf node_modules package-json.lock"
 alias rbn="rm -rf build node_modules"
 alias rap="rm -rf build coverage node_modules package-lock.json && npm i"
@@ -153,9 +134,8 @@ alias nrt="npm run test"
 alias nrt:ci="npm run test:ci" 
 alias nrt:ciu="npm run test:ci -- -u" 
 alias nrck="npm run check" 
-
 alias np="npm run build && npm publish"
-alias nu="npm unpublish " 
+alias nu="npm unpublish" 
 
 # '########::'##::::'##:'########::
 #  ##.... ##: ##:::: ##: ##.... ##:
@@ -165,7 +145,7 @@ alias nu="npm unpublish "
 #  ##:::::::: ##:::: ##: ##::::::::
 #  ##:::::::: ##:::: ##: ##::::::::
 # ..:::::::::..:::::..::..:::::::::
-# Development
+## Development
 alias hb="./harbor"
 alias hbi="./harbor init"
 alias hbs="./harbor start"
@@ -176,18 +156,17 @@ alias hbam="./harbor artisan migrate"
 alias hbam:f="./harbor artisan migrate:fresh"
 alias hbam:fs="./harbor artisan migrate:fresh --seed"
 alias hbam:s="./harbor artisan db:seed"
-
-# Harbor PHP Artisan
+## Harbor PHP Artisan
 alias hba="./harbor art"
 alias hbac="./harbor art cache:clear"
 alias hbaoc="./harbor art optimize:clear"
 alias hbst='./harbor stop'
 
-# Composer
+## Composer
 alias ci="composer install"
 alias ci:ignore="composer install --ignore-platform-reqs"
 
-# Sail
+## Sail
 alias sail="./vendor/bin/sail"
 alias sa="sail artisan"
 alias sakg="sail artisan key:generate"
@@ -196,23 +175,41 @@ alias sc="sail composer"
 
 alias cpenv="cp .env.example .env"
 
-# Utilities
+## Utilities
 ## Get beautiful weather reporting 
 alias weather="curl wttr.in"
 
-# Servers
+## Servers
 alias sauron="ssh forge@167.99.142.20"
 alias smaug="ssh forge@157.230.28.157"
 alias globalfinance="ssh forge@167.71.35.124"
 
 ## ZSH VIM Settings
-# Only changing the escape key to `jk` in insert mode, we still
-# keep using the default keybindings `^[` in other modes
+## Only changing the escape key to `jk` in insert mode, we still
+## keep using the default keybindings `^[` in other modes
 ZVM_VI_ESCAPE_BINDKEY=jk
+
+
+# '########:'##::::'##:'##::: ##::'######::'########:'####::'#######::'##::: ##::'######::
+#  ##.....:: ##:::: ##: ###:: ##:'##... ##:... ##..::. ##::'##.... ##: ###:: ##:'##... ##:
+#  ##::::::: ##:::: ##: ####: ##: ##:::..::::: ##::::: ##:: ##:::: ##: ####: ##: ##:::..::
+#  ######::: ##:::: ##: ## ## ##: ##:::::::::: ##::::: ##:: ##:::: ##: ## ## ##:. ######::
+#  ##...:::: ##:::: ##: ##. ####: ##:::::::::: ##::::: ##:: ##:::: ##: ##. ####::..... ##:
+#  ##::::::: ##:::: ##: ##:. ###: ##::: ##:::: ##::::: ##:: ##:::: ##: ##:. ###:'##::: ##:
+#  ##:::::::. #######:: ##::. ##:. ######::::: ##::::'####:. #######:: ##::. ##:. ######::
+# ..:::::::::.......:::..::::..:::......::::::..:::::....:::.......:::..::::..:::......:::
+
+## fh - search in your command history and execute selected command
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ## Cheatshet for everything you need
 ## For example you forgot how to use map-like function for Objects
 ## cht js/map+object
+## or forgot how to list directory 
+## cht ls
 function cht() {
   if [ -n "$1" ]; then
     curl cht.sh/$1
@@ -221,31 +218,14 @@ function cht() {
   fi
 }
 
-
-# '########:'########:'########:
-#  ##.....::..... ##:: ##.....::
-#  ##::::::::::: ##::: ##:::::::
-#  ######:::::: ##:::: ######:::
-#  ##...:::::: ##::::: ##...::::
-#  ##:::::::: ##:::::: ##:::::::
-#  ##::::::: ########: ##:::::::
-# ..::::::::........::..::::::::
-
-# ag (silversearcher-ag) is a faster grep
-# I recommend using it if you have to deal with large codebases
-# Install it by running `sudo apt-get install silversearcher-ag`
-# The variable below makes it a default command to be used by
-# fzf for a file path search
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-
-# Functions
-# fh - search in your command history and execute selected command
-fh() {
-  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# '########:::::'###::::'########:'##::::'##::'######::
+#  ##.... ##:::'## ##:::... ##..:: ##:::: ##:'##... ##:
+#  ##:::: ##::'##:. ##::::: ##:::: ##:::: ##: ##:::..::
+#  ########::'##:::. ##:::: ##:::: #########:. ######::
+#  ##.....::: #########:::: ##:::: ##.... ##::..... ##:
+#  ##:::::::: ##.... ##:::: ##:::: ##:::: ##:'##::: ##:
+#  ##:::::::: ##:::: ##:::: ##:::: ##:::: ##:. ######::
+# ..:::::::::..:::::..:::::..:::::..:::::..:::......:::
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
@@ -255,9 +235,16 @@ eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/robbyrus
 
 export PNPM_HOME="/Users/stanislav.varga/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-
-
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 
-# LOAD INIT COMMANDS
-source "$DOTFILES/.zsh.init" 
+# :'######:::'######::'########::'####:'########::'########::'######::
+# '##... ##:'##... ##: ##.... ##:. ##:: ##.... ##:... ##..::'##... ##:
+#  ##:::..:: ##:::..:: ##:::: ##:: ##:: ##:::: ##:::: ##:::: ##:::..::
+# . ######:: ##::::::: ########::: ##:: ########::::: ##::::. ######::
+# :..... ##: ##::::::: ##.. ##:::: ##:: ##.....:::::: ##:::::..... ##:
+# '##::: ##: ##::: ##: ##::. ##::: ##:: ##::::::::::: ##::::'##::: ##:
+# . ######::. ######:: ##:::. ##:'####: ##::::::::::: ##::::. ######::
+# :......::::......:::..:::::..::....::..::::::::::::..::::::......:::
+source "$HOME/.zsh.init" 
+
+alias "reload-icons"="zx ~/.dotfiles/macos/dock-icons.mjs"

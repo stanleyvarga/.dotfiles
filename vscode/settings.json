@@ -456,7 +456,8 @@
   "codemetrics.nodeconfiguration.JsxElement": 0,
   "codemetrics.nodeconfiguration.JsxSelfClosingElement": 0,
   "codemetrics.nodeconfiguration.": 0,
-  "editor.inlineSuggest.enabled": true
+  "editor.inlineSuggest.enabled": true,
+  "terminal.integrated.env.osx": {}
   // Other cool textmojis
   // (╯°□°）╯︵ ┻━┻   the fuck
   // ヽ(｀⌒´)ﾉ        angry
