@@ -1,13 +1,9 @@
-
-# Load oh-my-zsh library
 antigen use oh-my-zsh
 
-# Load bundles from the default repo (oh-my-zsh)
 antigen bundle git
 antigen bundle command-not-found
 antigen bundle docker
 
-# Load bundles from external repos
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -15,15 +11,13 @@ antigen bundle junegunn/fzf
 antigen bundle wting/autojump
 antigen bundle zpm-zsh/colors
 antigen bundle rupa/z
-#antigen bundle web-search
-# antigen bundle jeffreytse/zsh-vi-mode
-#antigen bundle michaelaquilina/zsh-you-should-use
-# antigen bundle ahmubashshir/zinsults
 antigen bundle changyuheng/fz
+antigen bundle ellie/atuin@main
 
+# Currently I'm using oh-my-posh for themes
 # Select theme
 #antigen theme denysdovhan/spaceship-prompt
-antigen theme robbyrussell
+#antigen theme robbyrussell
 
 # Tell Antigen that you're done
 antigen apply
