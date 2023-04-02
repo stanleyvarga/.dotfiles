@@ -49,13 +49,5 @@ brew "zoxide"
 brew "jandedobbeleer/oh-my-posh/oh-my-posh"
 brew "shivammathur/php/php@8.0"
 cask "font-fira-code-nerd-font"
-
 brew "httpie"
 cask "warp"
-cask 'docker'
-cask 'figma'
-cask 'firefox'
-cask 'google-chrome'
-cask 'slack'
-cask 'tableplus'
-cask 'visual-studio-code'
