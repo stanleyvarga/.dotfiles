@@ -18,7 +18,7 @@ const isEmptyString = (str) => str !== ''
 const toString = (unknown) => unknown.toString()
 const removeFromFileNames = (dir) => dir.replace(PATH_ICONS, '').replace(PATH_APPLICATIONS, '').replace(/\//g, '').replace('.app', '')
 
-const clearAppNames = pipe(
+const extractAppNames = pipe(
 		toString,
 		splitByNewLine,
 		filter(isEmptyString),
@@ -38,8 +38,8 @@ void async function () {
 	let iconDirectories = await $`ls -d ${PATH_ICONS}/*/`
 	let appDirectories = await $`ls -d ${PATH_APPLICATIONS}/*/`
 
-	iconDirectories = clearAppNames(iconDirectories)
-	appDirectories = clearAppNames(appDirectories)
+	iconDirectories = extractAppNames(iconDirectories)
+	appDirectories = extractAppNames(appDirectories)
 	
 	intersect(iconDirectories, appDirectories).forEach(setFileIcon)
 
