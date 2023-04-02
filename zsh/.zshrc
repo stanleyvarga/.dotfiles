@@ -8,5 +8,7 @@ source "$DOTFILES/zsh/.eval"
 source "$HOME/.zsh.init" 
 
 # Load plugins, install global packages etc..
-zsh -c "chmod +x ./packages.sh"
+# zsh -c "chmod +x ./packages.sh"
+source "$DOTFILES/zsh/.packages" 
+
 antigen init "$HOME/.antigenrc"
