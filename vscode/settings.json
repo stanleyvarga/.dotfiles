@@ -107,8 +107,8 @@
   // I's a common practice to insert new-line character at the end of the file
   "files.insertFinalNewline": true,
   // I'm strong believer in formatting on save and paste
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
@@ -208,32 +208,37 @@
   // 4. 🖌️ Typography
 
   /* 🏆 My Favorites
-    1. JetBrains Mono
-       IBM Plex Mono
+    1. 
+      Consolas, Monaco....
+      JetBrains Mono
+      IBM Plex Mono
     2. Input Mono
     3. Fira Code
-    4. Cascadia Code Regular*/
+    4. Martian Mono
+    */
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  "editor.fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
+  "editor.fontSize": 13,
+  "editor.letterSpacing": 0.2,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "JetBrains Mono",
+  // "editor.fontSize": 13,
+  // "editor.letterSpacing": 0.2,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "IBM Plex Mono",
-  // "editor.fontSize": 13.5,
+  // "editor.fontSize": 14,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Input Mono",
-  // "editor.fontSize": 13,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Cascadia Code Mono",
-  // "editor.fontSize": 13.5,
+  // "editor.fontSize": 14,
+  // "editor.letterSpacing": -0.2,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Fira Code",
   // "editor.fontSize": 13,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Martian Mono",
   // "editor.fontSize": 12,
-  // "editor.lineHeight": 25,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  "editor.fontFamily": "JetBrains Mono",
-  "editor.fontSize": 13,
-  "editor.letterSpacing": 0.2,
+  // "editor.letterSpacing": -0.45,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   "editor.fontLigatures": true,
   "editor.fontVariations": true,
@@ -273,10 +278,12 @@
     "editor.defaultFormatter": "Vue.volar"
   },
   "[blade]": {
-    "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter",
+    "editor.formatOnSave": false
   },
   "[php]": {
-    "editor.defaultFormatter": "junstyle.php-cs-fixer"
+    "editor.defaultFormatter": "junstyle.php-cs-fixer",
+    "editor.formatOnSave": false
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -290,11 +297,11 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "yaml.schemas": {
-    "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.2/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "emmet.triggerExpansionOnTab": true,
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1679494793694,
+  "php-cs-fixer.lastDownload": 1681308029998,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -414,7 +421,7 @@
   /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 8. 🦦 Other
-  "prettier.configPath": ".prettierrc.js",
+  "prettier.configPath": ".prettierrc",
   "workbench.colorTheme": "GitHub Dark Default",
   "workbench.iconTheme": "material-icon-theme",
   "sync.forceUpload": true,
@@ -427,7 +434,7 @@
   // Disabling this will delete files/folders permanently.
   "files.enableTrash": true,
   "atlascode.jira.lastCreateSiteAndProject": {
-    "siteId": "",
+    "siteId": "9823b634-accb-49bb-a6fb-d7aead44d4f3",
     "projectKey": "ALLF"
   },
 
