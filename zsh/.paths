@@ -6,6 +6,11 @@
 #  ##:::::::: ##.... ##:::: ##:::: ##:::: ##:'##::: ##:
 #  ##:::::::: ##:::: ##:::: ##:::: ##:::: ##:. ######::
 # ..:::::::::..:::::..:::::..:::::..:::::..:::......:::
+export PYENV_ROOT="$HOME/.pyenv"
+export PNPM_HOME="/Users/stanislav.varga/Library/pnpm"
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 
 export PATH="/usr/local/bin:$PATH" 
@@ -13,11 +18,8 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/$HOME/Library/Android/sdk/platform-tools"
 export PATH="/opt/homebrew/bin:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-export PNPM_HOME="/Users/stanislav.varga/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+export PATH="${HOME}/.pyenv/shims:${PATH}"
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
+  

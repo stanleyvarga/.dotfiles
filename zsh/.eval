@@ -2,3 +2,7 @@
 eval "$(oh-my-posh init zsh --config $DOTFILES/oh-my-posh/robbyrussel.omp.json)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
+
+if command -v pyenv 1>/dev/null 2>&1; then
+	eval "$(pyenv init -)"
+fi
