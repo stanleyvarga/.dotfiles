@@ -218,16 +218,20 @@
     */
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  "editor.fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
-  "editor.fontSize": 13,
-  "editor.letterSpacing": 0.2,
+  // "editor.fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
+  // "editor.fontSize": 14,
+  // "editor.letterSpacing": 0.2,
+  // "editor.lineHeight": 22,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "JetBrains Mono",
-  // "editor.fontSize": 13,
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 22,
   // "editor.letterSpacing": 0.2,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "IBM Plex Mono",
-  // "editor.fontSize": 14,
+  "editor.fontFamily": "IBM Plex Mono",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 22,
+  "editor.letterSpacing": 0.1,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Input Mono",
   // "editor.fontSize": 14,
@@ -243,7 +247,7 @@
   "editor.fontLigatures": true,
   "editor.fontVariations": true,
   "editor.fontWeight": "400",
-  "editor.lineHeight": 23,
+  // "editor.lineHeight": 23,
 
   /* ~~ ----------------------------------------------------------------- ~~ */
 
@@ -301,7 +305,7 @@
   },
   "emmet.triggerExpansionOnTab": true,
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1681308029998,
+  "php-cs-fixer.lastDownload": 1684752088843,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -422,7 +426,7 @@
 
   // 8. 🦦 Other
   "prettier.configPath": ".prettierrc",
-  "workbench.colorTheme": "GitHub Dark Default",
+  "workbench.colorTheme": "Community Material Theme Palenight High Contrast",
   "workbench.iconTheme": "material-icon-theme",
   "sync.forceUpload": true,
 
@@ -464,7 +468,8 @@
   "codemetrics.nodeconfiguration.JsxSelfClosingElement": 0,
   "codemetrics.nodeconfiguration.": 0,
   "editor.inlineSuggest.enabled": true,
-  "terminal.integrated.env.osx": {}
+  "terminal.integrated.env.osx": {},
+  "gitlens.views.commitDetails.files.layout": "list"
   // Other cool textmojis
   // (╯°□°）╯︵ ┻━┻   the fuck
   // ヽ(｀⌒´)ﾉ        angry
