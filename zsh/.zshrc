@@ -1,5 +1,4 @@
 export DOTFILES="$HOME/.dotfiles"
-
 source "$DOTFILES/antigen/antigen.zsh"
 source "$DOTFILES/zsh/.paths"
 source "$DOTFILES/zsh/.functions"

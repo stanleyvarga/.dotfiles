@@ -7,4 +7,4 @@
 
 ### Btop
 
-### Zoxide
+### Z 

@@ -1,5 +1,8 @@
-alias dev="cd ~/Documents/devspace"
-alias work="cd ~/Documents/brackets"
+alias dev="cd /home/$(whoami)/Documents/devspace"
+alias work="cd /home/$(whoami)/Documents/itera"
+## TODO: this should be a vscode task
+alias pulsebe="cd ~/Documents/itera/IteraPulse.Backend && ./IteraPulse.Web.Api
+ASPNETCORE_ENVIRONMENT=Development dotnet run"
 
 ## colorful cat alternative
 alias bat="bat -p"
@@ -14,18 +17,9 @@ alias c="clear"
 alias x="exit"
 
 ## Reloads for various configs
-alias reload:icons="zx ~/.dotfiles/macos/dock-icons.mjs"
-alias r:icons="zx ~/.dotfiles/macos/dock-icons.mjs"
 alias reload:zsh="source ~/.zshrc"
 alias r:zsh="source ~/.zshrc"
-
 alias ~="cd ~"
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-# Hide/show all desktop icons (useful when presenting)
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 ## Directories Lookup
 d='dirs -v | head -10'
@@ -123,51 +117,12 @@ alias nrck="npm run check"
 alias np="npm run build && npm publish"
 alias nu="npm unpublish" 
 
-# '########::'##::::'##:'########::
-#  ##.... ##: ##:::: ##: ##.... ##:
-#  ##:::: ##: ##:::: ##: ##:::: ##:
-#  ########:: #########: ########::
-#  ##.....::: ##.... ##: ##.....:::
-#  ##:::::::: ##:::: ##: ##::::::::
-#  ##:::::::: ##:::: ##: ##::::::::
-# ..:::::::::..:::::..::..:::::::::
-## Development
-alias hb="./harbor"
-alias hbi="./harbor init"
-alias hbs="./harbor start"
-alias hbr="./harbor rebuild"
-alias hbriv="./harbor rebuild -iv"
-alias hbci="./harbor composer install"
-alias hbam="./harbor artisan migrate"
-alias hbam:f="./harbor artisan migrate:fresh"
-alias hbam:fs="./harbor artisan migrate:fresh --seed"
-alias hbam:s="./harbor artisan db:seed"
-## Harbor PHP Artisan
-alias hba="./harbor art"
-alias hbac="./harbor art cache:clear"
-alias hbaoc="./harbor art optimize:clear"
-alias hbst='./harbor stop'
-
-## Composer
-alias ci="composer install"
-alias ci:ignore="composer install --ignore-platform-reqs"
-
-## Sail
-alias sail="./vendor/bin/sail"
-alias sa="sail artisan"
-alias sakg="sail artisan key:generate"
-alias sam="sail artisan migrate"
-alias sc="sail composer"
-alias cpenv="cp .env.example .env"
-
 ## Utilities
 ## Get beautiful weather reporting 
 alias weather="curl wttr.in"
 
 ## Servers
-alias sauron="ssh forge@167.99.142.20"
-alias smaug="ssh forge@157.230.28.157"
-alias globalfinance="ssh forge@167.71.35.124"
+## ...
 
 ## ATUIN - A CLI for your shell history
 alias h="atuin"

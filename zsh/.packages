@@ -1,1 +1,4 @@
 zsh -c "cd $DOTFILES/yarn && chmod +x ./yarn.global.sh"
+plugins=(
+  zsh-npm-scripts-autocomplete
+)
