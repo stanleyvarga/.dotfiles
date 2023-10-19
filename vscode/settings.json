@@ -1,34 +1,30 @@
+/*
+🧑 AUTHOR:      Stanley Varga
+🧑‍💻 GITHUB:      https://github.com/stanleyvarga
+🗓️ Created:     28.01.2023
+📢 DESCRIPTION: 👇
+---------------------------------------------------------------------------
+This is my custom config for the ultimate visual studio code experience. 
+
+📑 TABLE OF CONTENTS
+  📢 TIP: Highlight numbered list item and <COMMAND> <F> to jump to it 🦘
+
+  1. 🧘 Editing Experience
+    1.1 ⏲️ AutoSave
+    1.2 🤹 Formatting
+    1.3 📝 Suggestions
+  2. 📺 Visual Settings
+    2.1 🔁 Brackets highlight
+    2.2 🍞 Breadcrumbs
+  3. 📟 Terminal 
+  4. 🖌️ Typography
+  5. 🗄️ File Associations
+  6. 🙊 Language Specific Settings
+  7. 👐 VIM
+  8. 🦦 Other
+    8.1 📊 CodeMetrics Extension Settings
+  */
 {
-  /*
-    🧑 AUTHOR:       Stanley Varga
-    🧑‍💻 GITHUB:       https://github.com/stanleyvarga
-    🗓️ Created:      28.01.2023
-    📢 DESCRIPTION:  👇
-    ---------------------------------------------------------------------------
-    This is my custom config for the ultimate visual studio code experience. 
-    🔗 Read my article at <TODO: insert article link>*/
-
-  /* 📑 TABLE OF CONTENTS
-    📢 INFO: Highlight numbered list item and <COMMAND> <F> to jump to it 🦘
-
-    1. 🧘 Editing Experience
-      1.1 ⏲️ AutoSave
-      1.2 📝 Suggestions
-      1.3 🤹 Formatting
-    2. 📺 Visual Settings
-      2.1 🔁 Brackets highlight
-      2.2 🍞 Breadcrumbs
-    3. 📟 Terminal 
-    4. 🖌️ Typography
-    5. 🗄️ File Associations
-    6. 🙊 Language Specific Settings
-    7. 👐 VIM
-    8. 🦦 Other
-      8.1 📊 CodeMetrics Extension Settings
-    */
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
   /*  💁 TIPS
     1. acceptAlternativeSelectedSuggestion
       In KeyBindings add binding for character <;> as
@@ -70,19 +66,33 @@
 
   // 1. 🧘 Editing Experience
   // 1.1 ⏲️ AutoSave
-  // Save yourself from pressing <COMMAND> + <S> hundreds of times per day
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 2000,
-  "editor.multiCursorModifier": "ctrlCmd",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
+  "files.autoSave": "afterDelay", // Save yourself from pressing <COMMAND> + <S> hundreds of times per da
+  "files.autoSaveDelay": 500,
+  "files.refactoring.autoSave": true,
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
-  // 1.2 📝 Suggestions
-  // 🧪 Experimenting with this setting
-  "editor.wordBasedSuggestions": true,
+  // 1.2 🤹 Formatting
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // This saves your sanity when you copy-n-paste code from the internet
+  "editor.formatOnPaste": true, // required
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.formatOnSaveMode": "file", // required to format on save
+  // I's a common practice to insert new-line character at the end of the file
+  "files.insertFinalNewline": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "eslint.validate": ["javascript", "typescript"],
+
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+
+  // 1.3 📝 Suggestions
+  "editor.wordBasedSuggestions": true, // 🧪 Experiment
   "editor.quickSuggestions": {
     "other": "on",
     "strings": false,
@@ -100,19 +110,6 @@
   "editor.snippetSuggestions": "inline",
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-
-  // 1.3 🤹 Formatting
-  // Use Prettier or other formatter. It will change your life for the better.
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  // I's a common practice to insert new-line character at the end of the file
-  "files.insertFinalNewline": true,
-  // I'm strong believer in formatting on save and paste
-  "editor.formatOnPaste": false,
-  "editor.formatOnSave": false,
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
 
   // 2. 📺 Visual Settings
   // 2.1 🔁 Brackets highlight
@@ -191,19 +188,18 @@
   "window.titleSeparator": " 👉 ",
   "window.title": "${rootName}${separator}${activeEditorShort}",
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 3. 📟 Terminal
   // 🧪 Experiment
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.cursorBlinking": true,
-
   "terminal.integrated.smoothScrolling": false,
   "terminal.integrated.fontFamily": "IBM Plex Mono",
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.lineHeight": 1.2,
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 4. 🖌️ Typography
 
@@ -220,18 +216,20 @@
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
   // "editor.fontSize": 14,
-  // "editor.letterSpacing": 0.2,
   // "editor.lineHeight": 22,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "JetBrains Mono",
-  // "editor.fontSize": 14,
-  // "editor.lineHeight": 22,
-  // "editor.letterSpacing": 0.2,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  "editor.fontFamily": "IBM Plex Mono",
+  "editor.fontFamily": "JetBrains Mono",
   "editor.fontSize": 14,
-  "editor.lineHeight": 22,
-  "editor.letterSpacing": 0.1,
+  "editor.lineHeight": 23,
+  // "editor.letterSpacing": -0.2,
+  "editor.letterSpacing": -0.15,
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
+  // "editor.fontFamily": "IBM Plex Mono",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 25,
+  // "editor.fontSize": 13.6,
+  // "editor.lineHeight": 24,
+  // "editor.letterSpacing": 0.1,
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
   // "editor.fontFamily": "Input Mono",
   // "editor.fontSize": 14,
@@ -249,7 +247,7 @@
   "editor.fontWeight": "400",
   // "editor.lineHeight": 23,
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 5. 🗄️ File Associations
   "files.associations": {
@@ -264,29 +262,10 @@
     "editor.insertSpaces": false,
     "editor.detectIndentation": false
   },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
   "[javascriptreact]": {
     "editor.formatOnSave": true
   },
   "[markdown]": {
-    "editor.formatOnSave": false
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
-  },
-  "[blade]": {
-    "editor.defaultFormatter": "shufo.vscode-blade-formatter",
-    "editor.formatOnSave": false
-  },
-  "[php]": {
-    "editor.defaultFormatter": "junstyle.php-cs-fixer",
     "editor.formatOnSave": false
   },
   "[html]": {
@@ -295,7 +274,7 @@
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 6. 🙊 Language Specific Settings
   "typescript.updateImportsOnFileMove.enabled": "always",
@@ -304,8 +283,6 @@
     "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "emmet.triggerExpansionOnTab": true,
-  "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1684752088843,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -315,13 +292,13 @@
     "plaintext": "html"
   },
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 7. 👐 VIM
   "vim.easymotion": true,
   "vim.incsearch": true,
   "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": true,
+  "vim.useCtrlKeys": false,
   "vim.hlsearch": true,
 
   "vim.leader": ",",
@@ -422,13 +399,12 @@
     "<C-f>": false
   },
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
   // 8. 🦦 Other
-  "prettier.configPath": ".prettierrc",
-  "workbench.colorTheme": "Community Material Theme Palenight High Contrast",
+  // "prettier.configPath": "prettierrc.json",
+  "workbench.colorTheme": "Moegi Space",
   "workbench.iconTheme": "material-icon-theme",
-  "sync.forceUpload": true,
 
   "git.autofetch": true,
   "git.confirmSync": false,
@@ -437,10 +413,6 @@
   // Moves files/folders to the OS trash (recycle bin on Windows) when deleting.
   // Disabling this will delete files/folders permanently.
   "files.enableTrash": true,
-  "atlascode.jira.lastCreateSiteAndProject": {
-    "siteId": "9823b634-accb-49bb-a6fb-d7aead44d4f3",
-    "projectKey": "ALLF"
-  },
 
   // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
 
@@ -466,10 +438,14 @@
   "codemetrics.nodeconfiguration.ArrowFunction": 0,
   "codemetrics.nodeconfiguration.JsxElement": 0,
   "codemetrics.nodeconfiguration.JsxSelfClosingElement": 0,
-  "codemetrics.nodeconfiguration.": 0,
   "editor.inlineSuggest.enabled": true,
   "terminal.integrated.env.osx": {},
-  "gitlens.views.commitDetails.files.layout": "list"
+  "gitlens.views.commitDetails.files.layout": "list",
+  "git.enableSmartCommit": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "diffEditor.hideUnchangedRegions.enabled": true
   // Other cool textmojis
   // (╯°□°）╯︵ ┻━┻   the fuck
   // ヽ(｀⌒´)ﾉ        angry
