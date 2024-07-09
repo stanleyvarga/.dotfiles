@@ -6,3 +6,6 @@ eval "$(atuin init zsh)"
 if command -v pyenv 1>/dev/null 2>&1; then
 	eval "$(pyenv init -)"
 fi
+
+eval `/usr/bin/ssh-agent` &>/dev/null
+eval "$(rbenv init - zsh)"

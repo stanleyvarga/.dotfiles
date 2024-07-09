@@ -2,7 +2,6 @@ antigen use oh-my-zsh
 
 antigen bundle git
 antigen bundle command-not-found
-antigen bundle docker
 
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions

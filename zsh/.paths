@@ -23,3 +23,4 @@ export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 export PATH="${HOME}/.pyenv/shims:${PATH}"
 export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
   
+export EDITOR="vim"

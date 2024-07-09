@@ -24,3 +24,20 @@ function cht() {
 
 ## Create a folder and move into it in one command
 function mkcd() { mkdir -p "$@" && cd "$_"; }
+
+## Downlods a youtube video in the best available quality of MP4 format
+d() {
+  # Check if yt-dlp is installed
+  if ! command -v yt-dlp &> /dev/null; then
+      echo "yt-dlp could not be found. Please install yt-dlp."
+      return 1
+  fi
+
+  # Ensure the download directory exists
+  mkdir -p ~/Downloads/Videos
+
+  # Download the video in the best available quality of MP4 format
+  yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' -o '~/Downloads/Videos/%(title)s.%(ext)s' "$1"
+}
+
+
