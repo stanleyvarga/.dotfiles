@@ -1,2 +1,14 @@
 /node_modules
 .DS_Store
+
+automac/automac/wallpaper/dark
+automac/automac/wallpaper/light/*
+automac/automac/wallpaper/daytime/afternoon
+automac/automac/wallpaper/daytime/dawn/*
+automac/automac/wallpaper/daytime/dusk/*
+automac/automac/wallpaper/daytime/morning/*
+automac/automac/wallpaper/daytime/night/*
+automac/automac/wallpaper/daytime/noon/*
+automac/automac/wallpaper/daytime/sunrise/*
+automac/automac/wallpaper/daytime/sunset/*
+
