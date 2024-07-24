@@ -39,7 +39,7 @@ Ballad of `Dotfileschantment`
 >Was all that tweaking worth the while?  
 
 
-![Unicorns](./public/img/README.webp)
+![Unicorns](./unicorn.webp)
 
 - Startup takes around 0.1 - 0.2 seconds 🎉
 - I use shitload of plugins & aliases
