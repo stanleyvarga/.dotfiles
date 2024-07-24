@@ -3,40 +3,40 @@
 
 Please, read through the `The Legend of the Lost Settings` ballad
 
->In a land where *nix reigns supreme,
->A tale unfolds, a geek's daydream,
->Of .dotfiles vast and secrets deep,
->Where coders toil while others sleep.
+>In a land where *nix reigns supreme,  
+>A tale unfolds, a geek's daydream,  
+>Of .dotfiles vast and secrets deep,  
+>Where coders toil while others sleep.  
 >
->The .vimrc, a sacred scroll,
->With mappings, macros, and control,
->They tweak and twiddle, line by line,
->To craft a setup so divine.
+>The .vimrc, a sacred scroll,  
+>With mappings, macros, and control,  
+>They tweak and twiddle, line by line,  
+>To craft a setup so divine.  
 >
->Yet IDEs, with ease and grace,
->Lie just a click from their embrace,
->But nay, the .dotfile's siren call,
->Draws them back, enthralls them all.
+>Yet IDEs, with ease and grace,  
+>Lie just a click from their embrace,  
+>But nay, the .dotfile's siren call,  
+>Draws them back, enthralls them all. 
 >
->A zsh prompt, so sleek, so neat,
->They script it 'til it's obsolete,
->Weeks have passed, in screen’s soft light,
->In search of settings just so right.
+>A zsh prompt, so sleek, so neat,  
+>They script it 'til it's obsolete,  
+>Weeks have passed, in screen’s soft light,  
+>In search of settings just so right.  
 >
->For hours lost in config bliss,
->They chase a dream they can't dismiss,
->Of systems perfect, finely tuned,
->Yet practical? Perhaps lampooned.
+>For hours lost in config bliss,  
+>They chase a dream they can't dismiss,  
+>Of systems perfect, finely tuned,  
+>Yet practical? Perhaps lampooned.  
 >
->So here's a toast to .dotfile lore,
->To hours spent, and configs more,
->In endless loops they tweak and twine,
->Their systems perfect, by design.
+>So here's a toast to .dotfile lore,  
+>To hours spent, and configs more,  
+>In endless loops they tweak and twine,  
+>Their systems perfect, by design.  
 >
->But as the sun sets, and moonlight beams,
->They wake up from the config dreams,
->And wonder, with a wistful sigh,
->Was all that tweaking worth the while?
+>But as the sun sets, and moonlight beams,  
+>They wake up from the config dreams,  
+>And wonder, with a wistful sigh,  
+>Was all that tweaking worth the while?  
 
 
 ![Unicorns](./public/img/README.webp)
