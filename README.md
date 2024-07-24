@@ -52,6 +52,7 @@ Ballad of `Dotfileschantment`
 
 ### Command-line Apps
 - 📦 [Btop](https://github.com/aristocratos/btop)
+- 📦 [Navi](https://github.com/denisidoro/navi)
 
 ## Other resources
 - 🔗 ASCII fonts generator [ASCII Fonts](https://patorjk.com/software/taag/#p=display&h=2&f=Banner3-D&t=text%0A)
