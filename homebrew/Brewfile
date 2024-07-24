@@ -1,7 +1,7 @@
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
-tap "jandedobbeleer/oh-my-posh"
-tap "homebrew/command-not-found"
+# tap "homebrew/cask-fonts"
+# tap "jandedobbeleer/oh-my-posh"
+# tap "homebrew/command-not-found"
 
  # Imporant for the entire .dotfiles installation
 brew "stow"
@@ -19,9 +19,8 @@ brew "fzf"
 brew "yt-dlp"
 brew "zoxide"
 brew "httpie"
-brew "jandedobbeleer/oh-my-posh/oh-my-posh"
 brew "trash"
-cask "font-fira-code-nerd-font"
+# brew "jandedobbeleer/oh-my-posh/oh-my-posh"
 
 # Development tools
 brew "docker"
