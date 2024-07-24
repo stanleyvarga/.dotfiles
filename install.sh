@@ -11,8 +11,8 @@ echo "🔧 Stowing packages"
 stow bin
 stow git
 
-echo "🔧 Installing MacOS packages"
 if is_macos; then
+  echo "🔧 Installing MacOS packages"
   stow homebrew
 	brew bundle --file=~/Brewfile
 
@@ -21,7 +21,6 @@ if is_macos; then
   echo "🔧 Setting MacOS defaults"
   chmod +x $DOTFILES/macos/set-defaults
   sh -c "(cd $DOTFILES/macos && ./set-defaults)"
-
 else
   echo "💽 Not running on macOS"
 fi
