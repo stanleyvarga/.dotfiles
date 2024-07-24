@@ -1,485 +1,167 @@
-{
+[
+/*
+ 🧑 AUTHOR:      Stanley Varga
+ 🧑‍💻 GITHUB:      https://github.com/stanleyvarga
+ 🗓️ Created:     28.01.2023
+ 📢 DESCRIPTION: Below is my lovely keybindings config for the ultimate DX 💪
+
+⠄⠄⠄⠄⠄⠄⣠⣤⣶⣶⣿⣶⣶⣤⣀⠄⣀⣤⣴⣶⣶⣶⣦⣀⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⢀⣤⣿⠡⢟⡿⠿⣛⣛⣛⠿⢿⡆⢻⣿⣿⣿⣿⣯⣃⣸⣧⡀⠄⠄⠄⠄
+⠄⠄⢀⣾⣿⣿⣋⣵⣾⣿⣿⣿⣿⣿⣷⣶⡄⣩⣴⣶⣶⣶⣶⣶⣭⣉⣀⠄⠄⠄
+⠄⢀⣿⡟⣻⣿⣿⣿⣿⠟⢋⣭⣴⣶⣶⣶⣦⣮⡙⠟⢛⣭⣭⣶⣶⣶⣮⣭⣄⠄
+⣴⣸⣿⠑⣛⣿⠟⢩⣶⣿⣿⣿⣿⣿⡏⡋⠉⣿⣿⡌⣿⣿⣿⣿⣿⠋⡋⠛⣿⣧
+⢿⣿⣿⣿⣿⣿⣶⣶⣭⣝⡻⠿⣿⣿⣷⣧⣵⠿⢟⡑⠿⠿⠿⠿⠿⠶⠭⠶⠟⠃
+⣬⣿⣿⣿⣿⣿⣿⣿⣷⣬⣙⣛⣒⠠⢤⣤⡔⢚⣛⣴⣿⣿⣿⣿⣿⣿⣿⡿⠛⠄
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⣋⣱⣾⣿⣿⣿⣎⡙⢛⣋⣉⣉⣅⠄⠄⠄
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢏⣭⡝⢿⣿⣿⣿⣦⠄⠄
+⣿⣿⣿⣿⣿⣿⠿⣛⣩⣭⣭⣭⣛⣛⠿⠿⢿⣿⣿⡏⣾⣿⡇⢸⣿⡿⠿⢛⣃⠄
+⣿⣿⣿⣿⣿⡏⢾⣿⣯⣭⣍⣛⣛⣛⡻⠶⠶⣮⣭⢡⣿⣿⢇⣭⣵⣶⠾⠿⠋⠄
+⣿⣿⣿⣿⣟⢿⣦⣤⣭⣭⣭⣝⣛⡻⠿⠿⠿⠶⠶⢸⣿⣿⢠⣤⣤⣶⠾⠛⠄⠄
+⠿⢿⣿⣿⣿⣷⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⣾⣿⡿⠰⠖⠄⠄⠄⠄⠄⠄
+⣭⣕⠒⠲⣭⣭⣝⣛⠛⠛⠛⠛⠛⠛⠛⢛⣛⣭⠄⣿⡟⢣⣴⣾⠟⢂⣤⡀⠄⠄
+⣿⣿⣿⣿⣶⣶⣮⣭⣭⣭⣍⣛⣛⣉⣭⣭⣭⣶⢸⣿⣿⣿⣯⣴⠞⣛⣭⣶⣷⠄
+
+===============================================================================
+ 📑 TABLE OF CONTENTS
+===============================================================================
+  Suggestions
+  Editing Experience
+  VIM
+===============================================================================
+ 📝 Suggestions 
+=============================================================================*/
+  {
+    "key": "k",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "j",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": ";",
+    "command": "acceptAlternativeSelectedSuggestion",
+    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+  },
+  // next/prev action in popup modal
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenNavigateNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenNavigatePrevious",
+    "when": "inQuickOpen"
+  },
   /*
-    🧑 AUTHOR:       Stanley Varga
-    🧑‍💻 GITHUB:       https://github.com/stanleyvarga
-    🗓️ Created:      28.01.2023
-    📢 DESCRIPTION:  👇
-    ---------------------------------------------------------------------------
-    This is my custom config for the ultimate visual studio code experience. 
-    🔗 Read my article at <TODO: insert article link>*/
-
-  /* 📑 TABLE OF CONTENTS
-    📢 INFO: Highlight numbered list item and <COMMAND> <F> to jump to it 🦘
-
-    1. 🧘 Editing Experience
-      1.1 ⏲️ AutoSave
-      1.2 📝 Suggestions
-      1.3 🤹 Formatting
-    2. 📺 Visual Settings
-      2.1 🔁 Brackets highlight
-      2.2 🍞 Breadcrumbs
-    3. 📟 Terminal 
-    4. 🖌️ Typography
-    5. 🗄️ File Associations
-    6. 🙊 Language Specific Settings
-    7. 👐 VIM
-    8. 🦦 Other
-      8.1 📊 CodeMetrics Extension Settings
-    */
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  /*  💁 TIPS
-    1. acceptAlternativeSelectedSuggestion
-      In KeyBindings add binding for character <;> as
-      `acceptAlternativeSelectedSuggestion`. This will enable you to press
-      <;> and accept the suggestion with much less distance for your
-      hands to travel 🧳
-    1.2 Also, remap selectPrevSuggestion & selectNextSuggestion to <j> & <k>
-      This will improve your life dramatically, as you do not have to reach
-      to arrows. If you already have a proved key binding,
-      forget that I said anything and use what you find comfortable 💪
-    2. Fast key repeat and key repetition
-      TODO: write on how to enable this on Mac
-    3. Forget about Return (Backspace)
-      If you use VIM extension or simply you have too far to reach to when
-      using Return, simply remap it to <COMMAND> + <;> so that you can
-      always reach it from homerow position. You're welcome 💘
-      👀 Just peek into my keybindings.json to learn more 🎓
-    */
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  /* 🧪 Ongoing Experiments
-
-    1. Is this useful? 
-      "editor.wordBasedSuggestions": true,
-    2. 5 (default) is it enough?
-      "editor.stickyScroll.maxLineCount": 8,
-    3. Does this interfere with my copy-n-paste workflow
-        "terminal.integrated.copyOnSelection": true,
-    4. Experiment for both filePath & symbolPath
-      "breadcrumbs.filePath": "last" - this does not work for me
-      "breadcrumbs.symbolPath": "last" - Still testing
-    5. Experiment with to see whether seeing complexity message
-       even for non-complex code blocks is a pure overhead
-      "codemetrics.basics.CodeLensHiddenUnder": 4,   
-    */
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 1. 🧘 Editing Experience
-  // 1.1 ⏲️ AutoSave
-  // Save yourself from pressing <COMMAND> + <S> hundreds of times per day
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 2000,
-  "editor.multiCursorModifier": "ctrlCmd",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-
-  // 1.2 📝 Suggestions
-  // 🧪 Experimenting with this setting
-  "editor.wordBasedSuggestions": true,
-  "editor.quickSuggestions": {
-    "other": "on",
-    "strings": false,
-    "comments": false
-  },
-  // 🍭 12 is the perfect sweetspot
-  "editor.suggestFontSize": 13,
-  // I like to slightly increase suggestions list line height. Very slightly
-  "editor.suggestLineHeight": 25,
-  "editor.acceptSuggestionOnEnter": "smart",
-  // Controls whether sorting favours words that appear close to the cursor
-  "editor.suggest.localityBonus": false,
-  // This is one of the most important setting. It determines how
-  // your suggestions get organized and displayed.
-  "editor.snippetSuggestions": "inline",
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-
-  // 1.3 🤹 Formatting
-  // Use Prettier or other formatter. It will change your life for the better.
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  // I's a common practice to insert new-line character at the end of the file
-  "files.insertFinalNewline": true,
-  // I'm strong believer in formatting on save and paste
-  "editor.formatOnPaste": false,
-  "editor.formatOnSave": false,
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 2. 📺 Visual Settings
-  // 2.1 🔁 Brackets highlight
-  // You must try this setting 😇. It's visually pleasing
-  "editor.guides.bracketPairs": true,
-  "editor.guides.highlightActiveBracketPair": true,
-  // This gives horizontal highlight and I personally like it
-  // to be set on "active" as it removes some highlight clutter away
-  "editor.guides.bracketPairsHorizontal": "active",
-  "editor.guides.highlightActiveIndentation": false,
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-
-  // 2.2 🍞 Breadcrumbs
-  // 🧪 Experiment for both filePath & symbolPath
-  "breadcrumbs.filePath": "on",
-  "breadcrumbs.symbolPath": "last",
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-
-  // Highlight line and gutter alike ❤️‍🔥
-  "editor.renderLineHighlight": "all",
-  "editor.renderLineHighlightOnlyWhenFocus": false,
-  "editor.roundedSelection": true,
-  // Tiny scrollbar size
-  "editor.scrollbar.horizontalScrollbarSize": 5,
-  "editor.scrollbar.verticalScrollbarSize": 8,
-  // This avoids so much whitespace on file end
-  "editor.scrollBeyondLastLine": false,
-  "editor.smoothScrolling": true,
-  "workbench.sideBar.location": "right",
-  "editor.padding.top": 0,
-  // Since i'm using VIM extension, I want relative numbers
-  "editor.lineNumbers": "relative",
-  // 👀 Expand with line option will sprinkle your editing by cute animation that is a sight to see
-  "editor.cursorBlinking": "expand",
-  "editor.cursorStyle": "line",
-  // 📜 When pressing <Option> you can scroll 5x the speed of regular scroll
-  "editor.fastScrollSensitivity": 5,
-  // 🗺️ In general I dislike minimap, but in some cases, having it "autohide" on right makes sense.
-  "editor.minimap.enabled": true,
-  "editor.minimap.autohide": true,
-  "editor.minimap.side": "right",
-  //  🗺️ Proportions of your line-height and font-size will be reflected on mini-map
-  "editor.minimap.size": "proportional",
-  // 😊 80 columns is the perfect width. It's not too noisy and still looks cool
-  "editor.minimap.maxColumn": 80,
-  // 🤏 this might battle against your prettier settings,
-  // but if you can, set your settings for 2. Thank me later
-  "editor.tabSize": 2,
-  // 🧑‍🎓 I suggest this setting as you can always learn more about new settings
-  "workbench.tips.enabled": true,
-  // Disabled glyphMargin for all files, except [json]
-  // in json files there might be values to toggle with ease by clicking on
-  // left-side glyphMarging menu
-  "editor.glyphMargin": false,
-  // If you like to see what class/component/function you are
-  // you will very much like this
-  "editor.stickyScroll.enabled": true,
-  // 🧪 Experiment
-  "editor.stickyScroll.maxLineCount": 8,
-  "editor.minimap.renderCharacters": true,
-  "editor.insertSpaces": false,
-  "editor.wordWrap": "off",
-  "workbench.view.alwaysShowHeaderActions": true,
-  "workbench.editor.highlightModifiedTabs": true,
-  "workbench.editor.tabSizing": "shrink",
-  "workbench.tree.indent": 12,
-  "workbench.colorCustomizations": {
-    "inlineparameters.annotationBackground": "#0000"
-  },
-  // Use <Command> + <w>
-  "workbench.editor.tabCloseButton": "off",
-  // Useful when you have a lot of tabs open
-  "workbench.editor.wrapTabs": true,
-  "window.titleSeparator": " 👉 ",
-  "window.title": "${rootName}${separator}${activeEditorShort}",
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 3. 📟 Terminal
-  // 🧪 Experiment
-  "terminal.integrated.copyOnSelection": true,
-  "terminal.integrated.cursorBlinking": true,
-
-  "terminal.integrated.smoothScrolling": false,
-  "terminal.integrated.fontFamily": "IBM Plex Mono",
-  "terminal.integrated.fontSize": 13,
-  "terminal.integrated.lineHeight": 1.2,
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 4. 🖌️ Typography
-
-  /* 🏆 My Favorites
-    1. 
-      Consolas, Monaco....
-      JetBrains Mono
-      IBM Plex Mono
-    2. Input Mono
-    3. Fira Code
-    4. Martian Mono
-    */
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
-  // "editor.fontSize": 14,
-  // "editor.letterSpacing": 0.2,
-  // "editor.lineHeight": 22,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "JetBrains Mono",
-  // "editor.fontSize": 14,
-  // "editor.lineHeight": 22,
-  // "editor.letterSpacing": 0.2,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  "editor.fontFamily": "IBM Plex Mono",
-  "editor.fontSize": 14,
-  "editor.lineHeight": 22,
-  "editor.letterSpacing": 0.1,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Input Mono",
-  // "editor.fontSize": 14,
-  // "editor.letterSpacing": -0.2,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Fira Code",
-  // "editor.fontSize": 13,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  // "editor.fontFamily": "Martian Mono",
-  // "editor.fontSize": 12,
-  // "editor.letterSpacing": -0.45,
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-  "editor.fontLigatures": true,
-  "editor.fontVariations": true,
-  "editor.fontWeight": "400",
-  // "editor.lineHeight": 23,
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 5. 🗄️ File Associations
-  "files.associations": {
-    "*.json": "json",
-    "Dockerfile-*": "dockerfile"
-  },
-  "[json]": {
-    "editor.glyphMargin": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[makefile]": {
-    "editor.insertSpaces": false,
-    "editor.detectIndentation": false
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": true
-  },
-  "[markdown]": {
-    "editor.formatOnSave": false
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
-  },
-  "[blade]": {
-    "editor.defaultFormatter": "shufo.vscode-blade-formatter",
-    "editor.formatOnSave": false
-  },
-  "[php]": {
-    "editor.defaultFormatter": "junstyle.php-cs-fixer",
-    "editor.formatOnSave": false
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "explorer.confirmDelete": false,
-  "explorer.confirmDragAndDrop": false,
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 6. 🙊 Language Specific Settings
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "yaml.schemas": {
-    "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
-  },
-  "emmet.triggerExpansionOnTab": true,
-  "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1684752088843,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "tailwindCSS.includeLanguages": {
-    "javascriptreact": "html",
-    "typescriptreact": "html",
-    "plaintext": "html"
-  },
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 7. 👐 VIM
-  "vim.easymotion": true,
-  "vim.incsearch": true,
-  "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": true,
-  "vim.hlsearch": true,
-
-  "vim.leader": ",",
-
-  "vim.highlightedyank.enable": true,
-  "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)",
-  "vim.surround": true,
-  "vim.insertModeKeyBindings": [
-    {
-      "before": ["j", "k"],
-      "after": ["<ESC>"]
-    }
-  ],
-  "vim.normalModeKeyBindings": [
-    {
-      "before": ["<leader>", ":"],
-      "commands": ["workbench.action.showCommands"]
+===============================================================================
+ 🧘 Editing Experience 
+=============================================================================*/
+  {
+    "key": "cmd+k",
+    "command": "editorScroll",
+    "args": {
+      "by": "line",
+      "to": "up",
+      "revealCursor": true,
+      "value": 10
     },
-    {
-      "before": ["<leader>", "m"],
-      "commands": ["bookmarks.toggle"]
-    },
-    {
-      "before": ["<leader>", "b"],
-      "commands": ["bookmarks.list"]
-    }
-  ],
-  "vim.operatorPendingModeKeyBindingsNonRecursive": [
-    {
-      "before": ["("],
-      "after": ["i("]
-    }
-  ],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "d"],
-      "after": ["d", "d"]
-    },
-    {
-      "before": ["<C-n>"],
-      "commands": [":nohl"]
-    },
-    {
-      "before": ["<shift>", "j"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.nextEditor"
-        }
-      ]
-    },
-    {
-      "before": ["<ESC>"],
-      "after": [],
-      "commands": [
-        {
-          "command": ":nohl"
-        }
-      ]
-    },
-    {
-      "before": ["x"],
-      "after": ["\"", "_", "x"]
-    },
-    {
-      "before": ["<Leader>", "/"],
-      "commands": [":noh"]
-    },
-    {
-      "before": ["leader", "w"],
-      "commands": ["workbench.action.files.save"]
-    },
-    {
-      "before": ["<Leader>", "P"],
-      "commands": ["workbench.action.showCommands"]
-    },
-    {
-      "before": ["<Leader>", "p"],
-      "commands": ["workbench.action.quickOpen"]
-    },
-    {
-      "before": ["<Leader>", "t"],
-      "commands": ["workbench.action.gotoSymbol"]
-    }
-  ],
-  "vim.visualModeKeyBindings": [
-    {
-      "before": [">"],
-      "commands": ["editor.action.indentLines"]
-    },
-    {
-      "before": ["<"],
-      "commands": ["editor.action.outdentLines"]
-    }
-  ],
-  "vim.handleKeys": {
-    "<C-a>": false,
-    "<C-f>": false
+    "when": "editorFocus"
   },
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 8. 🦦 Other
-  "prettier.configPath": ".prettierrc",
-  "workbench.colorTheme": "Community Material Theme Palenight High Contrast",
-  "workbench.iconTheme": "material-icon-theme",
-  "sync.forceUpload": true,
-
-  "git.autofetch": true,
-  "git.confirmSync": false,
-  "projectManager.sortList": "Recent",
-  "redhat.telemetry.enabled": true,
-  // Moves files/folders to the OS trash (recycle bin on Windows) when deleting.
-  // Disabling this will delete files/folders permanently.
-  "files.enableTrash": true,
-  "atlascode.jira.lastCreateSiteAndProject": {
-    "siteId": "9823b634-accb-49bb-a6fb-d7aead44d4f3",
-    "projectKey": "ALLF"
+  {
+    "key": "cmd+j",
+    "command": "editorScroll",
+    "args": {
+      "by": "line",
+      "to": "down",
+      "revealCursor": true,
+      "value": 10
+    },
+    "when": "editorFocus"
   },
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-
-  // 8.1 📊 CodeMetrics Extension Settings
-  // Let's keep it in jsx/tsx as well, as it can pin-point
-  // complex functions in these files as well
-  "codemetrics.basics.EnabledForJSX": true,
-  "codemetrics.basics.EnabledForTSX": true,
-  "codemetrics.basics.EnabledForHTML": false,
-  // 🧪 Experiment
-  "codemetrics.basics.CodeLensHiddenUnder": 4,
-  "codemetrics.basics.ComplexityLevelLowDescription": "⚡",
-  "codemetrics.basics.ComplexityLevelNormalDescription": "♻️ It's time to refactor...",
-  "codemetrics.basics.ComplexityLevelHighDescription": "¯(°_o)/¯ Split this up! It's too complex 👇",
-  "codemetrics.basics.ComplexityLevelExtremeDescription": "(╯°□°）╯︵ ┻━┻ ...THEFUCK!",
-
-  // 👀 I will have to experiment with these along the way
-  // observing what I would call a complexity
-  "codemetrics.nodeconfiguration.ReturnStatement": 0,
-  "codemetrics.nodeconfiguration.CaseClause": 0,
-  "codemetrics.nodeconfiguration.DefaultClause": 0,
-  "codemetrics.nodeconfiguration.FunctionDeclaration": 0,
-  "codemetrics.nodeconfiguration.ArrowFunction": 0,
-  "codemetrics.nodeconfiguration.JsxElement": 0,
-  "codemetrics.nodeconfiguration.JsxSelfClosingElement": 0,
-  "codemetrics.nodeconfiguration.": 0,
-  "editor.inlineSuggest.enabled": true,
-  "terminal.integrated.env.osx": {},
-  "gitlens.views.commitDetails.files.layout": "list"
-  // Other cool textmojis
-  // (╯°□°）╯︵ ┻━┻   the fuck
-  // ヽ(｀⌒´)ﾉ        angry
-  // \_(ツ)_/¯        dunno
-  // \_(-_-)_/        dunno
-  // ¯\(°_o)/¯        dunno
-  // (҂◡_◡)           injured life
-  // (∩ᵔᵕᵔ)⊃━☆ﾟ.*･｡ﾟ   wizard
-  // \(ᵔᵕᵔ)/          happy
-  // (~˘▾˘)~          everything is fine
-
-  // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#
-}
+  {
+    "key": "cmd+;",
+    "command": "deleteLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+cmd+;",
+    "command": "deleteRight",
+    "when": "textInputFocus"
+  },
+  /*
+===============================================================================
+ 📟 VIM 
+=============================================================================*/
+  {
+    "command": "vscode-neovim.compositeEscape1",
+    "key": "j",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "j"
+  },
+  {
+    "command": "vscode-neovim.compositeEscape2",
+    "key": "k",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "k"
+  },
+  {
+    "key": "ctrl+space",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly && !suggestWidgetVisible"
+  },
+  {
+    "key": "cmd+i",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorHasCompletionItemProvider && textInputFocus && !editorReadonly && !suggestWidgetVisible"
+  },
+  // Show terminal
+  {
+    "key": "cmd+[IntlBackslash]",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": ""
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "f",
+    "command": "explorer.newFolder",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "x",
+    "command": "filesExplorer.cut",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "y",
+    "command": "filesExplorer.copy",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "key": "p",
+    "command": "filesExplorer.paste",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.nextEditor",
+    "when": "!inQuickOpen"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.previousEditor",
+    "when": "!inQuickOpen"
+  }
+]

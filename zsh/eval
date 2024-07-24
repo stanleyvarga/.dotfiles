@@ -1,0 +1,32 @@
+eval `/usr/bin/ssh-agent` &>/dev/null
+
+if command_exists zoxide; then
+	eval "$(zoxide init zsh)"
+else
+	echo "🦘 zoxide is not installed"
+fi
+
+if command_exists thefuck; then
+  eval $(thefuck --alias)
+else
+	echo "🖕 thefuck is not installed"
+fi
+
+if command_exists atuin; then
+	echo eval "$(atuin init zsh)" > $DOTFILES/zsh/plugin-scripts/atuin.zsh
+else
+	echo "🐢 atuin is not installed"
+fi
+
+if command_exists navi; then
+	eval "$(navi widget zsh)"
+else
+	echo "📟 navi is not installed"
+fi
+
+# Not used now
+# if command_exists oh-my-posh; then
+# 	eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/wholespace.omp.json')"
+# else
+# 	echo "oh-my-posh is not installed"
+# fi

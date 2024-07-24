@@ -1,0 +1,23 @@
+is_macos() {
+  [[ "$(uname)" == "Darwin" ]]
+}
+
+command_exists() {
+  command -v "$1" &> /dev/null
+}
+
+## Cheatshet for everything you need
+## For example you forgot how to use map-like function for Objects
+## cht js/map+object
+## or forgot how to list directory 
+## cht ls
+function cht() {
+  if [ -n "$1" ]; then
+    curl cht.sh/$1
+  else
+    echo $c[bold] $c[bg_bright_blue] "⚠️  Your search query is missing  🔍" $c[reset]
+  fi
+}
+
+## Create a folder and move into it in one command
+function mkcd() { mkdir -p "$@" && cd "$_"; }

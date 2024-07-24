@@ -1,18 +1,38 @@
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install stow 
+is_macos() {
+  [[ "$(uname)" == "Darwin" ]]
+}
 
-stow antigen
-stow zsh
-stow brew
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # Install Homebrew
+
+# curl -s https://ohmyposh.dev/install.sh | zsh # Install oh-my-posh
+# oh-my-posh font install # Install nerd fonts
+
+echo "🔧 Stowing packages"
+stow bin
 stow git
-stow automac
 
-brew bundle --file=~/Brewfile
+echo "🔧 Installing MacOS packages"
+if is_macos; then
+  stow homebrew
+	brew bundle --file=~/Brewfile
 
-# Load plugins, install global packages etc..
-# zsh -c "chmod +x ./packages.sh"
-source "$DOTFILES/zsh/.packages" 
+	stow automac
 
-## Link VS CODE settings
-# if [ -f "/Users/$USER/Library/Application Support/Code/User/settings.json" ]; then echo "🗄️  settings.json exists. Skipping symlink"; else ln -s ~/.dotfiles/vscode/settings.json "/Users/$USER/Library/Application Support/Code/User/settings.json"; echo "🗄️ settings.json linked ✅";fi
-# if [ -f "/Users/$USER/Library/Application Support/Code/User/keybindings.json" ]; then echo "🗄️  keybindings.json exists. Skipping symlink"; else ln -s ~/.dotfiles/vscode/keybindings.json  "/Users/$USER/Library/Application Support/Code/User/keybindings.json"; echo "🗄️ keybindings.json linked ✅";fi
+  echo "🔧 Setting MacOS defaults"
+  chmod +x $DOTFILES/macos/set-defaults
+  sh -c "(cd $DOTFILES/macos && ./set-defaults)"
+
+else
+  echo "💽 Not running on macOS"
+fi
+
+echo "🔧 Installing zsh plugins"
+chmod +x $DOTFILES/zsh/plugins
+sh -c "(cd $DOTFILES/zsh && ./plugins)"
+
+cat ~/.dotfiles/zsh/.zshrc > ~/.zshrc # Append my custom .zshrc into oh-my-zsh's .zshrc
+
+echo "🔓 GRANTING ACCESS to ~/bin"
+chmod +x $HOME/bin/* # Find all files in $HOME/bin and add execute permissions
+
+echo "🎉 Installation complete!"

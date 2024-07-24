@@ -1,5 +1,11 @@
 [user]
 	name = Stanley Varga
-	email = ""
+	email = stanislav.varga@itera.com
+	# If two git accounts required on a single computer, use the following
+	# 🔗 https://stackoverflow.com/a/3860139
 [push]
 	autoSetupRemote = true
+	# Default push should only push the current branch to its push target, regardless of its remote name
+	default = upstream
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE

@@ -1,0 +1,78 @@
+#!/bin/sh
+#
+# Downloads the embedded video or audio on any web page straight to the downloads directory.
+# Uses yt-dlp, an advanced fork of youtube-dl.
+# 🔗 yt-dlp GitHub: https://github.com/yt-dlp/yt-dlp
+#
+
+# Default mode is video
+MODE="video"
+
+# Function to display usage information
+usage() {
+  echo "Usage: $0 [-v|-a] <url>"
+  echo "  -v     Download video (default)"
+  echo "  -a     Download audio only"
+  echo "  -h     Display this help message"
+  exit 1
+}
+
+# Parse command line options
+while getopts ":vah" opt; do
+  case $opt in
+    v)
+      MODE="video"
+      ;;
+    a)
+      MODE="audio"
+      ;;
+    h)
+      usage
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+# Check if yt-dlp is installed
+if ! command -v yt-dlp &> /dev/null; then
+  echo "yt-dlp is not installed. Please install it (https://github.com/yt-dlp/yt-dlp) and try again."
+  exit 1
+fi
+
+# Ensure the downloads directory exists
+DOWNLOADS_DIR="$HOME/Downloads/youtube"
+mkdir -p "$DOWNLOADS_DIR"
+
+# Navigate to the downloads directory
+cd "$DOWNLOADS_DIR" || exit
+
+# Check if URL is provided
+if [ $# -ne 1 ]; then
+  usage
+fi
+
+URL="$1"
+
+# Determine output format and options based on mode
+if [ "$MODE" = "audio" ]; then
+  OUTPUT_FORMAT="%(title)s.%(ext)s"
+  FORMAT="bestaudio/best"
+  EXTENSION="mp3"
+else
+  OUTPUT_FORMAT="%(title)s.%(ext)s"
+  FORMAT="bestvideo+bestaudio/best"
+  EXTENSION="mp4"
+fi
+
+# Download the video or audio
+yt-dlp -o "$OUTPUT_FORMAT" -f "$FORMAT" "$URL"
+
+# Rename the downloaded file to enforce the correct extension
+for file in *; do
+  mv "$file" "${file%.*}.$EXTENSION"
+done

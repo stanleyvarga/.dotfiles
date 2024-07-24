@@ -1,117 +1,545 @@
-[
+{
   /*
-    🧑 AUTHOR:       Stanley Varga
-    🧑‍💻 GITHUB:       https://github.com/stanleyvarga
-    🗓️ Created:      28.01.2023
-    📢 DESCRIPTION:  👇 
-    ---------------------------------------------------------------------------
-    These are my lovely keybindings I use for the ultimate visual studio code 
-    experience. You can find them explained with demonstrations in my article 
-    🔗 at <TODO: insert article link>*/
+  🧑 AUTHOR:      Stanley Varga
+  🧑‍💻 GITHUB:      https://github.com/stanleyvarga
+  🗓️ Created:     28.01.2023
+  📢 DESCRIPTION: Below is my lovely VSCode config 🤗
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+ ⠀⠀⠀⠀⠀⠀⣀⣤⠴⠚⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠓⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⠀⠀⠀⠀⣠⠎⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠓⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⠀⠀⢀⡞⠁⠀⠀⠀⠀⠀⢀⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⠀⣼⠀⠀⠀⠀⠰⠦⠤⣤⣀⣈⣉⣉⣛⣒⠶⠦⠤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀ ⡇⠀⠀⠀⠀⠀⡤⠴⠒⠒⠶⢤⣄⣀⡉⠉⠓⠦⣤⣀⣈⣉⣓⠲⢤⣀⡀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠓⠒⠶⠤⣤⣀⣉⣙⣒⠦⢭⣙⡒⠦⣄⠈⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⢸⠀⠀⠀⠀⢠⠴⠖⠒⠒⠲⠶⠦⠤⢄⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠓⠲⠉⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⡇⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⠀⠳⣄⠀⠀⠀⠀⠀⠀⣠⠴⠒⠒⠒⠲⠤⣄⡀⠀⠀⠀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⡇⠀⠀⠀⠀⠀⠀⠀⠀⢧⣽⣿⣿⡛⢮⣷⠀⡶⠀⠀⢸⣀⡤⢴⠀⠀⠀⠀⠀⠙⢦⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+ ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠛⠋⠀⢀⡇⠀⠀⡿⣴⠚⣿⣿⣿⡟⣦⠀⠀⠀⠀⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀   ⌜    ⌝  
+ ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠃⠀⢀⡇⠈⠓⠻⠿⠿⠟⠁⠀⠀⠀⢰⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀     🖕
+ ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀   ⌞    ⌟
+ ⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠋⠀⠀⠀⠘⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⠤⠴⠊⣹     
+⣧⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⢸⣧⠀⠀⠀⠀⠀⠀⠀⠀⡾⠁⠀⠀⠀⠀⠀⣀⣤⠤⠴⠞⠉⠀⠀⠀⣴⠚⠑   
+⡏⣽⣇⣶⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠛⠉⠳⡶⠟⠀⠀⠀⠀⠀⠀⠀⠀⢰⡧⠶⠶⠒⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⢾⠀⠀
+⡷⣿⣽⣿⣺⣧⣄⠀⠀⠀⠀⠀⠀⣠⠀⣶⠀⢀⡶⣤⡄⢢⡀⠀⠀⠀⠀⠀⣤⣽⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⡀
+⡇⣯⡏⣿⣾⣿⣯⡁⠀⡀⡾⠀⣶⡟⠀⣻⣤⣤⣼⣽⣧⠀⢿⣆⠀⠀⠀⠀⣹⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠖⠒⠶⠾⠷
+⡇⣇⠴⣿⣯⡽⠇⢻⠲⣿⡧⠘⢩⣭⣿⣿⣿⣿⣿⣿⣿⣧⠀⡛⣆⠐⣦⡼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠁⠀⠀⠀⠀⠀⠀
+⡇⠀⠀⠙⣿⣷⣼⠚⣆⣯⠀⠀⠸⣟⣿⣿⣿⣿⣿⣿⣿⡏⠘⣿⣼⢦⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠖⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⡇⠀⠀⠀⠸⣿⣿⣦⠀⡀⠀⠀⠀⠙⢎⠛⠿⠿⢿⣿⡿⠀⢸⣻⣻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⡇⠀⠀⠀⠀⠘⠯⢿⣿⣃⠀⠀⠀⠀⠀⠙⠲⠶⠶⠛⠁⢀⢸⡿⠃⠈⠁⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⡇⠀⠀⠀⠀⠀⠀⠾⣿⠻⣧⠀⠀⡀⠀⠀⠀⠀⠀⢠⢄⣼⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⡇⠀⠀⠀⠀⠀⠀⠀⠘⠛⠛⣷⣾⣧⣽⣷⣤⣴⣷⡟⠩⠟⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⣒⡋⢙⢛⢿⢉⡽⠯⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠖⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 
-  /* 📑 TABLE OF CONTENTS
+===============================================================================
+ 📑 TABLE OF CONTENTS
+===============================================================================
+  - VSCode Settings
+    * Suggestions
+    * AutoSave
+    * Breadcrumbs
+    * Brackets highlight
+    * Terminal
+  - Editing Experience
+    * Formatting
+  - VIM
+  - Typography
+  - Other
+    * CodeMetrics Extension Settings
+  - Language Specific Settings
+  - File Associations
+===============================================================================
+ 💁 FANCY TIPS
+===============================================================================
+  * acceptAlternativeSelectedSuggestion
+    This will enable you to map `;` and accept the suggestion with much 
+    less distance for your hands to travel (default is enter) 🧳
+  * Remap `selectPrevSuggestion` & `selectNextSuggestion` to `j` and `k` 
+      This will improve your life dramatically, as you do not have to reach
+      to arrows.
+  * Forget about Return (Backspace)
+    If you use VIM extension or simply you have too far to reach to when
+    using Return, simply remap it to `cmd` + `;` so that you can
+    always reach it from homerow position. 
+    * `X` -> delete left
+    * `x` -> delete right
+===============================================================================
+ 🧪 Ongoing Experiments
+===============================================================================
+  * Experiment to see whether showing complexity message
+    under 8 is good or not
+    "codemetrics.basics.CodeLensHiddenUnder": 8,   
+  * suggest locality bonus
+    I'm not sure yet whether I like it or not
+  * "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
+    Trying whether I like words such as 
+    - `this.is.a.word` 
+    - `this-is-a-word`
+    - `this_is_a_word`
+    treated as one word
+  * "editor.cursorSurroundingLines": 0,
+    Unfortunatelly, this setting does not work correctly with ctrl+j/k
+    when set, scrolling gets reset to the position where you started*/
 
-    1. 📝 Suggestions
-    2. 🧘 Editing Experience
-    3. 📟 VIM
-  */
-
-  /* ~~ ----------------------------------------------------------------- ~~ */
-
-  // 1. 📝 Suggestions
-  {
-    "key": "k",
-    "command": "selectPrevSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  /*
+===============================================================================
+ 🖌️ Typography 
+===============================================================================
+ 🔠 Cascadia
+=============================================================================*/
+  // Or 'Cascadia Mono' for monospaced font without ligatures
+  "editor.fontFamily": "'Cascadia Code'",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 22,
+  // ss01 - Italics
+  // ss19 - Slashed zero
+  "editor.fontLigatures": "'ss02', 'ss03', 'ss20'",
+  /*
+===============================================================================
+ 🔠 Fira Code
+=============================================================================*/
+  // "editor.fontFamily": "'Fira Code', monospace",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 22,
+  // "editor.fontLigatures": "'cv25', 'cv26', 'cv28','cv32', 'cv27', 'ss09', 'cv31', 'cv30', 'cv18', 'cv14', 'cv05', 'cv09', 'cv13', 'calt', 'liga', 'ss02', 'ss05', 'ss07'",
+  // Cool ligatures
+  // {. .} .- .= []
+  /*
+===============================================================================
+ 🔠 Twilio Sans Mono
+=============================================================================*/
+  // "editor.fontFamily": "Twilio Sans Mono",
+  // "editor.fontFamily": "Rec Mono Linear",
+  // "editor.fontWeight": "450",
+  // "editor.fontSize": 13,
+  // "editor.lineHeight": 20,
+  // "editor.fontLigatures": true,
+  /*
+===============================================================================
+ 🔠 Monaspace
+=============================================================================*/
+  // "editor.fontFamily": "'Monaspace Argon', monospace",
+  // "editor.fontFamily": "'Monaspace Neon', monospace",
+  // "editor.fontFamily": "'Monaspace Xenon', monospace", // Code is a poetry
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 22,
+  // "editor.fontLigatures": "'calt', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'ss09', 'liga'",
+  /*
+===============================================================================
+ 🔠 JetBrains Mono
+=============================================================================*/
+  // "editor.fontFamily": "JetBrains Mono",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 22,
+  // "editor.fontLigatures": true,
+  /*
+===============================================================================
+ 🔠 IBM Plex Mono
+=============================================================================*/
+  // "editor.fontFamily": "IBM Plex Mono",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 22,
+  // "editor.fontLigatures": true,
+  /*
+===============================================================================
+ 🔠 0xProto
+=============================================================================*/
+  // "editor.fontFamily": "'0xProto', monospace",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 21,
+  // All except ss01
+  // "editor.fontLigatures": "'calt', 'liga', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08'",
+  /*
+===============================================================================
+ 🔠 Consolas
+=============================================================================*/
+  // "editor.fontFamily": "Consolas, monospace",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 22,
+  /*
+===============================================================================
+ 🔠 Gitlab Mono
+=============================================================================*/
+  // "editor.fontFamily": "'Gitlab Mono', monospace",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 21,
+  // "editor.fontLigatures": true,
+  /*
+===============================================================================
+ 🔠 Mononoki
+=============================================================================*/
+  // "editor.fontFamily": "'Mononoki', monospace",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 22,
+  /*
+===============================================================================
+ 🔠 Input Mono
+=============================================================================*/
+  // "editor.fontFamily": "Input Mono",
+  // "editor.letterSpacing": 0.15,
+  // "editor.fontSize": 14,
+  /*
+===============================================================================
+ 🔠 Monospace
+=============================================================================*/
+  // "editor.fontFamily": "monospace, serif",
+  // "editor.fontSize": 14,
+  // "editor.lineHeight": 22,
+  /*
+===============================================================================
+ 👨‍💻 VSCode:Settings 
+=============================================================================*/
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
   },
-  {
-    "key": "j",
-    "command": "selectNextSuggestion",
-    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  // 👨‍💻 VSCode:Suggestions
+  "editor.wordBasedSuggestions": "matchingDocuments",
+  "editor.quickSuggestions": {
+    "other": "on",
+    // IMPORTANT: This setting is here only for Vuetify (which I truly hate from the depth of my heart), so that intellisense works in double quotes
+    "strings": true,
+    "comments": false
   },
-  {
-    "key": ";",
-    "command": "acceptAlternativeSelectedSuggestion",
-    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
+  "editor.suggestFontSize": 13, // 🍭 13 is the perfect sweetspot
+  "editor.suggestLineHeight": 25, // I like to slightly increase suggestions list line height. Very slightly
+  "editor.acceptSuggestionOnEnter": "smart",
+  "editor.suggest.localityBonus": false, // 🧪 Experiment - Controls whether sorting favours words that appear close to the cursor
+  "editor.snippetSuggestions": "inline", // Most important. Determines suggestions order.
+  // 💾 VSCode:AutoSave
+  "files.autoSave": "afterDelay", // Save yourself from pressing <COMMAND> + <S> hundreds of times per da
+  "files.autoSaveDelay": 500,
+  "files.refactoring.autoSave": true,
+  // 🍞 VSCode:Breadcrumbs
+  "breadcrumbs.filePath": "on",
+  "breadcrumbs.symbolPath": "off",
+  // 🔦 VSCode:Brackets Highlight
+  "editor.guides.bracketPairs": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.guides.bracketPairsHorizontal": "active", // This gives horizontal highlight and I personally like it to be set on "active" as it removes some highlight clutter away
+  "editor.guides.highlightActiveIndentation": false,
+
+  "window.titleSeparator": " 🧑‍🚀 ", // also good ⚡︎ 👉 💩 👾 🤖 💬 👀 🧑‍💻 🧑‍🚀 🥷 🧙 🎄 🎃 ✨ 🥊 🛸 🚀 ✏️ 🪃 🔭 » ↯ ∘ ∙ ⊹ ⌘ ⚛︎ ⚔︎ ⛏︎
+  "window.titleBarStyle": "custom",
+  "window.title": "${rootNameShort}${separator}${activeEditorShort}",
+  "editor.renderLineHighlight": "all", // Highlight line and gutter alike ❤️‍🔥
+  "editor.renderLineHighlightOnlyWhenFocus": false,
+  "editor.roundedSelection": true,
+  "editor.scrollbar.horizontalScrollbarSize": 5, // Tiny scrollbar size
+  "editor.scrollbar.verticalScrollbarSize": 8,
+  "editor.scrollBeyondLastLine": false, // This avoids so much whitespace on file end
+  "editor.smoothScrolling": true,
+  "workbench.sideBar.location": "right",
+  "editor.padding.top": 0,
+  "editor.lineNumbers": "relative", // Since i'm using VIM extension, I want relative numbers
+  "editor.cursorBlinking": "expand", // 👀 Expand with line option will sprinkle your editing by cute animation that is a sight to see
+  "editor.cursorStyle": "line",
+  "editor.fastScrollSensitivity": 5, // 📜 When pressing <Option> you can scroll 5x the speed of regular scroll
+  "editor.minimap.enabled": false, // 🗺️ In general I dislike minimap, but in some cases, having it "autohide" on right makes sense.
+  "editor.minimap.autohide": true,
+  "editor.minimap.side": "right",
+  "editor.minimap.size": "proportional", //  🗺️ Proportions of your line-height and font-size will be reflected on mini-map
+  "editor.minimap.maxColumn": 80, // 😊 80 columns is the perfect width. It's not too noisy and still looks cool
+  "editor.tabSize": 2,
+  "workbench.tips.enabled": true, // 🧑‍🎓 I suggest this setting as you can always learn more about new settings
+  // Disabled glyphMargin for all files, except [json]
+  // in json files there might be values to toggle with ease by clicking on
+  // left-side glyphMarging menu
+  "editor.glyphMargin": false,
+  "editor.stickyScroll.enabled": true,
+  "editor.stickyScroll.maxLineCount": 8, // 🧪 Experiment
+  "editor.minimap.renderCharacters": true,
+  "editor.insertSpaces": false,
+  "editor.wordWrap": "off",
+  "workbench.view.alwaysShowHeaderActions": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.tree.indent": 12,
+  "workbench.colorCustomizations": {
+    "inlineparameters.annotationBackground": "#0000"
   },
+  "workbench.editor.wrapTabs": true, // Useful when you have a lot of tabs open
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+  // 📟 Terminal
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.smoothScrolling": false,
+  "terminal.integrated.fontFamily": "IBM Plex Mono",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.lineHeight": 1.2,
 
-  // 2. 🧘 Editing Experience
-  {
-    "key": "ctrl+k",
-    "command": "editorScroll",
-    "args": {
-      "by": "line",
-      "to": "up",
-      "revealCursor": true,
-      "value": 20
+  /*
+===============================================================================
+ 🧘 Editing Experience 
+=============================================================================*/
+  // 🧘 Formatting
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true, // This saves your sanity when you copy-n-paste code from the internet
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.formatOnSaveMode": "file", // required to format on save
+  "files.insertFinalNewline": true, // I's a common practice to insert new-line character at the end of the file
+  "eslint.validate": ["javascript", "typescript"],
+  /*
+===============================================================================
+ 👐 VIM  
+=============================================================================*/
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.leader": ",",
+  "vim.sneakUseIgnorecaseAndSmartcase": true,
+  "vim.sneak": true,
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(50, 100, 170, 0.5)", // rgba(50, 100, 170, 0.5), rgba(50, 50, 170, 0.5)
+  "vim.surround": true,
+  "vim.insertModeKeyBindings": [{ "before": ["j", "k"], "after": ["<ESC>"] }],
+  "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?", // 🧪 Experiment
+  "editor.cursorSurroundingLines": 0, // 🧪 Experiment
+  // pairing colors
+  // bg: #1F0322, fg: #E2CFEA,
+  // bg: #433633, fg: #9BC1BC,
+  // bg: #433633, fg: #44CFCB,
+  // bg: #2C0E37, fg: #85FFC7,
+  "vim.easymotionMarkerBackgroundColor": "#4C3654",
+  "vim.easymotionMarkerForegroundColorOneChar": "#85FFC7",
+  "vim.easymotionMarkerFontWeight": "bold",
+  "vim.easymotionMarkerForegroundColorTwoCharFirst": "#ffb400",
+  "vim.easymotionMarkerForegroundColorTwoCharSecond": "#b98300",
+  "vim.easymotionDimBackground": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["leader", "w"], "commands": ["workbench.action.files.save"] },
+    { "before": ["<leader>", "c"], "commands": ["editor.action.commentLine"] }, // toggle comment selection
+    { "before": ["<leader>", "d"], "after": ["d", "d"] }, // delete a single line
+    { "before": ["x"], "after": ["\"", "_", "x"] }, // delete single character
+    // Modals
+    {
+      "before": ["leader", "p"],
+      "commands": ["workbench.action.showCommands"]
     },
-    "when": "editorFocus"
-  },
-  {
-    "key": "ctrl+j",
-    "command": "editorScroll",
-    "args": {
-      "by": "line",
-      "to": "down",
-      "revealCursor": true,
-      "value": 20
+    { "before": ["<Leader>", "f"], "commands": ["workbench.action.quickOpen"] },
+    {
+      "before": ["<Leader>", "r"],
+      "commands": ["workbench.action.gotoSymbol"]
     },
-    "when": "editorFocus"
+    // splits
+    { "before": ["leader", "v"], "commands": [":vsplit"] },
+    { "before": ["leader", "s"], "commands": [":split"] },
+    // panes navigation
+    {
+      "before": ["leader", "h"],
+      "commands": ["workbench.action.focusLeftGroup"]
+    },
+    {
+      "before": ["leader", "j"],
+      "commands": ["workbench.action.focusBelowGroup"]
+    },
+    {
+      "before": ["leader", "k"],
+      "commands": ["workbench.action.focusAboveGroup"]
+    },
+    {
+      "before": ["leader", "l"],
+      "commands": ["workbench.action.focusRightGroup"]
+    },
+    { "before": ["<ESC>"], "after": [], "commands": [{ "command": ":nohl" }] },
+    { "before": ["<C-n>"], "commands": [":nohl"] },
+    { "before": ["<Leader>", "/"], "commands": [":noh"] }
+  ],
+  "vim.visualModeKeyBindings": [
+    { "before": [">"], "commands": ["editor.action.indentLines"] },
+    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] }, // Move selected lines while staying in visual mode
+    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.view.explorer"]
+    },
+    { "before": ["<leader>", "m"], "commands": ["bookmarks.toggle"] },
+    { "before": ["<leader>", "b"], "commands": ["bookmarks.list"] },
+    {
+      "before": ["g", "p", "d"],
+      "commands": ["editor.action.peekDefinition"]
+    },
+    {
+      "before": ["g", "h"],
+      "commands": ["editor.action.showDefinitionPreviewHover"]
+    },
+    {
+      "before": ["g", "i"],
+      "commands": ["editor.action.goToImplementation"]
+    },
+    {
+      "before": ["g", "p", "i"],
+      "commands": ["editor.action.peekImplementation"]
+    },
+    {
+      "before": ["g", "q"],
+      "commands": ["editor.action.quickFix"]
+    },
+    {
+      "before": ["g", "r"],
+      "commands": ["editor.action.referenceSearch.trigger"]
+    },
+    {
+      "before": ["g", "t"],
+      "commands": ["editor.action.goToTypeDefinition"]
+    },
+    {
+      "before": ["g", "p", "t"],
+      "commands": ["editor.action.peekTypeDefinition"]
+    }
+  ],
+  "vim.operatorPendingModeKeyBindingsNonRecursive": [
+    // Bind ( to 'i(' in operator pending mode makes 'y(' and 'c(' work like 'yi(' and 'ci(' respectively:
+    { "before": ["("], "after": ["i("] }
+  ],
+  "vim.operatorPendingModeKeyBindings": [
+    // Bind { to w in operator pending mode makes y{ and d{ work like yw and dw respectively:
+    { "before": ["{"], "after": ["w"] },
+    // Bind L to $ and H to ^ in operator pending mode makes yL and dH work like y$ and d^ respectively:
+    { "before": ["L"], "after": ["$"] },
+    { "before": ["H"], "after": ["^"] }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    // Bind p in visual mode to paste without overriding the current register:
+    { "before": ["p"], "after": ["p", "g", "v", "y"] }
+  ],
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false
   },
-  {
-    "key": "ctrl+g j",
-    "command": "workbench.action.focusBelowGroup"
-  },
-  {
-    "key": "ctrl+g k",
-    "command": "workbench.action.focusAboveGroup"
-  },
-  {
-    "key": "ctrl+g h",
-    "command": "workbench.action.focusLeftGroup"
-  },
-  {
-    "key": "ctrl+g l",
-    "command": "workbench.action.focusRightGroup"
-  },
-  {
-    "key": "shift+k",
-    "command": "workbench.action.nextEditor",
-    "when": "editorTextFocus && vim.mode != 'Insert'"
-  },
-  {
-    "key": "shift+j",
-    "command": "workbench.action.previousEditor",
-    "when": "editorTextFocus && vim.mode != 'Insert'"
-  },
-  {
-    "key": "cmd+;",
-    "command": "deleteLeft",
-    "when": "textInputFocus"
-  },
-  {
-    "key": "ctrl+cmd+;",
-    "command": "deleteRight",
-    "when": "textInputFocus"
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1 // To improve performance
   },
 
-  /* ~~ ----------------------------------------------------------------- ~~ */
+  /*
+===============================================================================
+ 🦦 Other
+=============================================================================*/
+  "workbench.colorTheme": "Moonlight Italic",
+  "workbench.iconTheme": "material-icon-theme",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "projectManager.sortList": "Recent",
+  "redhat.telemetry.enabled": true,
+  // Moves files/folders to the OS trash (recycle bin on Windows) when deleting.
+  // Disabling this will delete files/folders permanently.
+  "files.enableTrash": true,
 
-  // 3. 📟 VIM
-  {
-    "command": "vscode-neovim.compositeEscape1",
-    "key": "j",
-    "when": "neovim.mode == insert && editorTextFocus",
-    "args": "j"
+  // 📊 CodeMetrics Extension Settings
+  // Let's keep it in jsx/tsx as well, as it can pin-point
+  // complex functions in these files as well
+  "codemetrics.basics.EnabledForJSX": true,
+  "codemetrics.basics.EnabledForTSX": true,
+  "codemetrics.basics.EnabledForHTML": false,
+
+  "codemetrics.basics.CodeLensHiddenUnder": 8, // 🧪 Experiment
+  "codemetrics.basics.ComplexityLevelLowDescription": "\\(ᵔᵕᵔ)/",
+  "codemetrics.basics.ComplexityLevelNormalDescription": "♻️ (∩ᵔᵕᵔ)⊃━☆ﾟ.*･｡ﾟ Consider Refactor",
+  "codemetrics.basics.ComplexityLevelHighDescription": "🎩 ¯\\(°_o)⊃━☆ﾟ.*･｡ Wizardry needed",
+  "codemetrics.basics.ComplexityLevelExtremeDescription": "😵‍💫 (╯°□°）╯︵ ┻━┻ Help!",
+  // Other cool textmojis
+  // (╯°□°）╯︵ ┻━┻   the fuck
+  // ヽ(｀⌒´)ﾉ        angry
+  // \_(ツ)_/¯       dunno
+  // \_(-_-)_/       dunno
+  // ¯\(°_o)/¯        dunno
+  // (҂◡_◡)          injured life
+  // (∩ᵔᵕᵔ)⊃━☆ﾟ.*･｡ﾟ wizard
+  // \(ᵔᵕᵔ)/         happy
+  // (~˘▾˘)~         everything is fine
+  // (∩ᵔᵕᵔ)⊃━☆ﾟ.*･｡ . ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.
+
+  // 👀 I will have to experiment with these along the way
+  // observing what I would call a complexity
+  "codemetrics.nodeconfiguration.ReturnStatement": 0,
+  "codemetrics.nodeconfiguration.CaseClause": 0,
+  "codemetrics.nodeconfiguration.DefaultClause": 0,
+  "codemetrics.nodeconfiguration.FunctionDeclaration": 0,
+  "codemetrics.nodeconfiguration.ArrowFunction": 0,
+  "codemetrics.nodeconfiguration.JsxElement": 0,
+  "codemetrics.nodeconfiguration.JsxSelfClosingElement": 0,
+  "editor.inlineSuggest.enabled": true,
+  "terminal.integrated.env.osx": {},
+  "gitlens.views.commitDetails.files.layout": "list",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
   },
-  {
-    "command": "vscode-neovim.compositeEscape2",
-    "key": "k",
-    "when": "neovim.mode == insert && editorTextFocus",
-    "args": "k"
-  }
-]
+  "diffEditor.ignoreTrimWhitespace": false,
+  "git.ignoreRebaseWarning": true,
+  "gitlens.gitCommands.skipConfirmations": [
+    "fetch:command",
+    "switch:command",
+    "stash-push:command"
+  ],
+  "workbench.editor.tabActionCloseVisibility": false,
+
+  /*
+===============================================================================
+ 🙊 Language Specific Settings 
+=============================================================================*/
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "yaml.schemas": {
+    "file:///Users/stanislavvarga/.vscode/extensions/atlassian.atlascode-3.0.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "tailwindCSS.includeLanguages": {
+    "javascriptreact": "html",
+    "typescriptreact": "html",
+    "plaintext": "html"
+  },
+  /*
+===============================================================================
+🗄️ File Associations 
+=============================================================================*/
+  "files.associations": {
+    "*.json": "json",
+    "Dockerfile-*": "dockerfile"
+  },
+  "[json]": {
+    "editor.glyphMargin": true,
+    // "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.formatOnSave": false
+  },
+  "[makefile]": {
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.zoomLevel": 1,
+  "jest.runMode": "on-demand",
+  "markdown-preview-enhanced.previewTheme": "github-dark.css",
+  "markdown-preview-enhanced.codeBlockTheme": "twilight.css",
+  "markdown-preview-enhanced.scrollSync": false,
+  "security.promptForLocalFileProtocolHandling": false,
+  "diffEditor.experimental.showMoves": true,
+  "sonarlint.connectedMode.connections.sonarcloud": [
+    {
+      "organizationKey": "itera-cloud",
+      "connectionId": "VSCodeSonarCloudLocal"
+    }
+  ],
+  "diffEditor.hideUnchangedRegions.enabled": true
+}

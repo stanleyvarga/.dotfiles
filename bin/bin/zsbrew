@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+# Install brew packages located in $DOTFILES/homebrew/Brewfile
+
+cd $DOTFILES/homebrew
+brew bundle install --file Brewfile
