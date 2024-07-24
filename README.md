@@ -1,7 +1,7 @@
 
 ## `.dotfiles`
 
-Please, read through the `The Legend of the Lost Settings` ballad
+Ballad of `Dotfileschantment`
 
 >In a land where *nix reigns supreme,  
 >A tale unfolds, a geek's daydream,  
