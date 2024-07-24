@@ -38,7 +38,6 @@ Ballad of `Dotfileschantment`
 >And wonder, with a wistful sigh,  
 >Was all that tweaking worth the while?  
 
-
 ![Unicorns](./unicorn.webp)
 
 - Startup takes around 0.1 - 0.2 seconds 🎉
@@ -52,7 +51,6 @@ Ballad of `Dotfileschantment`
 - 🔗 [Robby Russell](https://github.com/robbyrussell)
 
 ### Command-line Apps
-- 📦 [asfd](https://github.com/asdf-vm/asdf) (This is mostly interesting because of the ballad this repo has 😮)
 - 📦 [Btop](https://github.com/aristocratos/btop)
 
 ## Other resources
