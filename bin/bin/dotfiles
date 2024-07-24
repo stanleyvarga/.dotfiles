@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+cd $DOTFILES
+chmod +x ./install.sh
+./install.sh

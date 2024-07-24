@@ -1,5 +1,0 @@
-zsh -c "cd $DOTFILES/yarn && chmod +x ./yarn.global.sh"
-
-if ! pip3 show ricksay >/dev/null 2>&1; then
-    pip3 install ricksay
-fi
