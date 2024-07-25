@@ -46,6 +46,7 @@ Ballad of `Dotfileschantment`
 
 ## Interesting resources
 - 🔗 [The Art Of Command Line](https://github.com/jlevy/the-art-of-command-line)
+- 🔗 [Command Line Interface Guidelines](https://clig.dev/#foreword)
 
 ## People to follow
 - 🔗 [Robby Russell](https://github.com/robbyrussell)

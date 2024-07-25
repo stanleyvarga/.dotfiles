@@ -14,3 +14,4 @@ In order of my taste
 
 ## Writing fonts
 - [Courier Prime](https://quoteunquoteapps.com/courierprime/)
+- [Notulen](https://www.1001fonts.com/free-notulen-serif-display-font.html)
