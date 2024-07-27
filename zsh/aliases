@@ -177,3 +177,5 @@ alias rm='trash'
 
 ## Get beautiful weather reporting 
 alias wttr="curl wttr.in"
+
+alias ping="gping"
