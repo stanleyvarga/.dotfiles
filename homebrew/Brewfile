@@ -20,6 +20,10 @@ brew "yt-dlp"
 brew "zoxide"
 brew "httpie"
 brew "trash"
+brew "gping"
+brew "ctop"
+brew "duf"
+brew "scc"
 # brew "jandedobbeleer/oh-my-posh/oh-my-posh"
 
 # Development tools
