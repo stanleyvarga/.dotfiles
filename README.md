@@ -51,9 +51,15 @@ Ballad of `Dotfileschantment`
 ## People to follow
 - 🔗 [Robby Russell](https://github.com/robbyrussell)
 
-### Command-line Apps
+### Command-line tools
 - 📦 [Btop](https://github.com/aristocratos/btop)
 - 📦 [Navi](https://github.com/denisidoro/navi)
+- 📦 [Hyperfine](https://github.com/sharkdp/hyperfine)
+- 📦 [duf](https://github.com/muesli/duf)
+- 📦 [scc](https://github.com/boyter/scc)
+- 📦 [just](https://github.com/casey/just)
+- 📦 [asciinema](https://asciinema.org/)
+- 📦 [mapscii](https://github.com/rastapasta/mapscii)
 
 ## Other resources
 - 🔗 ASCII fonts generator [ASCII Fonts](https://patorjk.com/software/taag/#p=display&h=2&f=Banner3-D&t=text%0A)
