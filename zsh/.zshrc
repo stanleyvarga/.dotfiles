@@ -67,7 +67,6 @@ plugins=(
 	zoxide
 	timer
 	fd-zsh
-	fd
 	
 	# Currently not using these, as Warp is handling it 👌
 	# zsh-autosuggestions 
