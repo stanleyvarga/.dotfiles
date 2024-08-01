@@ -51,7 +51,7 @@ Ballad of `Dotfileschantment`
 ## People to follow
 - 🔗 [Robby Russell](https://github.com/robbyrussell)
 
-### Command-line tools
+## Command-line tools
 - 📦 [Btop](https://github.com/aristocratos/btop)
 - 📦 [Navi](https://github.com/denisidoro/navi)
 - 📦 [Hyperfine](https://github.com/sharkdp/hyperfine)
@@ -64,3 +64,4 @@ Ballad of `Dotfileschantment`
 ## Other resources
 - 🔗 ASCII fonts generator [ASCII Fonts](https://patorjk.com/software/taag/#p=display&h=2&f=Banner3-D&t=text%0A)
 - 🔤 Programming fonts [programmingfonts.org](https://www.programmingfonts.org/#monaspace-neon)
+- 🚀 Static web publishing [Surge](https://surge.sh/)
