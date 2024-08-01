@@ -24,14 +24,15 @@ get_random_image() {
         echo ${images[$RANDOM % ${#images} + 1]}
     fi
 }
-k
+
 # Get current month and hour
 current_month=${(L)$(date +%B)}
 current_hour=$((10#$(date +%H)))
 current_time=$(date +%H:%M:%S)
-current_date=$(date +%Y-%m-%d)
+current_date=$(date +%d-%m-%Y)
 
 state_file="$HOME/automac/wallpaper/state.txt"
+log_file="$HOME/automac/logs/change_wallpaper.log"
 
 # Path to wallpapers directory
 wallpapers_dir="$HOME/Wallpapers"
@@ -47,7 +48,7 @@ for period in dawn sunrise morning noon sunset dusk night; do
             break
         fi
     else
-        print "Warning: Could not extract hour for $period"
+        echo "[$current_date $current_time] Warning: Could not extract hour for $period" >> $log_file
     fi
 done
 
@@ -67,7 +68,7 @@ if [[ "$time_of_day" != "$previous_state" ]]; then
     image=$(get_random_image "$wallpaper_dir")
 
     if [[ -z "$image" ]]; then
-        print "[$current_date $current_time][EMPTY WALLPAPER]" >> wallpaper.log
+        echo "[$current_date $current_time] No image found" >> $log_file
         exit
     fi
 
@@ -76,9 +77,8 @@ if [[ "$time_of_day" != "$previous_state" ]]; then
     killall WallpaperAgent
 
     # Update the state file
-    print "$time_of_day" > "$state_file"
-    print "[$current_date $current_time][CHANGE_WALLPAPER] $image" >> wallpaper.log
+    echo "$time_of_day" > "$state_file"
+    echo "[$current_date $current_time] Changed to $image at $time_of_day" >> $log_file
 else
-    print "🙅 No change. Current time of day: $time_of_day"
-    print "[$current_date $current_time][NO_CHANGE]" >> wallpaper.log
+    echo "[$current_date $current_time] Skipping update, wallpaper for $time_of_day already set" >> $log_file
 fi
