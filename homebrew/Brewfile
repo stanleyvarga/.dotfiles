@@ -33,6 +33,7 @@ brew "node"
 brew "nvm"
 brew "watchman"
 brew "yarn"
+brew "sleepwatcher"
 
 # Other
 brew "wangle"
@@ -48,3 +49,5 @@ brew "numpy"
 brew "py3cairo"
 brew "python@3.11"
 brew "scipy"
+brew "libheif"
+brew "exiftool"
