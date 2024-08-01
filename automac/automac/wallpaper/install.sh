@@ -1,7 +1,19 @@
-# Unload if exists
-if [ -f ~/Library/LaunchAgents/de.bernhard-baehr.sleepwatcher.plist ]; then
-	launchctl unload -w ~/Library/LaunchAgents/de.bernhard-baehr.sleepwatcher.plist
+# Unload sleepwatcher if it exists
+sleepwatcher_plist="$HOME/Library/LaunchAgents/de.bernhard-baehr.sleepwatcher.plist"
+if [ -f "$sleepwatcher_plist" ]; then
+  launchctl unload -w "$sleepwatcher_plist"
 fi
 
-# Load script to run sleepwatcher on startup
-launchctl load -w ~/Library/LaunchAgents/de.bernhard-baehr.sleepwatcher.plist
+# Unload wallpaper_scheduler if it exists
+wallpaper_scheduler_plist="$HOME/Library/LaunchAgents/com.automac.wallpaper_scheduler.plist"
+if [ -f "$wallpaper_scheduler_plist" ]; then
+  launchctl unload -w "$wallpaper_scheduler_plist"
+fi
+
+launchctl load -w "$sleepwatcher_plist"
+launchctl load -w "$wallpaper_scheduler_plist"
+
+launchctl list | grep wallpaper_scheduler
+launchctl list | grep sleepwatcher
+
+chmod +x $HOME/automac/automac/wallpaper/change_wallpaper.sh

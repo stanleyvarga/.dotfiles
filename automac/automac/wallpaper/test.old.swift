@@ -3,14 +3,13 @@ import UniformTypeIdentifiers
 
 // Data Structures
 
-struct DesktopConfig: Codable {
-    var lastSetTime: String
-    var lastWallpaper: String
-}
-
 struct WallpaperConfig: Codable {
     var months: [String: [String: Int]]
-    var desktop: [Int: DesktopConfig]
+}
+
+struct CurrentWallpaper: Codable {
+    var path: String
+    var daytime: String
 }
 
 // Constants
@@ -19,7 +18,8 @@ let basePath = "/Users/stanislavvarga"
 let wallpapersPath = basePath + "/Documents/Wallpapers/"
 let automacPath = basePath + "/automac/wallpaper/"
 let configFileName = "settings.json"
-let checkInterval: TimeInterval = 5.0 // 5 minutes
+let currentWallpaperFileName = "current_wallpaper.txt"
+let checkInterval: TimeInterval = 5.0 // Check every minute
 
 // Configuration Management
 
@@ -35,60 +35,69 @@ func loadConfig() -> WallpaperConfig? {
     }
 }
 
-func saveConfig(_ config: WallpaperConfig) {
-    let configURL = URL(fileURLWithPath: automacPath + configFileName)
+// Current Wallpaper Management
+
+func getCurrentWallpapers() -> [String: CurrentWallpaper]? {
+    let currentWallpaperURL = URL(fileURLWithPath: automacPath + currentWallpaperFileName)
+    do {
+        let data = try Data(contentsOf: currentWallpaperURL)
+        let decoder = JSONDecoder()
+        return try decoder.decode([String: CurrentWallpaper].self, from: data)
+    } catch {
+        print("Failed to read or parse current wallpaper file: \(error.localizedDescription)")
+        return nil
+    }
+}
+
+func setCurrentWallpapers(_ wallpapers: [String: CurrentWallpaper]) {
+    let currentWallpaperURL = URL(fileURLWithPath: automacPath + currentWallpaperFileName)
     do {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        let data = try encoder.encode(config)
-        try data.write(to: configURL)
+        let data = try encoder.encode(wallpapers)
+        try data.write(to: currentWallpaperURL)
     } catch {
-        print("Failed to save the config file: \(error.localizedDescription)")
+        print("Failed to write current wallpaper file: \(error.localizedDescription)")
     }
 }
 
 // Wallpaper Management
 
-func setWallpaperBasedOnTime(for screenID: Int, config: inout WallpaperConfig) {
+func setWallpaperBasedOnTime(config: WallpaperConfig) {
     let currentTime = getCurrentTimeOfDay(config: config)
+    var currentWallpapers = getCurrentWallpapers() ?? [:]
     
-    if currentTime != config.desktop[screenID]?.lastSetTime {
-        if screenID == 1 {
-            setNewWallpaper(for: screenID, selectedTime: currentTime, config: &config)
-        } else {
-            copyWallpaperFromScreenOne(to: screenID, config: &config)
+    for (index, screen) in NSScreen.screens.enumerated() {
+        let screenID = String(index)
+        let currentWallpaper = currentWallpapers[screenID]
+        
+        if currentWallpaper?.daytime == "night" {
+            print("Skipping update for screen \(screenID) as it's set to night")
+            continue
         }
-        saveConfig(config)
+        
+        if currentWallpaper?.daytime != currentTime {
+            if let newWallpaper = selectNewWallpaper(for: currentTime) {
+                setWallpaper(for: screen, with: URL(fileURLWithPath: newWallpaper))
+                currentWallpapers[screenID] = CurrentWallpaper(path: newWallpaper, daytime: currentTime)
+            }
+        } else if let path = currentWallpaper?.path {
+            setWallpaper(for: screen, with: URL(fileURLWithPath: path))
+        }
     }
+    
+    setCurrentWallpapers(currentWallpapers)
 }
 
-func setNewWallpaper(for screenID: Int, selectedTime: String, config: inout WallpaperConfig) {
-    let directoryURL = URL(fileURLWithPath: wallpapersPath + selectedTime)
+func selectNewWallpaper(for timeOfDay: String) -> String? {
+    let directoryURL = URL(fileURLWithPath: wallpapersPath + timeOfDay)
     do {
         let fileURLs = try FileManager.default.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil)
-        if let selectedFile = fileURLs.randomElement() {
-            if let screen = NSScreen.screens.first(where: { NSScreen.screens.firstIndex(of: $0) == screenID - 1 }) {
-                setWallpaper(for: screen, with: selectedFile)
-                updateConfigForScreen(screenID: screenID, selectedTime: selectedTime, selectedFile: selectedFile, config: &config)
-            }
-        } else {
-            print("No image files found in directory: \(directoryURL.path)")
-        }
+        return fileURLs.randomElement()?.path
     } catch {
         print("Failed to read directory: \(error.localizedDescription)")
+        return nil
     }
-}
-
-func copyWallpaperFromScreenOne(to screenID: Int, config: inout WallpaperConfig) {
-    guard let screenOneConfig = config.desktop[1],
-          !screenOneConfig.lastWallpaper.isEmpty,
-          let screen = NSScreen.screens.first(where: { NSScreen.screens.firstIndex(of: $0) == screenID - 1 }) else {
-        return
-    }
-    
-    let wallpaperURL = URL(fileURLWithPath: wallpapersPath + screenOneConfig.lastSetTime + "/" + screenOneConfig.lastWallpaper)
-    setWallpaper(for: screen, with: wallpaperURL)
-    updateConfigForScreen(screenID: screenID, selectedTime: screenOneConfig.lastSetTime, selectedFile: wallpaperURL, config: &config)
 }
 
 func setWallpaper(for screen: NSScreen, with imageURL: URL) {
@@ -97,11 +106,6 @@ func setWallpaper(for screen: NSScreen, with imageURL: URL) {
     } catch {
         print("Error setting wallpaper: \(error.localizedDescription)")
     }
-}
-
-func updateConfigForScreen(screenID: Int, selectedTime: String, selectedFile: URL, config: inout WallpaperConfig) {
-    config.desktop[screenID]?.lastSetTime = selectedTime
-    config.desktop[screenID]?.lastWallpaper = selectedFile.lastPathComponent
 }
 
 // Helper Functions
@@ -148,17 +152,11 @@ func checkFullScreenStatus() -> Bool {
 
 func startWallpaperChecker() {
     Timer.scheduledTimer(withTimeInterval: checkInterval, repeats: true) { timer in
-        print("Checking full-screen status...")
-        
-        for (index, screen) in NSScreen.screens.enumerated() {
-            print("Screen \(index + 1): \(screen)")
-        }
+        print("Checking wallpaper status...")
         
         if checkFullScreenStatus() {
-            if var config = loadConfig() {
-                for screenID in 1...NSScreen.screens.count {
-                    setWallpaperBasedOnTime(for: screenID, config: &config)
-                }
+            if let config = loadConfig() {
+                setWallpaperBasedOnTime(config: config)
             }
         }
     }

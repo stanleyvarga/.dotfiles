@@ -10,6 +10,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo "🔧 Stowing packages"
 stow bin
 stow git
+stow root
 
 if is_macos; then
   echo "🔧 Installing MacOS packages"
