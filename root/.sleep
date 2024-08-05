@@ -1,6 +1,1 @@
 #!/bin/bash
-
-current_time=$(date +%H:%M:%S)
-current_date=$(date +%Y-%m-%d)
-
-echo "[$current_date $current_time][SLEEP]" >> $HOME/automac/wallpaper/wallpaper.log

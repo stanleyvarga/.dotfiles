@@ -2,3 +2,5 @@
 .DS_Store
 automac/automac/logs
 automac/automac/wallpaper.log
+automac/automac/state.txt
+automac/automac/wallpaper/node_modules

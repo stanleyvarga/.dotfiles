@@ -6,22 +6,21 @@
     <string>com.automac.wallpaper_scheduler</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/stanislavvarga/automac/wallpaper/change_wallpaper.sh</string>
+        <string>/Users/stanislavvarga/automac/wallpaper/change_wallpaper_OLD.sh</string>
     </array>
-    <key>StartCalendarInterval</key>
-    <dict>
-        <key>Minute</key>
-        <integer>0</integer>
-        <!-- Optional: Uncomment to run at a specific hour -->
-        <!-- <key>Hour</key> -->
-        <!-- <integer>7</integer> -->
-    </dict>
+    
+    <key>StartInterval</key>
+    <integer>300</integer>
+
     <key>StandardOutPath</key>
     <string>/Users/stanislavvarga/automac/logs/wallpaper_scheduler.log</string>
+
     <key>StandardErrorPath</key>
     <string>/Users/stanislavvarga/automac/logs/wallpaper_scheduler_error.log</string>
+
     <key>RunAtLoad</key>
     <true/>
+
     <key>KeepAlive</key>
 	<true/>
 </dict>

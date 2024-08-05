@@ -1,7 +1,8 @@
 #!/bin/zsh
 
 current_time=$(date +%H:%M:%S)
-current_date=$(date +%Y-%m-%d)
-echo "[$current_date $current_time][WAKEUP]" >> $HOME/automac/wallpaper/wallpaper.log
+current_date=$(date +%d-%m-%Y)
+log_file="$HOME/automac/logs/change_wallpaper.log"
+echo "[$current_date $current_time] Mac WakeUp" >> $log_file
 
-zsh -c "$HOME/automac/wallpaper/change_wallpaper.sh" >> $HOME/automac/wallpaper/wallpaper.log
+zsh -c "$HOME/automac/wallpaper/change_wallpaper.sh" >> $log_file
