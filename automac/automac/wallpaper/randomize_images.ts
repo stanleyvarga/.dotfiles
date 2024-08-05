@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+
 import { $, fs, os, path } from "zx";
 
 $.shell = "/usr/bin/zsh";

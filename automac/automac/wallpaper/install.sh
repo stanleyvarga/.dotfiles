@@ -17,3 +17,5 @@ launchctl list | grep wallpaper_scheduler
 launchctl list | grep sleepwatcher
 
 chmod +x $HOME/automac/wallpaper/dynamic_wallpaper.ts
+chmod +x $HOME/automac/wallpaper/dynamic_wallpaper.sh
+chmod +x $HOME/automac/wallpaper/randomize_images.sh

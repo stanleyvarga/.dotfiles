@@ -55,7 +55,6 @@ const wallpapersDir: string = path.join(os.homedir(), "Wallpapers");
 const settingsFile: string = path.join(os.homedir(), "automac/wallpaper/settings.json");
 const wallpaperCountFile: string = path.join(os.homedir(), "automac/wallpaper/history.json");
 
-// Functions
 function getRandomImage(images: string[]): string | undefined {
   return images[0];
 }
@@ -65,7 +64,7 @@ function saveSettings(settingsFile: string, settings: Settings): void {
 }
 
 function updateWallpaperCount(imagePath: string): void {
-  let wallpaperCount: WallpaperCount = {};
+  let wallpaperCount: { [key: string]: number } = {};
   if (fs.existsSync(wallpaperCountFile)) {
     wallpaperCount = JSON.parse(fs.readFileSync(wallpaperCountFile, "utf-8"));
   }
@@ -73,7 +72,7 @@ function updateWallpaperCount(imagePath: string): void {
   const relativeImagePath = path.relative(wallpapersDir, imagePath);
 
   if (relativeImagePath in wallpaperCount) {
-    wallpaperCount[relativeImagePath]++;
+    wallpaperCount[relativeImagePath] = Number(wallpaperCount[relativeImagePath]) + 1;
   } else {
     wallpaperCount[relativeImagePath] = 1;
   }
@@ -120,10 +119,8 @@ async function main() {
   if (timeOfDay !== previousState) {
     if (settings.files[timeOfDay as keyof Settings["files"]].images.length === 0) {
       console.log("No images found. Running randomize.ts...");
-      // execSync("bun ./randomize.ts");
-      // Assuming the script you want to run is named 'script_name.ts'
       try {
-        await $`bun randomize.ts`;
+        await $`bun randomize_images.ts`;
         console.log("Randomize script ran successfully.");
       } catch (error) {
         console.error("Error running script:", error);
@@ -133,8 +130,6 @@ async function main() {
 
     const fullImagePath = `${wallpapersDir}/${timeOfDay}/${getRandomImage(settings.files[timeOfDay as keyof Settings["files"]].images)}`;
 
-    console.log(`Changing wallpaper to: ${fullImagePath}`);
-
     if (!fullImagePath) {
       await $`echo "[${currentDate} ${currentTime}] No image found" >> ${logFile}`;
       process.exit(1);
@@ -143,7 +138,6 @@ async function main() {
     // Remove first element from the array
     settings.files[timeOfDay as keyof Settings["files"]].images.shift();
 
-    // Check if the plist file exists
     const plistFile = path.join(os.homedir(), "Library/Application Support/com.apple.wallpaper/Store/Index.plist");
 
     if (fs.existsSync(plistFile)) {
