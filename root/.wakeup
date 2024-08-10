@@ -2,7 +2,9 @@
 
 current_time=$(date +%H:%M:%S)
 current_date=$(date +%d-%m-%Y)
-log_file="$HOME/automac/logs/change_wallpaper.log"
+
+log_file="$DOTFILES/automac/logs/dynamic_wallpaper.log"
+
 echo "[$current_date $current_time] Mac WakeUp" >> $log_file
 
-zsh -c "$HOME/automac/wallpaper/change_wallpaper.sh" >> $log_file
+zsh -c "$DOTFILES/automac/dynamic_wallpaper/dynamic_wallpaper.sh" >> $log_file

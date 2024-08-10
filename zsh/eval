@@ -24,6 +24,12 @@ else
 	echo "📟 navi is not installed"
 fi
 
+if command_exists rbenv; then
+	eval "$(rbenv init - zsh)"
+else
+	echo "💎 rbenv is not installed"
+fi
+
 # Not used now
 # if command_exists oh-my-posh; then
 # 	eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/wholespace.omp.json')"
