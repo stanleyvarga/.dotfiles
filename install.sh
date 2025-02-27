@@ -2,10 +2,18 @@ is_macos() {
   [[ "$(uname)" == "Darwin" ]]
 }
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # Install Homebrew
+# Check if Oh My Zsh is already installed
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "🔧 Installing Oh My Zsh"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # Install Oh My Zsh
+else
+  echo "✅ Oh My Zsh is already installed"
+fi
 
 # curl -s https://ohmyposh.dev/install.sh | zsh # Install oh-my-posh
 # oh-my-posh font install # Install nerd fonts
+
+set -e
 
 echo "🔧 Stowing packages"
 stow bin
@@ -14,10 +22,8 @@ stow root
 
 if is_macos; then
   echo "🔧 Installing MacOS packages"
-  stow homebrew
-	brew bundle --file=~/Brewfile
-
-	stow automac
+  stow --adopt homebrew  # Added --adopt flag to handle existing files
+  brew bundle --file=~/Brewfile
 
   echo "🔧 Setting MacOS defaults"
   chmod +x $DOTFILES/macos/set-defaults

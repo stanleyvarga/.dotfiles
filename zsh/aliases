@@ -65,6 +65,9 @@ alias lM='la --sort=modified'            # Long, sort modified
 alias lS='la --sort=size'               # Long, sort size
 alias lX='la --sort=extension'          # Long, sort extension
 
+# GIT
+alias gcmp='function _gcmp(){ git commit -m "$1" && git push; }; _gcmp'
+alias gcm='function _gcm(){ git commit -m "$1"; }; _gcm'
 
 # === ------------------------ ===
 # '##::: ##:'########::'##::::'##:
@@ -77,6 +80,28 @@ alias lX='la --sort=extension'          # Long, sort extension
 # ..::::..::..:::::::::..:::::..::
 # === ------------------------ ===
 
+# Bun
+alias bi="bun install"
+
+# Most used
+alias ni="npm i"
+alias nif="npm i --force"
+alias nr="npm r" 
+
+alias nrs="npm run start"
+alias nrt="npm run test"
+alias nrck="npm run check" 
+
+alias nr:f="npm run fix" 
+alias nr:gad="npm run gen-api-dev"
+
+alias nrsrc="npm run start --reset-cache"
+alias nr:ad="npm run android:dev"
+alias nr:id="npm run ios:dev"
+alias nr:ap="npm run android:prod"
+alias nr:ip="npm run ios:prod"
+
+
 alias y="yarn"
 alias yd="yarn dev"
 alias ya="yarn android"
@@ -86,27 +111,22 @@ alias rnm="rm -rf node_modules package-lock.json && npm i"
 alias npk="npx npkill"
 alias nlg="npm list -g --depth 0"
 
-alias ni="npm i"
 alias nis="npm i -S"
 alias nise="npm i -S -E"
 alias nid="npm i -D"
 alias nide="npm i -D -E" 
-alias nr="npm r" 
 
 alias nrt:w="npm run test:watch"
 alias nrb="npm run build"
 alias nrd="npm run dev"
 alias nrbd="npm run build:dev"
 alias nrbq="npm run build:qa"
-alias nrs="npm run start"
 alias nrw="npm run watch"
 alias nrh="npm run hot"
 alias nrsd="npm run start:dev"
 alias nrsq="npm run start:qa"
-alias nrt="npm run test"
 alias nrt:ci="npm run test:ci" 
 alias nrt:ciu="npm run test:ci -- -u" 
-alias nrck="npm run check" 
 alias np="npm run build && npm publish"
 alias nu="npm unpublish" 
 
@@ -164,6 +184,8 @@ alias show:desktop="defaults write com.apple.finder CreateDesktop -bool true && 
 alias bat="bat --theme=OneHalfDark -pn --style='full'"
 alias cat="bat"
 
+alias exa='eza'
+
 alias week='date +%V'
 
 ## Network
@@ -179,3 +201,5 @@ alias rm='trash'
 alias wttr="curl wttr.in"
 
 alias ping="gping"
+
+alias python="python3"

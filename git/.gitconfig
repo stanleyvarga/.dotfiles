@@ -1,5 +1,6 @@
 [user]
 	name = Stanley Varga
+	email = stanleyvarga1@gmail.com
 	# email = stanislav.varga@itera.com
 	# If two git accounts required on a single computer, use the following
 	# 🔗 https://stackoverflow.com/a/3860139
@@ -8,8 +9,10 @@
 	# Default push should only push the current branch to its push target, regardless of its remote name
 	default = upstream
 [pull]
-	rebase = true
+	rebase = false 
 [rebase]
 	autostash = true
 [difftool "vscode"]
   cmd = code --wait --diff $LOCAL $REMOTE
+[core]
+	fsmonitor = true
