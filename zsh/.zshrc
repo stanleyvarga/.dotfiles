@@ -102,7 +102,7 @@ source $DOTFILES/zsh/plugin-scripts/alias-finder
 
 # Currently not using this as Warp is handling it 👌
 # source $DOTFILES/zsh/plugin-scripts/command-not-found.zsh
-source $DOTFILES/zsh/plugin-scripts/nvm
+# source $DOTFILES/zsh/plugin-scripts/nvm
 
 source $DOTFILES/zsh/eval
 source $DOTFILES/zsh/plugin-scripts/atuin

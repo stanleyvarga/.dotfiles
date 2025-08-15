@@ -1,38 +1,61 @@
-eval `/usr/bin/ssh-agent` &>/dev/null
+# Optimized eval file with lazy loading
+# Instead of evaluating everything at startup, we'll defer heavy operations
 
+# SSH Agent - only start if not already running
+if [ -z "$SSH_AGENT_PID" ] && [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)" > /dev/null 2>&1
+fi
+
+# Lazy load zoxide - only initialize when first used
 if command_exists zoxide; then
-	eval "$(zoxide init zsh)"
+    function z() {
+        unfunction z
+        eval "$(zoxide init zsh)"
+        z "$@"
+    }
 else
-	echo "🦘 zoxide is not installed"
+    echo "🦘 zoxide is not installed"
 fi
 
+# Lazy load thefuck - only initialize when first used
 if command_exists thefuck; then
-  eval $(thefuck --alias)
+    function fuck() {
+        unfunction fuck
+        eval "$(thefuck --alias)"
+        fuck "$@"
+    }
 else
-	echo "🖕 thefuck is not installed"
+    echo "🖕 thefuck is not installed"
 fi
 
+# Atuin - defer initialization and only do it once
 if command_exists atuin; then
-	echo eval "$(atuin init zsh)" > $DOTFILES/zsh/plugin-scripts/atuin.zsh
+    # Create the script file asynchronously in background
+    {
+        echo 'eval "$(atuin init zsh)"' > "$DOTFILES/zsh/plugin-scripts/atuin.zsh"
+    } &!
 else
-	echo "🐢 atuin is not installed"
+    echo "🐢 atuin is not installed"
 fi
 
+# Lazy load navi
 if command_exists navi; then
-	eval "$(navi widget zsh)"
+    function navi() {
+        unfunction navi
+        eval "$(navi widget zsh)"
+        navi "$@"
+    }
 else
-	echo "📟 navi is not installed"
+    echo "📟 navi is not installed"
 fi
 
+# Lazy load rbenv
 if command_exists rbenv; then
-	eval "$(rbenv init - zsh)"
+    function rbenv() {
+        unfunction rbenv
+        eval "$(rbenv init - zsh)"
+        rbenv "$@"
+    }
 else
-	echo "💎 rbenv is not installed"
+    echo "💎 rbenv is not installed"
 fi
-
-# Not used now
-# if command_exists oh-my-posh; then
-# 	eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/wholespace.omp.json')"
-# else
-# 	echo "oh-my-posh is not installed"
-# fi

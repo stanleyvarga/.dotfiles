@@ -2,4 +2,17 @@
 
 set -e
 
-~/.dotfiles/external/install.sh
+DOTFILES_EXTERNAL_DIR=$HOME/.dotfiles/external
+
+if [ ! -d "$DOTFILES_EXTERNAL_DIR/wallpaper-ngn" ]; then
+  echo "🔧 Cloning wallpaper-ngn repository"
+  git clone git@github.com:stanleyvarga/wallpaper-ngn.git $DOTFILES_EXTERNAL_DIR/wallpaper-ngn
+else
+  echo "📂 wallpaper-ngn repository already exists, pulling latest changes"
+  cd $DOTFILES_EXTERNAL_DIR/wallpaper-ngn && git pull
+fi
+
+ln -sf $DOTFILES_EXTERNAL_DIR/wallpaper-ngn/wp-ngn ~/.dotfiles/bin/bin/wp-ngn
+
+chmod +x $DOTFILES_EXTERNAL_DIR/wallpaper-ngn/install.sh
+$DOTFILES_EXTERNAL_DIR/wallpaper-ngn/install.sh

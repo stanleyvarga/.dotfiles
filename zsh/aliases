@@ -104,6 +104,9 @@ alias nr:ip="npm run ios:prod"
 
 alias y="yarn"
 alias yd="yarn dev"
+alias ylf="yarn lint:fix"
+alias yb="yarn build"
+alias yt="yarn test"
 alias ya="yarn android"
 
 alias rnm="rm -rf node_modules package-lock.json && npm i"

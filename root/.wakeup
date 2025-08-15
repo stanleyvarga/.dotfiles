@@ -1,3 +1,3 @@
 #!/bin/zsh
 
-wp-ngn --dynamic
+# ~/bin/wp-ngn --dynamic --override >> ~/.dotfiles/logs/wakeup.log 2>&1

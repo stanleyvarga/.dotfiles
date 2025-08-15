@@ -1,0 +1,28 @@
+#!/bin/zsh
+
+# Disable echo of the interrupt character
+stty -echoctl
+
+start_date=$(date +"%d-%m-%Y %H:%M")
+sleep_duration=$((4 * 60))
+
+caffeinate -d &
+
+function quit_script {
+    trap - INT  # Reset the trap to default behavior
+    duration=$(( SECONDS / 3600 ))h:$(( (SECONDS / 60) % 60 ))m:$(( SECONDS % 60 ))s
+    echo "⏱️  $duration"
+    # Re-enable echo of the interrupt character before exiting
+    stty echoctl
+    exit 0
+}
+
+trap 'quit_script' INT  # Redirect error output to /dev/null
+
+while true; do
+    osascript -e 'tell application "Microsoft Teams" to activate'
+    osascript -e 'tell application "System Events" to keystroke "2" using {command down}'
+    sleep $sleep_duration
+done
+
+
