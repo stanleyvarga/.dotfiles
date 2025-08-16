@@ -7,10 +7,10 @@
 #  ########:. ######:: ##:::: ##:
 # ........:::......:::..:::::..::
 
-alias e_alias="code ~/.dotfiles/zsh/aliases"
-alias e_path="code ~/.dotfiles/zsh/paths"
-alias e_zshrc="code ~/dotfiles/zsh/.zshrc"
-alias rzs="cat ~/.dotfiles/zsh/.zshrc > ~/.zshrc && source ~/.zshrc"
+alias e:alias="code ~/.dotfiles/zsh/config/aliases"
+alias e:path="code ~/.dotfiles/zsh/config/paths"
+alias e:zshrc="code ~/.dotfiles/zsh/.zshrc"
+alias r="cat ~/.dotfiles/zsh/.zshrc > ~/.zshrc && source ~/.zshrc"
 alias c="clear" # clear terminal
 alias x="exit" # closes terminal
 
