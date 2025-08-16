@@ -85,7 +85,6 @@ alias nr:id="npm run ios:dev"
 alias nr:ap="npm run android:prod"
 alias nr:ip="npm run ios:prod"
 
-
 alias y="yarn"
 alias yd="yarn dev"
 alias ylf="yarn lint:fix"
@@ -158,23 +157,16 @@ alias show:desktop="defaults write com.apple.finder CreateDesktop -bool true && 
 ## Better cat alternative with syntqx highlighting
 alias bat="bat --theme=OneHalfDark -pn --style='full'"
 alias cat="bat"
-
 alias exa='eza'
-
 alias week='date +%V'
-
 ## Network
 alias localip="ipconfig getifaddr en0"
-
 ## System
 alias runp='lsof -ni'
 alias sshdir='cd ~/.ssh'
 alias copyssh="pbcopy < $HOME/.ssh/id_rsa.pub"
 alias rm='trash'
-
 ## Get beautiful weather reporting 
 alias wttr="curl wttr.in"
-
 alias ping="gping"
-
 alias python="python3"

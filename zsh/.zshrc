@@ -23,8 +23,9 @@ plugins=(
 	alias-finder
 	aliases
 	git # Aliases for git
-	docker-compose # Completion & aliases for docker-compose
-	docker # Completion & aliases for docker
+	# docker-compose and docker intentionally removed from startup to lazy-load on demand
+	# docker-compose # Completion & aliases for docker-compose
+	# docker # Completion & aliases for docker
 	yarn
 	npm
 	# Quality of life plugins
@@ -63,3 +64,6 @@ source $DOTFILES/zsh/plugin-scripts/alias-finder
 source $DOTFILES/zsh/eval
 source $DOTFILES/zsh/plugin-scripts/atuin
 source $DOTFILES/zsh/zsh.init
+
+# Lazy-load docker/docker-compose OMZ plugins moved to plugin-scripts to keep .zshrc minimal
+source $DOTFILES/zsh/plugin-scripts/lazy-docker.zsh
