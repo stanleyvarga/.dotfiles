@@ -9,8 +9,9 @@
 # ........:::......:::..:::::..::
 # === ----------------------- ===
 
-alias ezs="code ~/.zshrc"
-alias czs="cat ~/.zshrc"
+alias e_alias="code ~/.dotfiles/zsh/aliases"
+alias e_path="code ~/.dotfiles/zsh/paths"
+alias e_zshrc="code ~/dotfiles/zsh/.zshrc"
 alias rzs="cat ~/.dotfiles/zsh/.zshrc > ~/.zshrc && source ~/.zshrc"
 alias c="clear" # clear terminal
 alias x="exit" # closes terminal
