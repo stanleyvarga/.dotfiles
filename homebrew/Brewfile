@@ -7,12 +7,9 @@ tap "homebrew/bundle"
 brew "stow"
 
 # Command-line related
-brew "navi"
-brew "tldr"
 brew "atuin"
 brew "bat"
 brew "thefuck"
-brew "exa"
 brew "fd"
 brew "curl"
 brew "fzf"

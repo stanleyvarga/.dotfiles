@@ -53,7 +53,6 @@ Ballad of `Dotfileschantment`
 
 ## Command-line tools
 - 📦 [Btop](https://github.com/aristocratos/btop)
-- 📦 [Navi](https://github.com/denisidoro/navi)
 - 📦 [Hyperfine](https://github.com/sharkdp/hyperfine)
 - 📦 [duf](https://github.com/muesli/duf)
 - 📦 [scc](https://github.com/boyter/scc)

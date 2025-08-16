@@ -26,4 +26,4 @@ lazy_load_docker_plugins() {
 autoload -Uz add-zsh-hook
 add-zsh-hook chpwd lazy_load_docker_plugins
 # run once for the current directory at startup
-lazy_load_docker_plugins
+lazy_load_docker_plugins || true

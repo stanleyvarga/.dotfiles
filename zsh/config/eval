@@ -52,10 +52,6 @@ if typeset -f zdefer >/dev/null; then
   if command_exists atuin; then
     zdefer -t 0.7 eval "$(atuin init zsh)"
   fi
-  # navi
-  if command_exists navi; then
-    zdefer -t 0.8 eval "$(navi widget zsh)"
-  fi
   # rbenv
   if command_exists rbenv; then
     zdefer -t 0.9 eval "$(rbenv init - zsh)"
@@ -79,13 +75,6 @@ if command_exists thefuck; then
   }
 fi
 
-if command_exists navi; then
-  function navi() {
-    unfunction navi
-    eval "$(navi widget zsh)"
-    navi "$@"
-  }
-fi
 
 if command_exists rbenv; then
   function rbenv() {
