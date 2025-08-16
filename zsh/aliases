@@ -1,4 +1,3 @@
-# === ----------------------- ===
 # '########::'######::'##::::'##:
 # ..... ##::'##... ##: ##:::: ##:
 # :::: ##::: ##:::..:: ##:::: ##:
@@ -7,7 +6,6 @@
 # : ##::::::'##::: ##: ##:::: ##:
 #  ########:. ######:: ##:::: ##:
 # ........:::......:::..:::::..::
-# === ----------------------- ===
 
 alias e_alias="code ~/.dotfiles/zsh/aliases"
 alias e_path="code ~/.dotfiles/zsh/paths"
@@ -16,7 +14,6 @@ alias rzs="cat ~/.dotfiles/zsh/.zshrc > ~/.zshrc && source ~/.zshrc"
 alias c="clear" # clear terminal
 alias x="exit" # closes terminal
 
-# === -------------------------------------------------------------------------------------- ===
 # '########::'####:'########:::'######::::::::'##:'########:'####:'##:::::::'########::'######::
 #  ##.... ##:. ##:: ##.... ##:'##... ##::::::'##:: ##.....::. ##:: ##::::::: ##.....::'##... ##:
 #  ##:::: ##:: ##:: ##:::: ##: ##:::..::::::'##::: ##:::::::: ##:: ##::::::: ##::::::: ##:::..::
@@ -25,7 +22,6 @@ alias x="exit" # closes terminal
 #  ##:::: ##:: ##:: ##::. ##::'##::: ##::'##:::::: ##:::::::: ##:: ##::::::: ##:::::::'##::: ##:
 #  ########::'####: ##:::. ##:. ######::'##::::::: ##:::::::'####: ########: ########:. ######::
 # ........:::....::..:::::..:::......:::..::::::::..::::::::....::........::........:::......:::
-# === -------------------------------------------------------------------------------------- ===
 
 alias ~="cd ~"
 
@@ -43,17 +39,6 @@ d='dirs -v | head -10' ## Directories Lookup
 grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}' ## Files lookup
 alias -g G='| grep -i'
 
-# === ------------------------ ===
-# '########:'##::::'##::::'###::::
-#  ##.....::. ##::'##::::'## ##:::
-#  ##::::::::. ##'##::::'##:. ##::
-#  ######:::::. ###::::'##:::. ##:
-#  ##...:::::: ## ##::: #########:
-#  ##:::::::: ##:. ##:: ##.... ##:
-#  ########: ##:::. ##: ##:::: ##:
-# ........::..:::::..::..:::::..::
-# === ------------------------ ===
-
 # Group directories first, show icons, and enable file size color scale
 alias ls='exa -lbF --group-directories-first --icons --color-scale'
 alias l='ls'
@@ -70,7 +55,6 @@ alias lX='la --sort=extension'          # Long, sort extension
 alias gcmp='function _gcmp(){ git commit -m "$1" && git push; }; _gcmp'
 alias gcm='function _gcm(){ git commit -m "$1"; }; _gcm'
 
-# === ------------------------ ===
 # '##::: ##:'########::'##::::'##:
 #  ###:: ##: ##.... ##: ###::'###:
 #  ####: ##: ##:::: ##: ####'####:
@@ -79,7 +63,6 @@ alias gcm='function _gcm(){ git commit -m "$1"; }; _gcm'
 #  ##:. ###: ##:::::::: ##:.:: ##:
 #  ##::. ##: ##:::::::: ##:::: ##:
 # ..::::..::..:::::::::..:::::..::
-# === ------------------------ ===
 
 # Bun
 alias bi="bun install"
@@ -134,8 +117,6 @@ alias nrt:ciu="npm run test:ci -- -u"
 alias np="npm run build && npm publish"
 alias nu="npm unpublish" 
 
-# === ---------------------------------------- ===
-
 # :::'###::::'########:'##::::'##:'####:'##::: ##:
 # ::'## ##:::... ##..:: ##:::: ##:. ##:: ###:: ##:
 # :'##:. ##::::: ##:::: ##:::: ##:: ##:: ####: ##:
@@ -145,12 +126,8 @@ alias nu="npm unpublish"
 #  ##:::: ##:::: ##::::. #######::'####: ##::. ##:
 # ..:::::..:::::..::::::.......:::....::..::::..::
 
-# === ---------------------------------------- ===
-
 alias h="atuin search -i" #interative history search
 alias hf="atuin search --exclude-exit 0 -i" #failed commands
-
-# === --------------------------------------------- ===
 
 # '##::::'##::::'###:::::'######:::'#######:::'######::
 #  ###::'###:::'## ##:::'##... ##:'##.... ##:'##... ##:
@@ -161,8 +138,6 @@ alias hf="atuin search --exclude-exit 0 -i" #failed commands
 #  ##:::: ##: ##:::: ##:. ######::. #######::. ######::
 # ..:::::..::..:::::..:::......::::.......::::......:::
 
-# === --------------------------------------------- ===
-
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
@@ -170,8 +145,6 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 # Hide/show all desktop icons (useful when presenting)
 alias hide:desktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias show:desktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-# === --------------------------------------------- ===
 
 # :'#######::'########:'##::::'##:'########:'########::
 # '##.... ##:... ##..:: ##:::: ##: ##.....:: ##.... ##:
@@ -181,8 +154,6 @@ alias show:desktop="defaults write com.apple.finder CreateDesktop -bool true && 
 #  ##:::: ##:::: ##:::: ##:::: ##: ##::::::: ##::. ##::
 # . #######::::: ##:::: ##:::: ##: ########: ##:::. ##:
 # :.......::::::..:::::..:::::..::........::..:::::..::
-
-# === --------------------------------------------- ===
 
 ## Better cat alternative with syntqx highlighting
 alias bat="bat --theme=OneHalfDark -pn --style='full'"

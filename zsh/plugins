@@ -17,3 +17,8 @@ fi
 if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fd-zsh" ]; then
     git clone https://github.com/MohamedElashri/fd-zsh ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fd-zsh
 fi
+
+# zsh-defer - lazy loading for ZSH
+if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-defer" ]; then
+    git clone https://github.com/psprint/zsh-defer.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-defer
+fi

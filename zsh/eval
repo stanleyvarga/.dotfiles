@@ -6,56 +6,91 @@ if [ -z "$SSH_AGENT_PID" ] && [ -z "$SSH_AUTH_SOCK" ]; then
     eval "$(ssh-agent -s)" > /dev/null 2>&1
 fi
 
-# Lazy load zoxide - only initialize when first used
+# Helper: command_exists
+command_exists() { command -v "$1" &>/dev/null }
+
+# Ensure zsh-defer is available (load from OMZ custom plugins or standalone), else define a shim
+if ! typeset -f zsh-defer >/dev/null; then
+  if [[ -r "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-defer/zsh-defer.plugin.zsh" ]]; then
+    source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-defer/zsh-defer.plugin.zsh"
+  elif [[ -r "$HOME/.zsh-defer/zsh-defer.plugin.zsh" ]]; then
+    source "$HOME/.zsh-defer/zsh-defer.plugin.zsh"
+  else
+    zsh-defer() {
+      "$@"
+    }
+  fi
+fi
+
+# Portable defer wrapper that accepts optional -t <delay> and runs in background
+zdefer() {
+  local delay=0
+  if [[ "$1" == "-t" && -n "$2" ]]; then
+    delay="$2"; shift 2
+  fi
+  {
+    [[ "$delay" != 0 && "$delay" != 0.0 ]] && sleep "$delay"
+    if typeset -f zsh-defer >/dev/null; then
+      zsh-defer "$@"
+    else
+      "$@"
+    fi
+  } &!
+}
+
+# Warm up heavy tools after first prompt using portable wrapper
+if typeset -f zdefer >/dev/null; then
+  # zoxide
+  if command_exists zoxide; then
+    zdefer -t 0.5 eval "$(zoxide init zsh)"
+  fi
+  # thefuck
+  if command_exists thefuck; then
+    zdefer -t 0.6 eval "$(thefuck --alias)"
+  fi
+  # atuin
+  if command_exists atuin; then
+    zdefer -t 0.7 eval "$(atuin init zsh)"
+  fi
+  # navi
+  if command_exists navi; then
+    zdefer -t 0.8 eval "$(navi widget zsh)"
+  fi
+  # rbenv
+  if command_exists rbenv; then
+    zdefer -t 0.9 eval "$(rbenv init - zsh)"
+  fi
+fi
+
+# Keep zero-cost lazy wrappers so commands still work immediately on demand
 if command_exists zoxide; then
-    function z() {
-        unfunction z
-        eval "$(zoxide init zsh)"
-        z "$@"
-    }
-else
-    echo "🦘 zoxide is not installed"
+  function z() {
+    unfunction z
+    eval "$(zoxide init zsh)"
+    z "$@"
+  }
 fi
 
-# Lazy load thefuck - only initialize when first used
 if command_exists thefuck; then
-    function fuck() {
-        unfunction fuck
-        eval "$(thefuck --alias)"
-        fuck "$@"
-    }
-else
-    echo "🖕 thefuck is not installed"
+  function fuck() {
+    unfunction fuck
+    eval "$(thefuck --alias)"
+    fuck "$@"
+  }
 fi
 
-# Atuin - defer initialization and only do it once
-if command_exists atuin; then
-    # Create the script file asynchronously in background
-    {
-        echo 'eval "$(atuin init zsh)"' > "$DOTFILES/zsh/plugin-scripts/atuin.zsh"
-    } &!
-else
-    echo "🐢 atuin is not installed"
-fi
-
-# Lazy load navi
 if command_exists navi; then
-    function navi() {
-        unfunction navi
-        eval "$(navi widget zsh)"
-        navi "$@"
-    }
-else
-    echo "📟 navi is not installed"
+  function navi() {
+    unfunction navi
+    eval "$(navi widget zsh)"
+    navi "$@"
+  }
 fi
 
-# Lazy load rbenv
 if command_exists rbenv; then
-    function rbenv() {
-        unfunction rbenv
-        eval "$(rbenv init - zsh)"
-        rbenv "$@"
-    }
-else
-    echo "💎 rbenv is not installed"
+  function rbenv() {
+    unfunction rbenv
+    eval "$(rbenv init - zsh)"
+    rbenv "$@"
+  }
 fi

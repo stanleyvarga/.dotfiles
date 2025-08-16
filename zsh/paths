@@ -4,31 +4,38 @@ export NVM_DIR="$HOME/.nvm"
 
 # Lazy load NVM - only when node/npm/nvm is used
 function nvm() {
-    unfunction nvm node npm npx
+    unfunction nvm node npm npx yarn
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
     nvm "$@"
 }
 
 function node() {
-    unfunction nvm node npm npx
+    unfunction nvm node npm npx yarn
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
     node "$@"
 }
 
 function npm() {
-    unfunction nvm node npm npx
+    unfunction nvm node npm npx yarn
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
     npm "$@"
 }
 
 function npx() {
-    unfunction nvm node npm npx
+    unfunction nvm node npm npx yarn
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
     npx "$@"
+}
+
+function yarn() {
+    unfunction nvm node npm npx yarn
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+    command yarn "$@"
 }
 
 export PATH="/usr/local/bin:$PATH" 
