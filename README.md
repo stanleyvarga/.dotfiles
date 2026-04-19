@@ -40,6 +40,29 @@ Ballad of `Dotfileschantment`
 
 ![Unicorns](./unicorn.webp)
 
+## Install
+
+Clone this repo to any path (for example `git clone <repo-url> ~/.dotfiles`), then from that directory:
+
+```bash
+chmod +x install.sh   # first clone only, if needed
+./install.sh
+```
+
+The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, and `root` into your home directory (no GNU stow), installs Oh My Zsh if missing, then on **macOS** installs Homebrew if missing and runs `brew bundle` from `homebrew/Brewfile`, and on **Debian/Ubuntu** runs `apt` to install `git`, `curl`, `zsh`, `eza`, and by default `bat`, `fd-find`, `fzf`, and `jq`. At the end it sets **zsh as your login shell** with `chsh` (you may be prompted for your account password). If your zsh binary is not listed in `/etc/shells` (common for Homebrew’s zsh on macOS), the script adds it with `sudo` first.
+
+**Optional environment variables**
+
+- `SKIP_BREW_BUNDLE=1` — macOS only; skip `brew bundle` for a faster run when you only want symlinks, Oh My Zsh, and plugin clones.
+- `SKIP_CHSH=1` — do not change the login shell (skip `chsh` and `/etc/shells` updates).
+- `INSTALL_LINUX_EXTRAS=0` — Debian/Ubuntu only; skip installing `bat`, `fd-find`, `fzf`, and `jq` (they are installed by default otherwise).
+
+**After install**
+
+- After you **pull changes** to this repo, run `./install.sh` again so `~/.zshrc` is regenerated from `zsh/.zshrc` (with `DOTFILES` set). Otherwise your home copy can point at removed files (for example old plugin paths).
+- Open a **new** terminal (or log out and back in) so the login shell change applies.
+- On macOS, Xcode Command Line Tools are often required before Homebrew; if the Homebrew installer fails, install CLT first (`xcode-select --install`).
+
 - Startup takes around 0.1 - 0.2 seconds 🎉
 - I use shitload of plugins & aliases
 - Oh my zsh 😱

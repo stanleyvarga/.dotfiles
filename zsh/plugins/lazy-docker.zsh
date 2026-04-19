@@ -2,6 +2,7 @@
 # Moves logic out of .zshrc to keep it minimal.
 
 lazy_load_docker_plugins() {
+    command -v docker >/dev/null 2>&1 || return 1
     local dir="$PWD"
     while [[ "$dir" != "/" && -n "$dir" ]]; do
         if [[ -f "$dir/Dockerfile" || -f "$dir/docker-compose.yml" || -f "$dir/docker-compose.yaml" || -f "$dir/.dockerignore" ]]; then

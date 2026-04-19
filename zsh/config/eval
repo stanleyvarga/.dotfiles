@@ -1,9 +1,21 @@
 # Optimized eval file with lazy loading
 # Instead of evaluating everything at startup, we'll defer heavy operations
 
-# SSH Agent - only start if not already running
-if [ -z "$SSH_AGENT_PID" ] && [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(ssh-agent -s)" > /dev/null 2>&1
+# SSH agent: only when no agent and we likely need one (private keys present)
+if [[ -z "${SSH_AUTH_SOCK:-}" ]] && [[ -z "${SSH_AGENT_PID:-}" ]]; then
+  _ssh_has_private_key() {
+    local f
+    for f in "$HOME"/.ssh/id_*; do
+      [[ -f "$f" ]] || continue
+      [[ "$f" == *.pub ]] && continue
+      return 0
+    done
+    return 1
+  }
+  if _ssh_has_private_key; then
+    eval "$(ssh-agent -s)" >/dev/null 2>&1
+  fi
+  unfunction _ssh_has_private_key 2>/dev/null || true
 fi
 
 # Helper: command_exists
@@ -26,7 +38,8 @@ fi
 zdefer() {
   local delay=0
   if [[ "$1" == "-t" && -n "$2" ]]; then
-    delay="$2"; shift 2
+    delay="$2"
+    shift 2
   fi
   {
     [[ "$delay" != 0 && "$delay" != 0.0 ]] && sleep "$delay"
@@ -38,21 +51,17 @@ zdefer() {
   } &!
 }
 
-# Warm up heavy tools after first prompt using portable wrapper
+# Warm up heavy tools after first prompt using portable wrapper (single atuin init — no vendored duplicate)
 if typeset -f zdefer >/dev/null; then
-  # zoxide
   if command_exists zoxide; then
     zdefer -t 0.5 eval "$(zoxide init zsh)"
   fi
-  # thefuck
   if command_exists thefuck; then
     zdefer -t 0.6 eval "$(thefuck --alias)"
   fi
-  # atuin
   if command_exists atuin; then
     zdefer -t 0.7 eval "$(atuin init zsh)"
   fi
-  # rbenv
   if command_exists rbenv; then
     zdefer -t 0.9 eval "$(rbenv init - zsh)"
   fi
@@ -74,7 +83,6 @@ if command_exists thefuck; then
     fuck "$@"
   }
 fi
-
 
 if command_exists rbenv; then
   function rbenv() {

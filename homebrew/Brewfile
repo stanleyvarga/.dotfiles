@@ -3,12 +3,10 @@ tap "homebrew/bundle"
 # tap "jandedobbeleer/oh-my-posh"
 # tap "homebrew/command-not-found"
 
- # Imporant for the entire .dotfiles installation
-brew "stow"
-
 # Command-line related
 brew "atuin"
 brew "bat"
+brew "eza"
 brew "thefuck"
 brew "fd"
 brew "curl"
