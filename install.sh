@@ -48,10 +48,34 @@ ensure_linux_basics() {
   fi
   echo "🔧 Installing Linux prerequisites (git, curl, zsh, eza)"
   sudo apt-get update
-  sudo apt-get install -y git curl zsh eza
+  sudo apt-get install -y git curl zsh eza unzip
   if [[ "${INSTALL_LINUX_EXTRAS:-1}" != "0" ]]; then
     echo "🔧 Installing Linux CLI tools (bat, fd-find, fzf, jq)"
     sudo apt-get install -y bat fd-find fzf jq
+  fi
+}
+
+ensure_bun_linux() {
+  if ! is_linux; then
+    return 0
+  fi
+  if command -v bun >/dev/null 2>&1; then
+    echo "✅ bun is already installed"
+    return 0
+  fi
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "⚠️  curl not found; install curl then re-run install.sh for bun"
+    return 0
+  fi
+  if ! command -v unzip >/dev/null 2>&1; then
+    echo "⚠️  unzip not found (required by bun); install unzip then re-run install.sh for bun"
+    return 0
+  fi
+  echo "🔧 Installing bun (https://bun.sh)"
+  # Prefer zsh so the installer's optional rc snippets match your login shell (write_zshrc still replaces ~/.zshrc).
+  curl -fsSL https://bun.sh/install | SHELL="${SHELL:-/bin/zsh}" bash
+  if [[ -x "${HOME}/.bun/bin/bun" ]]; then
+    echo "💡 bun is on disk. This terminal's PATH is unchanged until you run: source ~/.zshrc  (or open a new tab)"
   fi
 }
 
@@ -190,6 +214,7 @@ set_zsh_as_login_shell() {
 }
 
 ensure_linux_basics
+ensure_bun_linux
 symlink_dotfiles
 install_oh_my_zsh
 run_macos_bundle_and_defaults
@@ -200,6 +225,9 @@ chmod_home_bin
 set_zsh_as_login_shell
 
 echo "🎉 Installation complete!"
+if [[ -x "${HOME}/.bun/bin/bun" ]] && ! command -v bun >/dev/null 2>&1; then
+  echo "💡 bun is installed but not on PATH in this shell yet — run: source ~/.zshrc"
+fi
 if is_linux && has_apt && [[ "${INSTALL_LINUX_EXTRAS:-1}" == "0" ]]; then
   echo "💡 Skipped bat, fd-find, fzf, jq (INSTALL_LINUX_EXTRAS=0). Unset or set to 1 to install them next run."
 fi

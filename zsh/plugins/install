@@ -15,3 +15,13 @@ fi
 if [ ! -d "$omz_custom/plugins/zsh-defer" ]; then
     git clone https://github.com/romkatv/zsh-defer.git "$omz_custom/plugins/zsh-defer"
 fi
+
+# zsh-autosuggestions — load before zsh-syntax-highlighting
+if [ ! -d "$omz_custom/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git "$omz_custom/plugins/zsh-autosuggestions"
+fi
+
+# zsh-syntax-highlighting — must be last in the plugins=() list in .zshrc
+if [ ! -d "$omz_custom/plugins/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$omz_custom/plugins/zsh-syntax-highlighting"
+fi

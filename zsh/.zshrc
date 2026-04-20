@@ -35,6 +35,8 @@ plugins=(
 	copyfile
 	copypath
 	fd-zsh
+	zsh-autosuggestions
+	zsh-syntax-highlighting
 )
 
 # Clone third-party OMZ plugins before oh-my-zsh.sh so first shell finds them.

@@ -10,16 +10,10 @@
 alias e:alias="code ~/.dotfiles/zsh/config/aliases"
 alias e:path="code ~/.dotfiles/zsh/config/paths"
 alias e:zshrc="code ~/.dotfiles/zsh/.zshrc"
-# Rewrite ~/.zshrc from the repo (including DOTFILES preamble) and reload — same idea as install.sh
-rzsh() {
-  [[ -z "${DOTFILES:-}" ]] && export DOTFILES="$HOME/.dotfiles"
-  {
-    printf '%s\n' "export DOTFILES=\"$DOTFILES\""
-    cat "$DOTFILES/zsh/.zshrc"
-  } > ~/.zshrc && builtin source ~/.zshrc
-}
 alias c="clear" # clear terminal
 alias x="exit" # closes terminal
+# Never alias `source` to `source ~/.zshrc` — it shadows the builtin and breaks every later `source` (recursion / job table full).
+alias rzsh="builtin source ~/.zshrc"
 
 # '########::'####:'########:::'######::::::::'##:'########:'####:'##:::::::'########::'######::
 #  ##.... ##:. ##:: ##.... ##:'##... ##::::::'##:: ##.....::. ##:: ##::::::: ##.....::'##... ##:
@@ -73,6 +67,15 @@ alias gcm='function _gcm(){ git commit -m "$1"; }; _gcm'
 
 # Bun
 alias bi="bun install"
+alias br="bun run"
+alias brd="bun run dev"
+alias brb="bun run build"
+alias brt="bun run test"
+alias brc="bun run check"
+alias brf="bun run fix"
+alias brl="bun run lint"
+alias brlf="bun run lint:fix"
+
 
 # Most used
 alias ni="npm i"
@@ -177,3 +180,5 @@ alias rm='trash'
 alias wttr="curl wttr.in"
 alias ping="gping"
 alias python="python3"
+
+alias gcm="git commit -m"

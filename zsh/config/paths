@@ -80,6 +80,10 @@ function yarn() {
 
 export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:$HOME/bin"
+# Bun: install.sh may add ~/.bun/bin after this shell started — re-source ~/.zshrc (or prepend here if missing)
+if [[ -x "${HOME}/.bun/bin/bun" ]] && [[ ":${PATH}:" != *":${HOME}/.bun/bin:"* ]]; then
+  export PATH="${HOME}/.bun/bin:$PATH"
+fi
 
 if [[ "$(uname -s)" == Darwin ]]; then
   export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
