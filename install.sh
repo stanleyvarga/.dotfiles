@@ -167,6 +167,25 @@ zcompile_zsh_configs() {
   ' || true
 }
 
+ensure_ricksay() {
+  if command -v ricksay >/dev/null 2>&1; then
+    echo "✅ ricksay is already installed"
+    return 0
+  fi
+  local pip=""
+  if [[ -x /opt/homebrew/opt/python@3.11/bin/pip3 ]]; then
+    pip=/opt/homebrew/opt/python@3.11/bin/pip3
+  elif command -v pip3 >/dev/null 2>&1; then
+    pip=$(command -v pip3)
+  fi
+  if [[ -z "$pip" ]]; then
+    echo "⚠️  pip3 not found — skip ricksay (install python@3.11 / pip3, then re-run)"
+    return 0
+  fi
+  echo "🔧 Installing ricksay (pip)"
+  "$pip" install --user ricksay || "$pip" install ricksay || echo "⚠️  ricksay install failed"
+}
+
 link_zshrc() {
   echo "🔗 Linking ~/.zshrc → $DOTFILES/zsh/.zshrc"
   link_file "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
@@ -260,6 +279,7 @@ run_macos_bundle_and_defaults
 link_zshrc
 ensure_user_zdotdir_for_ide_terminals
 install_zsh_plugin_repos
+ensure_ricksay
 zcompile_zsh_configs
 chmod_home_bin
 set_zsh_as_login_shell

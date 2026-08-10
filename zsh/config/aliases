@@ -14,6 +14,7 @@ alias c="clear" # clear terminal
 alias x="exit" # closes terminal
 # Never alias `source` to `source ~/.zshrc` — it shadows the builtin and breaks every later `source` (recursion / job table full).
 alias rzsh="builtin source ~/.zshrc"
+alias rzs="builtin source ~/.zshrc"
 
 # '########::'####:'########:::'######::::::::'##:'########:'####:'##:::::::'########::'######::
 #  ##.... ##:. ##:: ##.... ##:'##... ##::::::'##:: ##.....::. ##:: ##::::::: ##.....::'##... ##:

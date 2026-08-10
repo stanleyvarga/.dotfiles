@@ -35,5 +35,4 @@
 # ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢿⣷⣤⣿⣿⣆⠀⠀⠈⠙⠛⠛⠛⠛⠛⠉⠉⠀⢀⣠⣤⣤⣴⣶⣿⣿⣿⣿⣿⠿⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀
 # ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠻⢿⣿⣿⣿⣿⣷⣤⣴⣿⣶⣾⣿⣷⣶⣿⣿⣿⣿⠿⠛⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 
-# Optional: install a `ricksay` command and uncomment to run on startup
-# command -v ricksay >/dev/null && ricksay
+command -v ricksay >/dev/null && ricksay
