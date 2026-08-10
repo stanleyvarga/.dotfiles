@@ -63,6 +63,10 @@ The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`,
 - Open a **new** terminal (or log out and back in) so the login shell change applies.
 - On macOS, Xcode Command Line Tools are often required before Homebrew; if the Homebrew installer fails, install CLT first (`xcode-select --install`).
 
+### Custom binaries
+
+Scripts under `bin/bin/` are symlinked into `~/bin`. See [bin/bin/Readme.md](./bin/bin/Readme.md) for the available commands (`dotfiles`, `zsbrew`, `ytdl`, `ytdl-all`, etc.).
+
 ### VS Code / Cursor
 
 `vscode/settings.json` and `vscode/keybindings.json` are a **reference snapshot** — install does **not** overwrite live IDE settings (your Cursor/Code User files are usually newer). To apply manually:
