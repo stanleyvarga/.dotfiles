@@ -25,38 +25,23 @@ simulate_activity() {
     local steps=5
     local step_delay=$(echo "scale=2; $duration / $steps" | bc -l 2>/dev/null || echo "1")
     
-    echo "⌨️  Simulating keyboard activity for ${duration}s to keep Teams active..."
-    
     for ((i=0; i<steps; i++)); do
         # Press and release shift key (very subtle, won't interfere with typing)
         osascript -e 'tell application "System Events" to key down shift' 2>/dev/null
         sleep 0.1
         osascript -e 'tell application "System Events" to key up shift' 2>/dev/null
         
-        echo -n "."
         sleep "$step_delay"
     done
-    
-    echo ""
-    echo "✅ Activity simulation completed"
 }
 
 while true; do
-    echo "🔄 Starting new cycle..."
-    
     # Simulate keyboard activity to prevent Teams from going inactive
+    echo "☕️"
+    
     simulate_activity
     
-    echo "😴 Sleeping for ${sleep_duration}s..."
     sleep $sleep_duration
-    
-    # Play Among Us sound after each sleep cycle using existing command
-    echo "🔊 Playing sound..."
-    # Find dotfiles root using HOME directory
-    dotfiles_root="$HOME/.dotfiles"
-    "$dotfiles_root/bin/bin/play-sound" among-us 2>/dev/null || echo "⚠️  Sound failed to play"
-    echo "🎉 Cycle completed!"
-    echo "---"
 done
 
 
