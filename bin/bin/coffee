@@ -4,7 +4,7 @@
 stty -echoctl
 
 start_date=$(date +"%d-%m-%Y %H:%M")
-sleep_duration=$((4 * 60))
+sleep_duration=$((5))  # 5 seconds between cycles for testing
 
 caffeinate -d &
 
@@ -19,10 +19,44 @@ function quit_script {
 
 trap 'quit_script' INT  # Redirect error output to /dev/null
 
+# Function to simulate keyboard activity to keep Teams active
+simulate_activity() {
+    local duration=5  # 5 seconds for faster testing
+    local steps=5
+    local step_delay=$(echo "scale=2; $duration / $steps" | bc -l 2>/dev/null || echo "1")
+    
+    echo "⌨️  Simulating keyboard activity for ${duration}s to keep Teams active..."
+    
+    for ((i=0; i<steps; i++)); do
+        # Press and release shift key (very subtle, won't interfere with typing)
+        osascript -e 'tell application "System Events" to key down shift' 2>/dev/null
+        sleep 0.1
+        osascript -e 'tell application "System Events" to key up shift' 2>/dev/null
+        
+        echo -n "."
+        sleep "$step_delay"
+    done
+    
+    echo ""
+    echo "✅ Activity simulation completed"
+}
+
 while true; do
-    osascript -e 'tell application "Microsoft Teams" to activate'
-    osascript -e 'tell application "System Events" to keystroke "2" using {command down}'
+    echo "🔄 Starting new cycle..."
+    
+    # Simulate keyboard activity to prevent Teams from going inactive
+    simulate_activity
+    
+    echo "😴 Sleeping for ${sleep_duration}s..."
     sleep $sleep_duration
+    
+    # Play Among Us sound after each sleep cycle using existing command
+    echo "🔊 Playing sound..."
+    # Find dotfiles root using HOME directory
+    dotfiles_root="$HOME/.dotfiles"
+    "$dotfiles_root/bin/bin/play-sound" among-us 2>/dev/null || echo "⚠️  Sound failed to play"
+    echo "🎉 Cycle completed!"
+    echo "---"
 done
 
 

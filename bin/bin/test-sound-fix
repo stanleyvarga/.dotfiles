@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+# Test script to verify sound playing functionality
+echo "Testing sound playback with fixed path resolution..."
+
+# Get the directory where this script is located and navigate to the dotfiles root
+script_dir="$(dirname "$0")"
+dotfiles_root="$(cd "$script_dir/../.." && pwd)"
+sound_file="$dotfiles_root/sound/among-us.mp3"
+
+echo "Script directory: $script_dir"
+echo "Dotfiles root: $dotfiles_root"
+echo "Sound file path: $sound_file"
+
+if [ -f "$sound_file" ]; then
+    echo "✅ Found sound file: $sound_file"
+    echo "🔊 Playing Among Us sound..."
+    afplay "$sound_file"
+    echo "✅ Sound playback completed!"
+else
+    echo "❌ Error: Sound file not found at $sound_file"
+    echo "Current working directory: $(pwd)"
+    echo "Listing sound directory contents:"
+    ls -la "$dotfiles_root/sound/" 2>/dev/null || echo "Could not list sound directory"
+    exit 1
+fi

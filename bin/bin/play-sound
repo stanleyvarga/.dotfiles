@@ -1,0 +1,49 @@
+#!/bin/zsh
+
+# Sound player utility for dotfiles
+# Usage: play-sound [sound-name]
+# Examples: play-sound among-us, play-sound yeah-boy
+
+# Get the directory where this script is located and navigate to the dotfiles root
+script_dir="$(dirname "$0")"
+dotfiles_root="$(cd "$script_dir/../.." && pwd)"
+sound_dir="$dotfiles_root/sound"
+
+# Default sound if none specified
+default_sound="among-us"
+
+# Function to list available sounds
+list_sounds() {
+    echo "Available sounds:"
+    for file in "$sound_dir"/*.mp3; do
+        if [ -f "$file" ]; then
+            basename "$file" .mp3
+        fi
+    done
+}
+
+# Function to play a sound
+play_sound() {
+    local sound_name="$1"
+    local sound_file="$sound_dir/${sound_name}.mp3"
+    
+    if [ -f "$sound_file" ]; then
+        echo "Playing: $sound_name"
+        afplay "$sound_file"
+        echo "Sound playback completed!"
+    else
+        echo "Error: Sound file not found: $sound_file"
+        echo ""
+        list_sounds
+        exit 1
+    fi
+}
+
+# Main logic
+if [ "$1" = "--list" ] || [ "$1" = "-l" ]; then
+    list_sounds
+elif [ -n "$1" ]; then
+    play_sound "$1"
+else
+    play_sound "$default_sound"
+fi

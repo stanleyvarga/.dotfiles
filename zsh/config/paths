@@ -53,5 +53,11 @@ export PERL_LOCAL_LIB_ROOT="/Users/stanislavvarga/perl5${PERL_LOCAL_LIB_ROOT:+:$
 export PERL_MB_OPT="--install_base \"/Users/stanislavvarga/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=/Users/stanislavvarga/perl5"
 
+# .NET Core configuration
+export DOTNET_ROOT="/usr/local/share/dotnet"
+export PATH="/usr/local/share/dotnet:$PATH"
+
+export PATH="$HOME/.local/bin:$PATH"
+
 export EDITOR="vim"
 export OS_EDITOR="code"

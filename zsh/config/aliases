@@ -66,6 +66,10 @@ alias gcm='function _gcm(){ git commit -m "$1"; }; _gcm'
 
 # Bun
 alias bi="bun install"
+alias brd="bun run dev"
+alias brf="bun run lint:fix"
+alias brt="bun run test"
+
 
 # Most used
 alias ni="npm i"

@@ -15,7 +15,10 @@ load_env() {
     # Source the .env file to load variables
     source "$env_file"
   else
-    echo "No .env file found at $env_file"
+    # Only warn about missing .env when DEBUG is enabled
+    if [[ "${DEBUG:-false}" == "true" ]]; then
+      echo "No .env file found at $env_file"
+    fi
   fi
   
   # Set default values if not defined in .env
@@ -63,10 +66,15 @@ print_banner() {
   echo ""
 }
 
+# Detect invoked name (basename of the script); fallback to default
+INVOKED_NAME="${0:t}"
+if [[ -z "$INVOKED_NAME" ]]; then INVOKED_NAME="wp-ngn"; fi
+
 # Function to print usage/help
 print_usage() {
-  cat <<'EOF'
-Usage: wp-ngn [options]
+  local name="$INVOKED_NAME"
+  cat <<EOF
+Usage: ${name} [options]
 
 Options:
   --help, -h, help         Show this help and exit
@@ -85,12 +93,12 @@ Environment/config (can be set via .env or env vars):
   CONFIG_FILE      Config file path (default: $CONFIG_DIR/config.json)
 
 Examples:
-  wp-ngn --random
-  wp-ngn --random --screens main
-  wp-ngn --dynamic
-  wp-ngn --list-screens
-  wp-ngn --name-screen 1 "Left Monitor"
-  wp-ngn --sync-screens
+  ${name} --random
+  ${name} --random --screens main
+  ${name} --dynamic
+  ${name} --list-screens
+  ${name} --name-screen 1 "Left Monitor"
+  ${name} --sync-screens
 EOF
 }
 
