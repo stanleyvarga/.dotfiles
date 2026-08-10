@@ -49,7 +49,7 @@ chmod +x install.sh   # first clone only, if needed
 ./install.sh
 ```
 
-The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, and `root` into your home directory (no GNU stow), installs Oh My Zsh if missing, then on **macOS** installs Homebrew if missing and runs `brew bundle` from `homebrew/Brewfile`, and on **Debian/Ubuntu** runs `apt` to install `git`, `curl`, `zsh`, `eza`, and by default `bat`, `fd-find`, `fzf`, and `jq`. At the end it sets **zsh as your login shell** with `chsh` (you may be prompted for your account password). If your zsh binary is not listed in `/etc/shells` (common for Homebrew’s zsh on macOS), the script adds it with `sudo` first.
+The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`, and `~/.zshrc` → `zsh/.zshrc` into your home directory (no GNU stow), installs Oh My Zsh if missing, then on **macOS** installs Homebrew if missing and runs `brew bundle` from `homebrew/Brewfile`, and on **Debian/Ubuntu** runs `apt` to install `git`, `curl`, `zsh`, `eza`, and by default `bat`, `fd-find`, `fzf`, and `jq`. At the end it sets **zsh as your login shell** with `chsh` (you may be prompted for your account password). If your zsh binary is not listed in `/etc/shells` (common for Homebrew’s zsh on macOS), the script adds it with `sudo` first.
 
 **Optional environment variables**
 
@@ -59,9 +59,25 @@ The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, and `ro
 
 **After install**
 
-- After you **pull changes** to this repo, run `./install.sh` again so `~/.zshrc` is regenerated from `zsh/.zshrc` (with `DOTFILES` set). Otherwise your home copy can point at removed files (for example old plugin paths).
+- After you **pull** shell/config changes, open a new terminal (or `rzsh`) — `~/.zshrc` is a symlink into the repo, so pulls apply without re-running install. Re-run `./install.sh` when you need new brew packages, plugin clones, or bin/git/root re-links.
 - Open a **new** terminal (or log out and back in) so the login shell change applies.
 - On macOS, Xcode Command Line Tools are often required before Homebrew; if the Homebrew installer fails, install CLT first (`xcode-select --install`).
+
+### VS Code / Cursor
+
+`vscode/settings.json` and `vscode/keybindings.json` are a **reference snapshot** — install does **not** overwrite live IDE settings (your Cursor/Code User files are usually newer). To apply manually:
+
+```bash
+# Cursor (macOS)
+cp "$DOTFILES/vscode/settings.json" "$HOME/Library/Application Support/Cursor/User/settings.json"
+cp "$DOTFILES/vscode/keybindings.json" "$HOME/Library/Application Support/Cursor/User/keybindings.json"
+
+# VS Code (macOS)
+cp "$DOTFILES/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
+cp "$DOTFILES/vscode/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json"
+```
+
+Prefer diffing against your live files before copying.
 
 - Startup takes around 0.1 - 0.2 seconds 🎉
 - I use shitload of plugins & aliases

@@ -72,7 +72,7 @@ ensure_bun_linux() {
     return 0
   fi
   echo "🔧 Installing bun (https://bun.sh)"
-  # Prefer zsh so the installer's optional rc snippets match your login shell (write_zshrc still replaces ~/.zshrc).
+  # Prefer zsh so the installer's optional rc snippets match your login shell.
   curl -fsSL https://bun.sh/install | SHELL="${SHELL:-/bin/zsh}" bash
   if [[ -x "${HOME}/.bun/bin/bun" ]]; then
     echo "💡 bun is on disk. This terminal's PATH is unchanged until you run: source ~/.zshrc  (or open a new tab)"
@@ -134,11 +134,9 @@ install_zsh_plugin_repos() {
   bash "$DOTFILES/zsh/plugins/install"
 }
 
-write_zshrc() {
-  {
-    printf '%s\n' "export DOTFILES=\"$DOTFILES\""
-    cat "$DOTFILES/zsh/.zshrc"
-  } >"$HOME/.zshrc"
+link_zshrc() {
+  echo "🔗 Linking ~/.zshrc → $DOTFILES/zsh/.zshrc"
+  link_file "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
 }
 
 # Cursor/VS Code zsh shell integration sources $USER_ZDOTDIR/.zshrc before normal startup
@@ -150,6 +148,14 @@ ensure_user_zdotdir_for_ide_terminals() {
     printf 'USER_ZDOTDIR=%s\n' "$HOME" >"$HOME/.config/environment.d/99-dotfiles-user-zdotdir.conf"
     echo "📝 Wrote ~/.config/environment.d/99-dotfiles-user-zdotdir.conf (USER_ZDOTDIR=$HOME)"
     echo "   Restart Cursor/your session so integrated terminals inherit USER_ZDOTDIR."
+  fi
+}
+
+# vscode/ is a reference snapshot only — not auto-linked (live Cursor/Code User settings
+# are usually newer). See README "VS Code / Cursor".
+note_vscode_reference() {
+  if [[ -d "$DOTFILES/vscode" ]]; then
+    echo "💡 vscode/ is reference-only (not linked). Copy manually if you want those settings."
   fi
 }
 
@@ -218,11 +224,12 @@ ensure_bun_linux
 symlink_dotfiles
 install_oh_my_zsh
 run_macos_bundle_and_defaults
-write_zshrc
+link_zshrc
 ensure_user_zdotdir_for_ide_terminals
 install_zsh_plugin_repos
 chmod_home_bin
 set_zsh_as_login_shell
+note_vscode_reference
 
 echo "🎉 Installation complete!"
 if [[ -x "${HOME}/.bun/bin/bun" ]] && ! command -v bun >/dev/null 2>&1; then

@@ -7,9 +7,9 @@
 #  ########:. ######:: ##:::: ##:
 # ........:::......:::..:::::..::
 
-alias e:alias="code ~/.dotfiles/zsh/config/aliases"
-alias e:path="code ~/.dotfiles/zsh/config/paths"
-alias e:zshrc="code ~/.dotfiles/zsh/.zshrc"
+alias e:alias="code $DOTFILES/zsh/config/aliases"
+alias e:path="code $DOTFILES/zsh/config/paths"
+alias e:zshrc="code $DOTFILES/zsh/.zshrc"
 alias c="clear" # clear terminal
 alias x="exit" # closes terminal
 # Never alias `source` to `source ~/.zshrc` — it shadows the builtin and breaks every later `source` (recursion / job table full).
@@ -37,7 +37,7 @@ d='dirs -v | head -10' ## Directories Lookup
 8='cd -8'
 9='cd -9'
 
-grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}' ## Files lookup
+alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}' ## Files lookup
 alias -g G='| grep -i'
 
 # Group directories first, show icons, and enable file size color scale
@@ -179,5 +179,3 @@ alias rm='trash'
 alias wttr="curl wttr.in"
 alias ping="gping"
 alias python="python3"
-
-alias gcm="git commit -m"

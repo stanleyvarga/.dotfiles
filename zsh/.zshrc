@@ -8,14 +8,19 @@
 #:.......:::..:::::..::::..:::::..:::::..:::::::........:::......:::..:::::..::
 
 export ZSH="$HOME/.oh-my-zsh"
-# DOTFILES: install.sh prepends export DOTFILES="..." to ~/.zshrc. If that line is missing or wrong,
-# find a checkout that contains zsh/config/aliases (fixes "command not found: l" etc.).
+# DOTFILES: resolve from this file when ~/.zshrc is a symlink into the checkout.
+# Fallback: common clone paths (fixes "command not found: l" etc. if detection fails).
 if [[ -z "${DOTFILES:-}" || ! -f "${DOTFILES}/zsh/config/aliases" ]]; then
   unset DOTFILES
-  for _df in "$HOME/.dotfiles" "$HOME/Documents/dev/.dotfiles" "$HOME/dev/.dotfiles"; do
-    [[ -f "$_df/zsh/config/aliases" ]] && export DOTFILES="$_df" && break
-  done
-  unset _df
+  _zshrc="${${(%):-%x}:A}"
+  if [[ -n "$_zshrc" && -f "${_zshrc:h}/config/aliases" ]]; then
+    export DOTFILES="${_zshrc:h:h}"
+  else
+    for _df in "$HOME/.dotfiles" "$HOME/Documents/dev/.dotfiles" "$HOME/dev/.dotfiles"; do
+      [[ -f "$_df/zsh/config/aliases" ]] && export DOTFILES="$_df" && break
+    done
+  fi
+  unset _zshrc _df
 fi
 [[ -z "${DOTFILES:-}" ]] && export DOTFILES="$HOME/.dotfiles"
 export LANG=en_US.UTF-8
