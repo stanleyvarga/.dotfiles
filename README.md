@@ -49,7 +49,7 @@ chmod +x install.sh   # first clone only, if needed
 ./install.sh
 ```
 
-The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`, and `~/.zshrc` → `zsh/.zshrc` into your home directory (no GNU stow), installs Oh My Zsh if missing, then on **macOS** installs Homebrew if missing and runs `brew bundle` from `homebrew/Brewfile`, and on **Debian/Ubuntu** runs `apt` to install `git`, `curl`, `zsh`, `eza`, and by default `bat`, `fd-find`, `fzf`, and `jq`. At the end it sets **zsh as your login shell** with `chsh` (you may be prompted for your account password). If your zsh binary is not listed in `/etc/shells` (common for Homebrew’s zsh on macOS), the script adds it with `sudo` first.
+The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`, and `~/.zshrc` → `zsh/.zshrc` into your home directory (no GNU stow), installs Oh My Zsh if missing, then on **macOS** installs Homebrew if missing and runs `brew bundle` **only when the Brewfile has missing packages** (use `zsbrew` to sync/upgrade), and on **Debian/Ubuntu** runs `apt` to install `git`, `curl`, `zsh`, `eza`, and by default `bat`, `fd-find`, `fzf`, and `jq`. At the end it sets **zsh as your login shell** with `chsh` (you may be prompted for your account password). If your zsh binary is not listed in `/etc/shells` (common for Homebrew’s zsh on macOS), the script adds it with `sudo` first.
 
 **Optional environment variables**
 

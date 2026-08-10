@@ -6,7 +6,9 @@ This binary simply installs/updates dotfiles
 
 ### zsbrew
 
-This binary install contents of $DOTFILES/homebrew/Brewfile
+Sync/upgrade packages from `$DOTFILES/homebrew/Brewfile` (`brew bundle install`).
+
+`dotfiles` only runs brew when something in the Brewfile is missing — use this when you want a full Homebrew sync.
 
 ### transcribe
 

@@ -126,9 +126,12 @@ run_macos_bundle_and_defaults() {
   ensure_homebrew
   if [[ "${SKIP_BREW_BUNDLE:-}" == "1" ]]; then
     echo "⏭️  SKIP_BREW_BUNDLE=1 — skipping brew bundle"
+  elif brew bundle check --file="$DOTFILES/homebrew/Brewfile" >/dev/null 2>&1; then
+    echo "✅ Brewfile already satisfied — skip brew bundle (use zsbrew to sync/upgrade)"
   else
-    echo "🔧 Installing macOS packages (brew bundle)"
-    brew bundle --file="$DOTFILES/homebrew/Brewfile"
+    echo "🔧 Brewfile has missing packages — running brew bundle"
+    # Install missing only; upgrades are intentional via zsbrew
+    brew bundle install --no-upgrade --file="$DOTFILES/homebrew/Brewfile"
   fi
   echo "🔧 Setting macOS defaults"
   chmod +x "$DOTFILES/macos/set-defaults"
@@ -139,6 +142,29 @@ install_zsh_plugin_repos() {
   echo "🔧 Installing Oh My Zsh custom plugin repos"
   chmod +x "$DOTFILES/zsh/plugins/install"
   bash "$DOTFILES/zsh/plugins/install"
+}
+
+zcompile_zsh_configs() {
+  if ! command -v zsh >/dev/null 2>&1; then
+    return 0
+  fi
+  echo "⚡ Compiling zsh configs (.zwc)"
+  zsh -c '
+    setopt extendedglob
+    for f in \
+      "$DOTFILES/zsh/.zshrc" \
+      "$DOTFILES/zsh/zsh.init" \
+      "$DOTFILES/zsh/config/aliases" \
+      "$DOTFILES/zsh/config/eval" \
+      "$DOTFILES/zsh/config/functions" \
+      "$DOTFILES/zsh/config/paths" \
+      "$DOTFILES/zsh/plugins/lazy-docker.zsh" \
+      "$DOTFILES/zsh/plugins/alias-finder"
+    do
+      [[ -r $f ]] || continue
+      zcompile -U "$f" 2>/dev/null || true
+    done
+  ' || true
 }
 
 link_zshrc() {
@@ -234,6 +260,7 @@ run_macos_bundle_and_defaults
 link_zshrc
 ensure_user_zdotdir_for_ide_terminals
 install_zsh_plugin_repos
+zcompile_zsh_configs
 chmod_home_bin
 set_zsh_as_login_shell
 note_vscode_reference

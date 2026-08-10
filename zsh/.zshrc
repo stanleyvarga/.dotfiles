@@ -30,7 +30,34 @@ ZSH_THEME="robbyrussell"
 unsetopt restricted 2>/dev/null
 [[ -n "${IFS+x}" ]] && unset IFS
 
-# zsh-defer first so deferred loaders in config/eval work. Heavy tools load via config/eval (zoxide, thefuck, atuin).
+# --- Fast startup ---
+# Skip OMZ upgrade ping + insecure-dir audit (compaudit was a large share of startup).
+DISABLE_AUTO_UPDATE=true
+DISABLE_UPDATE_PROMPT=true
+ZSH_DISABLE_COMPFIX=true
+
+# Cached completions: -C when dump is <24h old; full rebuild (+ zcompile) otherwise.
+# Shadows OMZ's compinit call so we keep all plugins without paying full discovery every shell.
+autoload -Uz +X compinit
+functions[_dotfiles_compinit]=$functions[compinit]
+compinit() {
+  setopt localoptions extendedglob
+  local dump=${ZSH_COMPDUMP:-${ZDOTDIR:-$HOME}/.zcompdump}
+  local -a args
+  args=("$@")
+  integer i=${args[(I)-d]}
+  if (( i && i < $#args )); then
+    dump=${args[i+1]}
+  fi
+  if [[ ! -s "$dump" || -n "$dump"(#qN.mh+24) ]]; then
+    _dotfiles_compinit -u -d "$dump"
+    [[ -s "$dump" ]] && zcompile -U "$dump" 2>/dev/null || true
+  else
+    _dotfiles_compinit -C -d "$dump"
+  fi
+}
+
+# zsh-defer first so deferred loaders work. Heavy tools: on-demand wrappers in config/eval.
 plugins=(
 	zsh-defer
 	you-should-use
@@ -44,9 +71,8 @@ plugins=(
 	zsh-syntax-highlighting
 )
 
-# Clone third-party OMZ plugins before oh-my-zsh.sh so first shell finds them.
-source "$DOTFILES/zsh/plugins/install"
 # zstyle for alias-finder must be set before OMZ loads the plugin
+# (plugin clones live in install.sh — not re-checked every shell)
 source "$DOTFILES/zsh/plugins/alias-finder"
 source "$ZSH/oh-my-zsh.sh"
 
@@ -58,11 +84,21 @@ source "$ZSH/oh-my-zsh.sh"
 # ##::: ##: ##:::: ##:'##::: ##:::: ##:::: ##:::: ##: ##:.:: ##:
 #. ######::. #######::. ######::::: ##::::. #######:: ##:::: ##:
 #:......::::.......::::......::::::..::::::.......:::..:::::..::
-source "$DOTFILES/zsh/config/aliases"
-source "$DOTFILES/zsh/config/eval"
-source "$DOTFILES/zsh/config/functions"
-source "$DOTFILES/zsh/config/paths"
 
-source "$DOTFILES/zsh/plugins/lazy-docker.zsh"
+# Source configs (prefer .zwc when newer — see _dotfiles_source)
+_dotfiles_source() {
+  local f=$1
+  [[ -r $f ]] || return 1
+  if [[ ! -s $f.zwc || $f -nt $f.zwc ]]; then
+    zcompile -U "$f" 2>/dev/null || true
+  fi
+  source "$f"
+}
 
-source "$DOTFILES/zsh/zsh.init"
+_dotfiles_source "$DOTFILES/zsh/config/aliases"
+_dotfiles_source "$DOTFILES/zsh/config/eval"
+_dotfiles_source "$DOTFILES/zsh/config/functions"
+_dotfiles_source "$DOTFILES/zsh/config/paths"
+_dotfiles_source "$DOTFILES/zsh/plugins/lazy-docker.zsh"
+_dotfiles_source "$DOTFILES/zsh/zsh.init"
+unfunction _dotfiles_source 2>/dev/null || true

@@ -1,40 +1,20 @@
-# Optimized eval file with lazy loading
-# Instead of evaluating everything at startup, we'll defer heavy operations
-
-# SSH agent: only when no agent and we likely need one (private keys present)
-if [[ -z "${SSH_AUTH_SOCK:-}" ]] && [[ -z "${SSH_AGENT_PID:-}" ]]; then
-  _ssh_has_private_key() {
-    local f
-    for f in "$HOME"/.ssh/id_*; do
-      [[ -f "$f" ]] || continue
-      [[ "$f" == *.pub ]] && continue
-      return 0
-    done
-    return 1
-  }
-  if _ssh_has_private_key; then
-    eval "$(ssh-agent -s)" >/dev/null 2>&1
-  fi
-  unfunction _ssh_has_private_key 2>/dev/null || true
-fi
+# Optimized eval — on-demand lazy wrappers only (no background warmups).
 
 # Helper: command_exists
 command_exists() { command -v "$1" &>/dev/null }
 
-# Ensure zsh-defer is available (load from OMZ custom plugins or standalone), else define a shim
+# Ensure zsh-defer is available (OMZ plugin or standalone), else define a shim
 if ! typeset -f zsh-defer >/dev/null; then
   if [[ -r "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-defer/zsh-defer.plugin.zsh" ]]; then
     source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-defer/zsh-defer.plugin.zsh"
   elif [[ -r "$HOME/.zsh-defer/zsh-defer.plugin.zsh" ]]; then
     source "$HOME/.zsh-defer/zsh-defer.plugin.zsh"
   else
-    zsh-defer() {
-      "$@"
-    }
+    zsh-defer() { "$@"; }
   fi
 fi
 
-# Portable defer wrapper that accepts optional -t <delay> and runs in background
+# Portable defer wrapper (used by lazy-docker on chpwd)
 zdefer() {
   local delay=0
   if [[ "$1" == "-t" && -n "$2" ]]; then
@@ -51,23 +31,7 @@ zdefer() {
   } &!
 }
 
-# Warm up heavy tools after first prompt using portable wrapper (single atuin init — no vendored duplicate)
-if typeset -f zdefer >/dev/null; then
-  if command_exists zoxide; then
-    zdefer -t 0.5 eval "$(zoxide init zsh)"
-  fi
-  if command_exists thefuck; then
-    zdefer -t 0.6 eval "$(thefuck --alias)"
-  fi
-  if command_exists atuin; then
-    zdefer -t 0.7 eval "$(atuin init zsh)"
-  fi
-  if command_exists rbenv; then
-    zdefer -t 0.9 eval "$(rbenv init - zsh)"
-  fi
-fi
-
-# Keep zero-cost lazy wrappers so commands still work immediately on demand
+# Zero-cost lazy wrappers — init runs on first use only
 if command_exists zoxide; then
   function z() {
     unfunction z
@@ -89,5 +53,13 @@ if command_exists rbenv; then
     unfunction rbenv
     eval "$(rbenv init - zsh)"
     rbenv "$@"
+  }
+fi
+
+if command_exists atuin; then
+  function atuin() {
+    unfunction atuin
+    eval "$(command atuin init zsh)"
+    atuin "$@"
   }
 fi
