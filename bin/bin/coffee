@@ -36,7 +36,6 @@ simulate_activity() {
 }
 
 while true; do
-    # Simulate keyboard activity to prevent Teams from going inactive
     echo "☕️"
     
     simulate_activity
