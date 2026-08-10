@@ -19,7 +19,6 @@ function quit_script {
 
 trap 'quit_script' INT  # Redirect error output to /dev/null
 
-# Function to simulate keyboard activity to keep Teams active
 simulate_activity() {
     local duration=5  # 5 seconds for faster testing
     local steps=5
