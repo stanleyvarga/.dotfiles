@@ -18,10 +18,17 @@ link_file() {
 link_dir_contents() {
   local src_dir=$1 dest_dir=$2
   mkdir -p "$dest_dir"
+  local src_real dest_real
+  src_real=$(cd "$src_dir" && pwd -P)
+  dest_real=$(cd "$dest_dir" && pwd -P)
+  if [[ "$src_real" == "$dest_real" ]]; then
+    echo "⚠️  Refusing to link $src_dir into itself via $dest_dir (would replace scripts with self-symlinks)"
+    return 1
+  fi
   local f
   shopt -s nullglob
   for f in "$src_dir"/*; do
-    [[ -e "$f" ]] || continue
+    [[ -e "$f" || -L "$f" ]] || continue
     ln -sf "$f" "$dest_dir/$(basename "$f")"
   done
   shopt -u nullglob

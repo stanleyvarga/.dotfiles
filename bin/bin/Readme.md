@@ -34,6 +34,16 @@ check help for usage:
 ytdl --help
 ```
 
+### ytdl-all
+
+Parallel multi-URL downloader (`yt-dlp` + GNU `parallel`):
+
+```sh
+ytdl-all --help
+ytdl-all --jobs 3 "URL1" "URL2"
+ytdl-all --file urls.txt -j 4
+```
+
 ### whats-in-port
 
 Useful to check what runs on a given port
