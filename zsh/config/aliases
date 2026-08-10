@@ -72,9 +72,8 @@ alias brd="bun run dev"
 alias brb="bun run build"
 alias brt="bun run test"
 alias brc="bun run check"
-alias brf="bun run fix"
 alias brl="bun run lint"
-alias brlf="bun run lint:fix"
+alias brf="bun run lint:fix"
 
 
 # Most used

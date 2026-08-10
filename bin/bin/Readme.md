@@ -8,6 +8,23 @@ This binary simply installs/updates dotfiles
 
 This binary install contents of $DOTFILES/homebrew/Brewfile
 
+### transcribe
+
+Symlink to the dev repo at `~/Documents/dev/transcribe/transcribe.sh`. Edits in the repo are picked up immediately.
+
+```sh
+transcribe --help
+transcribe --subtitles "https://www.youtube.com/watch?v=VIDEO_ID"
+transcribe podcast.mp3
+```
+
+Re-link after moving the repo:
+
+```sh
+ln -sf /path/to/transcribe/transcribe.sh ~/.dotfiles/bin/bin/transcribe
+ln -sf /path/to/transcribe/transcribe.sh ~/bin/transcribe
+```
+
 ### ytdl
 
 This binary helps with downloading best quality audio or video

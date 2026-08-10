@@ -1,0 +1,94 @@
+#!/bin/zsh
+
+# Standalone cursor movement script for testing
+# Usage: move-cursor [duration] [radius] [center_x] [center_y]
+
+# Default values
+duration=${1:-20}      # Duration in seconds (default: 20)
+radius=${2:-50}        # Circle radius in pixels (default: 50)
+center_x=${3:-500}     # Center X coordinate (default: 500)
+center_y=${4:-300}     # Center Y coordinate (default: 300)
+steps=40               # Number of steps to complete the circle
+
+echo "🖱️  Moving cursor in circle:"
+echo "   Duration: ${duration}s"
+echo "   Radius: ${radius}px"
+echo "   Center: (${center_x}, ${center_y})"
+echo "   Steps: ${steps}"
+echo ""
+
+# Check if we have accessibility permissions
+check_permissions() {
+    echo "🔐 Checking accessibility permissions..."
+    
+    # Test if we can get current cursor position
+    if osascript -e 'tell application "System Events" to get cursor location' 2>/dev/null | grep -q ","; then
+        echo "✅ Accessibility permissions granted"
+        return 0
+    else
+        echo "❌ Accessibility permissions required!"
+        echo ""
+        echo "To grant permissions:"
+        echo "1. Go to System Preferences > Security & Privacy > Privacy > Accessibility"
+        echo "2. Add Terminal (or your terminal app) to the list"
+        echo "3. Check the box to allow control"
+        echo "4. Restart your terminal and try again"
+        echo ""
+        return 1
+    fi
+}
+
+# Function to move cursor in a circle
+move_cursor_circle() {
+    echo "Starting cursor movement..."
+    
+    local success_count=0
+    local fail_count=0
+    
+    for ((i=0; i<=steps; i++)); do
+        # Calculate position on circle
+        local angle=$((i * 360 / steps))
+        
+        # Use bc if available, otherwise use simplified math
+        if command -v bc &> /dev/null; then
+            local radian=$(echo "scale=6; $angle * 3.14159 / 180" | bc -l)
+            local x=$(echo "scale=0; $center_x + $radius * c($radian)" | bc -l | cut -d. -f1)
+            local y=$(echo "scale=0; $center_y + $radius * s($radian)" | bc -l | cut -d. -f1)
+        else
+            # Simplified math using awk for basic trig functions
+            local x=$((center_x + radius * (angle * 314 / 180) / 100))
+            local y=$((center_y + radius * (angle * 314 / 180) / 100))
+        fi
+        
+        # Ensure coordinates are within reasonable bounds
+        x=$((x < 0 ? 0 : x))
+        y=$((y < 0 ? 0 : y))
+        
+        # Move cursor to position using proper AppleScript syntax
+        if osascript -e "tell application \"System Events\" to set cursor location to {$x, $y}" 2>/dev/null; then
+            echo -n "."
+            ((success_count++))
+        else
+            echo -n "x"
+            ((fail_count++))
+        fi
+        
+        # Sleep between movements
+        local step_delay=$(echo "scale=2; $duration / $steps" | bc -l 2>/dev/null || echo "0.5")
+        sleep "$step_delay"
+    done
+    
+    echo ""
+    echo "✅ Cursor movement completed!"
+    echo "   Successful moves: $success_count"
+    echo "   Failed moves: $fail_count"
+}
+
+# Check permissions first
+if check_permissions; then
+    # Run the cursor movement
+    move_cursor_circle
+else
+    echo "Exiting due to permission issues."
+    exit 1
+fi
