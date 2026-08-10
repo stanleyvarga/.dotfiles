@@ -3,3 +3,7 @@
 .vscode
 /_automac/**/*
 /external/
+
+# Font packages — install locally; see fonts/README.md
+/fonts/**
+!/fonts/README.md
