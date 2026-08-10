@@ -1,7 +1,7 @@
 
 ## `.dotfiles`
 
-Ballad of `Dotfileschantment`
+Ballad of `Dotfiles`
 
 >In a land where *nix reigns supreme,  
 >A tale unfolds, a geek's daydream,  
