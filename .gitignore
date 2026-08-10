@@ -7,3 +7,6 @@
 # Font packages — install locally; see fonts/README.md
 /fonts/**
 !/fonts/README.md
+
+# Runtime logs (sleepwatcher, wallpaper scheduler, etc.)
+/logs/
