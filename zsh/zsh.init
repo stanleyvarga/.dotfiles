@@ -35,4 +35,11 @@
 # ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢿⣷⣤⣿⣿⣆⠀⠀⠈⠙⠛⠛⠛⠛⠛⠉⠉⠀⢀⣠⣤⣤⣴⣶⣿⣿⣿⣿⣿⠿⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀
 # ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠻⢿⣿⣿⣿⣿⣷⣤⣴⣿⣶⣾⣿⣷⣶⣿⣿⣿⣿⠿⠛⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 
-command -v ricksay >/dev/null && ricksay
+# After prompt. -1 keeps stdout (zsh-defer otherwise sends it to /dev/null).
+if command -v ricksay >/dev/null; then
+  if typeset -f zsh-defer >/dev/null; then
+    zsh-defer -1 ricksay
+  else
+    ricksay
+  fi
+fi

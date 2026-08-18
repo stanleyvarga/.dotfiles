@@ -51,7 +51,7 @@ fi
 if command_exists rbenv; then
   function rbenv() {
     unfunction rbenv
-    eval "$(rbenv init - zsh)"
+    eval "$(command rbenv init - --no-rehash zsh)"
     rbenv "$@"
   }
 fi

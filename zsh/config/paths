@@ -109,5 +109,10 @@ export PATH="/usr/local/share/dotnet:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
 
+# Last so shims beat /usr/bin/ruby. Full `rbenv init` stays lazy in config/eval.
+if [[ -d "${HOME}/.rbenv/shims" ]]; then
+  export PATH="${HOME}/.rbenv/shims:${PATH}"
+fi
+
 export EDITOR="vim"
 export OS_EDITOR="code"
