@@ -102,3 +102,5 @@ _dotfiles_source "$DOTFILES/zsh/config/paths"
 _dotfiles_source "$DOTFILES/zsh/plugins/lazy-docker.zsh"
 _dotfiles_source "$DOTFILES/zsh/zsh.init"
 unfunction _dotfiles_source 2>/dev/null || true
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

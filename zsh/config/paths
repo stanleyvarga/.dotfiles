@@ -1,6 +1,7 @@
 # Optimized paths with lazy NVM loading
 export PYENV_ROOT="$HOME/.pyenv"
 export NVM_DIR="$HOME/.nvm"
+export PATH="$HOME/.agentmemory/bin:$PATH"
 
 # Lazy load NVM — Homebrew layout on macOS, standard ~/.nvm on Linux
 _nvm_script() {
