@@ -80,6 +80,30 @@ ensure_linux_cli_shims() {
   fi
 }
 
+ensure_zoxide_linux() {
+  if ! is_linux; then
+    return 0
+  fi
+  if [[ "${INSTALL_LINUX_EXTRAS:-1}" == "0" ]]; then
+    return 0
+  fi
+  if command -v zoxide >/dev/null 2>&1; then
+    echo "✅ zoxide is already installed"
+    return 0
+  fi
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "⚠️  curl not found; install curl then re-run install.sh for zoxide"
+    return 0
+  fi
+  echo "🔧 Installing zoxide (https://github.com/ajeetdsouza/zoxide)"
+  # Official Linux installer writes to ~/.local/bin (already on PATH via zsh/config/paths).
+  # Ubuntu/Debian apt packages lag; the installer is the documented Linux path.
+  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+  if [[ -x "${HOME}/.local/bin/zoxide" ]]; then
+    echo "💡 zoxide is on disk. Open a new terminal or run: source ~/.zshrc"
+  fi
+}
+
 ensure_bun_linux() {
   if ! is_linux; then
     return 0
@@ -291,6 +315,7 @@ set_zsh_as_login_shell() {
 
 ensure_linux_basics
 ensure_linux_cli_shims
+ensure_zoxide_linux
 ensure_bun_linux
 symlink_dotfiles
 install_oh_my_zsh
@@ -309,7 +334,7 @@ if [[ -x "${HOME}/.bun/bin/bun" ]] && ! command -v bun >/dev/null 2>&1; then
   echo "💡 bun is installed but not on PATH in this shell yet — run: source ~/.zshrc"
 fi
 if is_linux && has_apt && [[ "${INSTALL_LINUX_EXTRAS:-1}" == "0" ]]; then
-  echo "💡 Skipped fd-find, fzf, jq (INSTALL_LINUX_EXTRAS=0). Unset or set to 1 to install them next run."
+  echo "💡 Skipped fd-find, fzf, jq, zoxide (INSTALL_LINUX_EXTRAS=0). Unset or set to 1 to install them next run."
 fi
 if is_linux && ! PATH="$HOME/.local/bin:$PATH" command -v bat >/dev/null 2>&1; then
   echo "💡 bat is not on PATH yet — open a new terminal or run: source ~/.zshrc"
