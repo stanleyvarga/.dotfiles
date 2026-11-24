@@ -135,8 +135,10 @@ alias nu="npm unpublish"
 #  ##:::: ##:::: ##::::. #######::'####: ##::. ##:
 # ..:::::..:::::..::::::.......:::....::..::::..::
 
-alias h="atuin search -i" #interative history search
-alias hf="atuin search --exclude-exit 0 -i" #failed commands
+if command -v atuin >/dev/null 2>&1; then
+  alias h="atuin search -i" #interative history search
+  alias hf="atuin search --exclude-exit 0 -i" #failed commands
+fi
 
 # '##::::'##::::'###:::::'######:::'#######:::'######::
 #  ###::'###:::'## ##:::'##... ##:'##.... ##:'##... ##:
@@ -147,13 +149,17 @@ alias hf="atuin search --exclude-exit 0 -i" #failed commands
 #  ##:::: ##: ##:::: ##:. ######::. #######::. ######::
 # ..:::::..::..:::::..:::......::::.......::::......:::
 
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Hide/show all desktop icons (useful when presenting)
-alias hide:desktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias show:desktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+# Finder tweaks are macOS-only.
+if [[ "$(uname -s)" == Darwin ]]; then
+  alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+  alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+  alias hide:desktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+  alias show:desktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+  alias localip="ipconfig getifaddr en0"
+  alias copyssh="pbcopy < $HOME/.ssh/id_rsa.pub"
+elif command -v wl-copy >/dev/null 2>&1; then
+  alias copyssh="wl-copy < $HOME/.ssh/id_rsa.pub"
+fi
 
 # :'#######::'########:'##::::'##:'########:'########::
 # '##.... ##:... ##..:: ##:::: ##: ##.....:: ##.... ##:
@@ -164,19 +170,24 @@ alias show:desktop="defaults write com.apple.finder CreateDesktop -bool true && 
 # . #######::::: ##:::: ##:::: ##: ########: ##:::. ##:
 # :.......::::::..:::::..:::::..::........::..:::::..::
 
-## Better cat alternative with syntqx highlighting
-alias bat="bat --theme=OneHalfDark -pn --style='full'"
-alias cat="bat"
+## Better cat alternative with syntax highlighting (Debian/Ubuntu package is batcat)
+if command -v bat >/dev/null 2>&1; then
+  alias bat="bat --theme=OneHalfDark -pn --style='full'"
+elif command -v batcat >/dev/null 2>&1; then
+  alias bat="batcat --theme=OneHalfDark -pn --style='full'"
+fi
+[[ -n "${aliases[bat]:-}" ]] && alias cat="bat"
 alias exa='eza'
 alias week='date +%V'
-## Network
-alias localip="ipconfig getifaddr en0"
 ## System
 alias runp='lsof -ni'
 alias sshdir='cd ~/.ssh'
-alias copyssh="pbcopy < $HOME/.ssh/id_rsa.pub"
-alias rm='trash'
-## Get beautiful weather reporting 
+## Get beautiful weather reporting
 alias wttr="curl wttr.in"
-alias ping="gping"
+if command -v gping >/dev/null 2>&1; then
+  alias ping="gping"
+fi
+if command -v trash >/dev/null 2>&1; then
+  alias rm='trash'
+fi
 alias python="python3"

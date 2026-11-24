@@ -16,7 +16,7 @@ if [[ -z "${DOTFILES:-}" || ! -f "${DOTFILES}/zsh/config/aliases" ]]; then
   if [[ -n "$_zshrc" && -f "${_zshrc:h}/config/aliases" ]]; then
     export DOTFILES="${_zshrc:h:h}"
   else
-    for _df in "$HOME/.dotfiles" "$HOME/Documents/dev/.dotfiles" "$HOME/dev/.dotfiles"; do
+    for _df in "$HOME/.dotfiles" "$HOME/Documents/OS/.dotfiles" "$HOME/Documents/dev/.dotfiles" "$HOME/dev/.dotfiles"; do
       [[ -f "$_df/zsh/config/aliases" ]] && export DOTFILES="$_df" && break
     done
   fi
@@ -85,7 +85,8 @@ source "$ZSH/oh-my-zsh.sh"
 #. ######::. #######::. ######::::: ##::::. #######:: ##:::: ##:
 #:......::::.......::::......::::::..::::::.......:::..:::::..::
 
-# Source configs (prefer .zwc when newer — see _dotfiles_source)
+# Source configs (prefer .zwc when newer — see _dotfiles_source).
+# paths first so ~/.local/bin exists when aliases probe bat/batcat.
 _dotfiles_source() {
   local f=$1
   [[ -r $f ]] || return 1
@@ -95,12 +96,20 @@ _dotfiles_source() {
   source "$f"
 }
 
+_dotfiles_source "$DOTFILES/zsh/config/paths"
 _dotfiles_source "$DOTFILES/zsh/config/aliases"
 _dotfiles_source "$DOTFILES/zsh/config/eval"
 _dotfiles_source "$DOTFILES/zsh/config/functions"
-_dotfiles_source "$DOTFILES/zsh/config/paths"
 _dotfiles_source "$DOTFILES/zsh/plugins/lazy-docker.zsh"
 _dotfiles_source "$DOTFILES/zsh/zsh.init"
 unfunction _dotfiles_source 2>/dev/null || true
+
+# Linux fzf widgets (Ctrl-T, Alt-C). Leave Ctrl-R for atuin once `atuin init` runs.
+if [[ "$(uname -s)" == Linux && -r /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+  if command -v atuin >/dev/null 2>&1; then
+    bindkey '^R' history-incremental-search-backward
+  fi
+fi
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

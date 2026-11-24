@@ -49,13 +49,13 @@ chmod +x install.sh   # first clone only, if needed
 ./install.sh
 ```
 
-The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`, and `~/.zshrc` → `zsh/.zshrc` into your home directory (no GNU stow), installs Oh My Zsh if missing, then on **macOS** installs Homebrew if missing and runs `brew bundle` **only when the Brewfile has missing packages** (use `zsbrew` to sync/upgrade), and on **Debian/Ubuntu** runs `apt` to install `git`, `curl`, `zsh`, `eza`, and by default `bat`, `fd-find`, `fzf`, and `jq`. At the end it sets **zsh as your login shell** with `chsh` (you may be prompted for your account password). If your zsh binary is not listed in `/etc/shells` (common for Homebrew’s zsh on macOS), the script adds it with `sudo` first.
+The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`, and `~/.zshrc` → `zsh/.zshrc` into your home directory (no GNU stow), installs Oh My Zsh if missing, then on **macOS** installs Homebrew if missing and runs `brew bundle` **only when the Brewfile has missing packages** (use `zsbrew` to sync/upgrade), and on **Debian/Ubuntu** runs `apt` to install `git`, `curl`, `zsh`, `eza`, `bat`, and by default `fd-find`, `fzf`, and `jq` (with `~/.local/bin/bat` linked to `batcat` and `~/.local/bin/fd` linked to `fdfind`). At the end it sets **zsh as your login shell** with `chsh` (you may be prompted for your account password). If your zsh binary is not listed in `/etc/shells` (common for Homebrew’s zsh on macOS), the script adds it with `sudo` first.
 
 **Optional environment variables**
 
 - `SKIP_BREW_BUNDLE=1` — macOS only; skip `brew bundle` for a faster run when you only want symlinks, Oh My Zsh, and plugin clones.
 - `SKIP_CHSH=1` — do not change the login shell (skip `chsh` and `/etc/shells` updates).
-- `INSTALL_LINUX_EXTRAS=0` — Debian/Ubuntu only; skip installing `bat`, `fd-find`, `fzf`, and `jq` (they are installed by default otherwise).
+- `INSTALL_LINUX_EXTRAS=0` — Debian/Ubuntu only; skip installing `fd-find`, `fzf`, and `jq` (`bat` is always installed; `~/.local/bin/bat` is linked to `batcat`).
 
 **After install**
 

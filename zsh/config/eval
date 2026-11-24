@@ -14,23 +14,6 @@ if ! typeset -f zsh-defer >/dev/null; then
   fi
 fi
 
-# Portable defer wrapper (used by lazy-docker on chpwd)
-zdefer() {
-  local delay=0
-  if [[ "$1" == "-t" && -n "$2" ]]; then
-    delay="$2"
-    shift 2
-  fi
-  {
-    [[ "$delay" != 0 && "$delay" != 0.0 ]] && sleep "$delay"
-    if typeset -f zsh-defer >/dev/null; then
-      zsh-defer "$@"
-    else
-      "$@"
-    fi
-  } &!
-}
-
 # Zero-cost lazy wrappers — init runs on first use only
 if command_exists zoxide; then
   function z() {

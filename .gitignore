@@ -10,3 +10,6 @@
 
 # Runtime logs (sleepwatcher, wallpaper scheduler, etc.)
 /logs/
+
+# zsh wordcode is compiled per machine and zsh version
+*.zwc

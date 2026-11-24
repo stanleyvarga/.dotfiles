@@ -53,12 +53,30 @@ ensure_linux_basics() {
   if ! is_linux || ! has_apt; then
     return 0
   fi
-  echo "🔧 Installing Linux prerequisites (git, curl, zsh, eza)"
+  echo "🔧 Installing Linux prerequisites (git, curl, zsh, eza, bat)"
   sudo apt-get update
-  sudo apt-get install -y git curl zsh eza unzip
+  sudo apt-get install -y git curl zsh eza unzip bat
   if [[ "${INSTALL_LINUX_EXTRAS:-1}" != "0" ]]; then
-    echo "🔧 Installing Linux CLI tools (bat, fd-find, fzf, jq)"
-    sudo apt-get install -y bat fd-find fzf jq
+    echo "🔧 Installing Linux CLI tools (fd-find, fzf, jq)"
+    sudo apt-get install -y fd-find fzf jq
+  fi
+}
+
+ensure_linux_cli_shims() {
+  if ! is_linux; then
+    return 0
+  fi
+  mkdir -p "$HOME/.local/bin"
+  # Debian/Ubuntu ship the binary as batcat; aliases expect `bat` on PATH via ~/.local/bin.
+  if command -v batcat >/dev/null 2>&1; then
+    ln -sf "$(command -v batcat)" "$HOME/.local/bin/bat"
+    echo "✅ ~/.local/bin/bat → batcat (Debian package name)"
+  elif ! command -v bat >/dev/null 2>&1; then
+    echo "⚠️  bat not found — on Debian/Ubuntu run: sudo apt-get install -y bat"
+  fi
+  if command -v fdfind >/dev/null 2>&1; then
+    ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
+    echo "✅ ~/.local/bin/fd → fdfind (Debian package name)"
   fi
 }
 
@@ -272,6 +290,7 @@ set_zsh_as_login_shell() {
 }
 
 ensure_linux_basics
+ensure_linux_cli_shims
 ensure_bun_linux
 symlink_dotfiles
 install_oh_my_zsh
@@ -290,7 +309,10 @@ if [[ -x "${HOME}/.bun/bin/bun" ]] && ! command -v bun >/dev/null 2>&1; then
   echo "💡 bun is installed but not on PATH in this shell yet — run: source ~/.zshrc"
 fi
 if is_linux && has_apt && [[ "${INSTALL_LINUX_EXTRAS:-1}" == "0" ]]; then
-  echo "💡 Skipped bat, fd-find, fzf, jq (INSTALL_LINUX_EXTRAS=0). Unset or set to 1 to install them next run."
+  echo "💡 Skipped fd-find, fzf, jq (INSTALL_LINUX_EXTRAS=0). Unset or set to 1 to install them next run."
+fi
+if is_linux && ! PATH="$HOME/.local/bin:$PATH" command -v bat >/dev/null 2>&1; then
+  echo "💡 bat is not on PATH yet — open a new terminal or run: source ~/.zshrc"
 fi
 if ! is_linux; then
   echo "💡 VS Code/Cursor (zsh): if the integrated terminal skips your aliases, set USER_ZDOTDIR to your home directory in terminal.integrated.env.osx (or disable shell integration to test)."
