@@ -46,23 +46,31 @@ if [[ ${TERM:-dumb} != dumb ]]; then
     PROMPT='%F{cyan}%~%f %(?.%F{green}.%F{red})➜%f '
   fi
 
-  # 5. Fuzzy finder: fzf (Ctrl-T files, Alt-C cd; loaded BEFORE Atuin so Atuin owns Ctrl-R)
+  # 5. Fuzzy finder: fzf (Ctrl-T files, Ctrl-G cd; loaded BEFORE Atuin so Atuin owns Ctrl-R)
   if (( $+commands[fzf] )); then
     if (( $+commands[fd] )); then
       export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
       export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-      export FZF_ALT_C_COMMAND='fd --type d --strip-cwd-prefix --hidden --follow --exclude .git'
+      export FZF_ALT_C_COMMAND='fd --type d --strip-cwd-prefix --hidden --follow --exclude .git --exclude node_modules'
     fi
     if (( $+commands[bat] )); then
       export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}'"
     elif (( $+commands[batcat] )); then
       export FZF_CTRL_T_OPTS="--preview 'batcat --color=always --style=numbers --line-range=:200 {}'"
     fi
+    if (( $+commands[eza] )); then
+      export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --icons --color=always {} | head -n 100'"
+    fi
 
     # fzf >= 0.48 supports `fzf --zsh`; older Ubuntu apt packages ship example scripts instead.
     if ! _cached_eval fzf fzf --zsh; then
       [[ -r /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
       [[ -r /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
+    fi
+
+    # Bind Ctrl+G ("Go") to fzf-cd-widget — works identically on macOS and Ubuntu without Option/Meta setup
+    if (( $+widgets[fzf-cd-widget] )); then
+      bindkey '^G' fzf-cd-widget
     fi
   fi
 

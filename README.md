@@ -78,6 +78,78 @@ At the end it sets **zsh as your login shell** with `chsh` (adding zsh to `/etc/
 - Run `bench-zsh` anytime to benchmark interactive shell startup speed.
 - On macOS, Xcode Command Line Tools are required before Homebrew (`xcode-select --install`).
 
+## Daily Workflow & Shortcuts
+
+### Keyboard shortcuts
+
+| Shortcut | Tool | What it does |
+| --- | --- | --- |
+| `Ctrl+T` | `fzf` + `fd` + `bat` | Fuzzy-find any file under the current directory with a live syntax-highlighted preview and insert its path at your cursor (e.g. type `code `, press `Ctrl+T`, pick a file). |
+| `Ctrl+G` | `fzf` + `fd` + `eza` | **"Go"** — fuzzy-find any subdirectory under your current folder with a live directory tree preview and `cd` straight into it (works on macOS & Ubuntu without Option/Meta tweaks). |
+| `Ctrl+R` | `atuin` | Full-screen interactive search across your entire shell history (filterable by directory, session, or global). Falls back to `fzf` history search if `atuin` isn't installed. |
+| `→` (Right Arrow) | `zsh-autosuggestions` | Accept the grey inline command suggestion based on your history. |
+| `↑` / `↓` | `atuin` / Zsh | Search previous commands matching what you've already typed. |
+| `Tab` / `Shift+Tab` | Zsh completion | Interactive case-insensitive completion menu (arrow keys to pick). |
+| `Ctrl+←` / `Ctrl+→` *(or `Option+←/→`)* | Zsh | Jump backward / forward by word. |
+
+### Smart directory jumping with `z` (Zoxide)
+
+`zoxide` watches every `cd` you run and builds a **frecency** (frequency + recency) index of your folders — no setup needed.
+
+```bash
+z dot              # jumps to ~/.dotfiles (partial match, from anywhere)
+z doc dev          # matches multiple fragments in order (e.g. ~/Documents/dev)
+zi                 # opens an interactive fzf picker of your most-used folders
+zi app             # interactive picker filtered by "app"
+z -                # jump back to your previous directory
+```
+
+You also have the built-in directory stack for recent folders in the current tab:
+
+```bash
+d                  # list the last 10 visited directories (numbered 0–9)
+1                  # jump back 1 directory (`2`, `3`, ... up to `9`)
+mkcd new-project   # mkdir -p + cd into it in one step
+```
+
+### Clipboard helpers (`copypath`, `copyfile`, `copyssh`)
+
+Works out of the box on both **macOS** (`pbcopy`) and **Ubuntu/Linux** (`wl-copy`, `xclip`, `xsel`):
+
+```bash
+copypath                  # copy the full absolute path of the current directory
+copypath src/index.ts     # copy the full absolute path of a specific file or folder
+copyfile package.json     # copy the entire contents of a file to your clipboard
+copyssh                   # copy ~/.ssh/id_rsa.pub to your clipboard
+```
+
+### History search (`atuin`)
+
+- **`Ctrl+R`** — interactive history search (press `Ctrl+R` again inside Atuin to toggle filter modes: global / host / session / directory)
+- **`h`** — open interactive Atuin search (`atuin search -i`)
+- **`hf`** — search only **failed** commands (`atuin search --exclude-exit 0 -i`), great for debugging
+
+### Node & runtime management (`mise`)
+
+`mise` replaces `nvm`, `rbenv`, and `pyenv`. Shims live in `~/.zshenv`, so `node`, `npm`, `npx`, global CLIs, scripts, Cursor, and AI agents **always work immediately** without running `node -v` first.
+
+```bash
+mise ls                      # list installed & active tool versions
+mise use --global node@22    # change default global Node version
+mise use node@20             # pin a project's Node version in mise.toml
+mise install node@24         # install an additional version
+```
+
+Entering any repo with `.nvmrc`, `.node-version`, `.ruby-version`, or `.python-version` switches versions automatically on `cd`.
+
+### Files, Git & quick config helpers
+
+- **Better `ls` (`eza`):** `l` (detailed list with icons), `la` / `ll` (all files + metadata), `lt` (2-level tree), `ld` (directories only), `lM` / `lS` (sort by modified / size)
+- **Better `cat` & search:** `cat` uses `bat` with syntax highlighting; `rg <pattern>` (`ripgrep`) for instant codebase grep; `fd <name>` for fast file search
+- **Git + `delta`:** `git diff` and `git log -p` automatically render side-by-side/highlighted diffs via `delta` (falling back to `less` if `delta` isn't installed); full OMZ git aliases (`gst`, `gaa`, `gco`, `gp`, `gl`, `gd`, etc.) plus `gcm "msg"` and `gcmp "msg"` (commit + push)
+- **Cheatsheets & benchmarks:** `cht js/map+object` (quick terminal cheatsheet from cht.sh), `bench-zsh` (measure shell startup speed)
+- **Dotfiles shortcuts:** `e:zshrc`, `e:alias`, `e:path`, `e:plugins`, `e:starship`, and `rzsh` (reload `~/.zshrc`)
+
 ### Custom binaries
 
 Scripts under `bin/bin/` are symlinked into `~/bin`. See [bin/bin/Readme.md](./bin/bin/Readme.md) for the available commands (`dotfiles`, `zsbrew`, `ytdl`, `ytdl-all`, etc.).
