@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Clone anywhere, run ./install.sh — symlinks configs (no stow), bootstraps OS tools.
+# Clone anywhere, run ./install.sh — cross-platform (macOS + Ubuntu/Debian), no GNU stow.
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -35,11 +35,13 @@ link_dir_contents() {
 }
 
 symlink_dotfiles() {
-  echo "🔗 Linking bin, git, root"
+  echo "🔗 Linking bin, git, root, mise, starship"
   link_dir_contents "$DOTFILES/bin/bin" "$HOME/bin"
   link_file "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
   link_file "$DOTFILES/root/.sleep" "$HOME/.sleep"
   link_file "$DOTFILES/root/.wakeup" "$HOME/.wakeup"
+  link_file "$DOTFILES/mise/config.toml" "$HOME/.config/mise/config.toml"
+  link_file "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
   if is_macos; then
     echo "🔗 Linking Homebrew files"
     link_file "$DOTFILES/homebrew/Brewfile" "$HOME/Brewfile"
@@ -53,12 +55,21 @@ ensure_linux_basics() {
   if ! is_linux || ! has_apt; then
     return 0
   fi
-  echo "🔧 Installing Linux prerequisites (git, curl, zsh, eza, bat)"
+  echo "🔧 Installing Linux prerequisites (git, curl, zsh, unzip, bat)"
   sudo apt-get update
-  sudo apt-get install -y git curl zsh eza unzip bat
+  local base_pkgs=(git curl zsh unzip bat)
+  if apt-cache show eza >/dev/null 2>&1; then
+    base_pkgs+=(eza)
+  fi
+  sudo apt-get install -y "${base_pkgs[@]}"
+
   if [[ "${INSTALL_LINUX_EXTRAS:-1}" != "0" ]]; then
-    echo "🔧 Installing Linux CLI tools (fd-find, fzf, jq)"
-    sudo apt-get install -y fd-find fzf jq
+    local extra_pkgs=(fd-find fzf jq ripgrep)
+    if apt-cache show git-delta >/dev/null 2>&1; then
+      extra_pkgs+=(git-delta)
+    fi
+    echo "🔧 Installing Linux CLI tools (${extra_pkgs[*]})"
+    sudo apt-get install -y "${extra_pkgs[@]}"
   fi
 }
 
@@ -67,7 +78,7 @@ ensure_linux_cli_shims() {
     return 0
   fi
   mkdir -p "$HOME/.local/bin"
-  # Debian/Ubuntu ship the binary as batcat; aliases expect `bat` on PATH via ~/.local/bin.
+  # Debian/Ubuntu ship bat as batcat and fd as fdfind; configs expect `bat` and `fd` on PATH.
   if command -v batcat >/dev/null 2>&1; then
     ln -sf "$(command -v batcat)" "$HOME/.local/bin/bat"
     echo "✅ ~/.local/bin/bat → batcat (Debian package name)"
@@ -80,6 +91,39 @@ ensure_linux_cli_shims() {
   fi
 }
 
+ensure_mise_linux() {
+  if ! is_linux; then
+    return 0
+  fi
+  if command -v mise >/dev/null 2>&1 || [[ -x "$HOME/.local/bin/mise" ]]; then
+    echo "✅ mise is already installed"
+    return 0
+  fi
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "⚠️  curl not found; install curl then re-run install.sh for mise"
+    return 0
+  fi
+  echo "🔧 Installing mise (https://mise.jdx.dev)"
+  curl -fsSL https://mise.run | sh
+}
+
+ensure_starship_linux() {
+  if ! is_linux; then
+    return 0
+  fi
+  if command -v starship >/dev/null 2>&1 || [[ -x "$HOME/.local/bin/starship" ]]; then
+    echo "✅ starship is already installed"
+    return 0
+  fi
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "⚠️  curl not found; install curl then re-run install.sh for starship"
+    return 0
+  fi
+  mkdir -p "$HOME/.local/bin"
+  echo "🔧 Installing starship (https://starship.rs)"
+  curl -sS https://starship.rs/install.sh | sh -s -- -y -b "$HOME/.local/bin"
+}
+
 ensure_zoxide_linux() {
   if ! is_linux; then
     return 0
@@ -87,7 +131,7 @@ ensure_zoxide_linux() {
   if [[ "${INSTALL_LINUX_EXTRAS:-1}" == "0" ]]; then
     return 0
   fi
-  if command -v zoxide >/dev/null 2>&1; then
+  if command -v zoxide >/dev/null 2>&1 || [[ -x "$HOME/.local/bin/zoxide" ]]; then
     echo "✅ zoxide is already installed"
     return 0
   fi
@@ -96,19 +140,14 @@ ensure_zoxide_linux() {
     return 0
   fi
   echo "🔧 Installing zoxide (https://github.com/ajeetdsouza/zoxide)"
-  # Official Linux installer writes to ~/.local/bin (already on PATH via zsh/config/paths).
-  # Ubuntu/Debian apt packages lag; the installer is the documented Linux path.
   curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-  if [[ -x "${HOME}/.local/bin/zoxide" ]]; then
-    echo "💡 zoxide is on disk. Open a new terminal or run: source ~/.zshrc"
-  fi
 }
 
 ensure_bun_linux() {
   if ! is_linux; then
     return 0
   fi
-  if command -v bun >/dev/null 2>&1; then
+  if command -v bun >/dev/null 2>&1 || [[ -x "$HOME/.bun/bin/bun" ]]; then
     echo "✅ bun is already installed"
     return 0
   fi
@@ -121,11 +160,7 @@ ensure_bun_linux() {
     return 0
   fi
   echo "🔧 Installing bun (https://bun.sh)"
-  # Prefer zsh so the installer's optional rc snippets match your login shell.
   curl -fsSL https://bun.sh/install | SHELL="${SHELL:-/bin/zsh}" bash
-  if [[ -x "${HOME}/.bun/bin/bun" ]]; then
-    echo "💡 bun is on disk. This terminal's PATH is unchanged until you run: source ~/.zshrc  (or open a new tab)"
-  fi
 }
 
 ensure_homebrew() {
@@ -149,15 +184,13 @@ ensure_homebrew() {
   fi
 }
 
-install_oh_my_zsh() {
-  if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    echo "✅ Oh My Zsh is already installed"
+install_antidote() {
+  if [[ -d "$HOME/.antidote" ]]; then
+    echo "✅ Antidote is already installed"
     return 0
   fi
-  echo "🔧 Installing Oh My Zsh"
-  # Non-interactive defaults: no zsh at end, no chsh, no prompt hang on .zshrc overwrite
-  export RUNZSH=no CHSH=no OVERWRITE_CONFIRMATION=no
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  echo "🔧 Installing Antidote (~/.antidote)"
+  git clone --depth=1 https://github.com/mattmc3/antidote.git "$HOME/.antidote"
 }
 
 run_macos_bundle_and_defaults() {
@@ -172,7 +205,6 @@ run_macos_bundle_and_defaults() {
     echo "✅ Brewfile already satisfied — skip brew bundle (use zsbrew to sync/upgrade)"
   else
     echo "🔧 Brewfile has missing packages — running brew bundle"
-    # Install missing only; upgrades are intentional via zsbrew
     brew bundle install --no-upgrade --file="$DOTFILES/homebrew/Brewfile"
   fi
   echo "🔧 Setting macOS defaults"
@@ -180,28 +212,54 @@ run_macos_bundle_and_defaults() {
   (cd "$DOTFILES/macos" && ./set-defaults)
 }
 
-install_zsh_plugin_repos() {
-  echo "🔧 Installing Oh My Zsh custom plugin repos"
-  chmod +x "$DOTFILES/zsh/plugins/install"
-  bash "$DOTFILES/zsh/plugins/install"
+ensure_mise_tools() {
+  local mise_bin=""
+  if command -v mise >/dev/null 2>&1; then
+    mise_bin=$(command -v mise)
+  elif [[ -x "$HOME/.local/bin/mise" ]]; then
+    mise_bin="$HOME/.local/bin/mise"
+  fi
+  if [[ -z "$mise_bin" ]]; then
+    echo "⚠️  mise not found — skipping runtime install"
+    return 0
+  fi
+  echo "🔧 Syncing mise global tools (from mise/config.toml)"
+  "$mise_bin" install --yes || echo "⚠️  mise install encountered an issue; run 'mise install' manually"
 }
 
-zcompile_zsh_configs() {
+link_zsh_files() {
+  echo "🔗 Linking ~/.zshenv, ~/.zprofile, ~/.zshrc"
+  link_file "$DOTFILES/zsh/.zshenv" "$HOME/.zshenv"
+  link_file "$DOTFILES/zsh/.zprofile" "$HOME/.zprofile"
+  link_file "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
+  # Remove stale compiled file in $HOME so zsh always reads the symlinked .zshrc
+  rm -f "$HOME/.zshrc.zwc"
+}
+
+build_zsh_caches() {
   if ! command -v zsh >/dev/null 2>&1; then
     return 0
   fi
-  echo "⚡ Compiling zsh configs (.zwc)"
-  zsh -c '
-    setopt extendedglob
+  echo "⚡ Building Antidote static plugin bundle & compiling zsh configs (.zwc)"
+  zsh -f -c '
+    export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+    cache_dir="$XDG_CACHE_HOME/zsh"
+    mkdir -p "$cache_dir"
+    if [[ -r "$HOME/.antidote/antidote.zsh" && -r "$DOTFILES/zsh/zsh_plugins.txt" ]]; then
+      source "$HOME/.antidote/antidote.zsh"
+      antidote bundle <"$DOTFILES/zsh/zsh_plugins.txt" >|"$cache_dir/zsh_plugins.zsh"
+      zcompile -U "$cache_dir/zsh_plugins.zsh" 2>/dev/null || true
+    fi
     for f in \
+      "$DOTFILES/zsh/.zshenv" \
+      "$DOTFILES/zsh/.zprofile" \
       "$DOTFILES/zsh/.zshrc" \
       "$DOTFILES/zsh/zsh.init" \
+      "$DOTFILES/zsh/config/options" \
+      "$DOTFILES/zsh/config/paths" \
       "$DOTFILES/zsh/config/aliases" \
       "$DOTFILES/zsh/config/eval" \
-      "$DOTFILES/zsh/config/functions" \
-      "$DOTFILES/zsh/config/paths" \
-      "$DOTFILES/zsh/plugins/lazy-docker.zsh" \
-      "$DOTFILES/zsh/plugins/alias-finder"
+      "$DOTFILES/zsh/config/functions"
     do
       [[ -r $f ]] || continue
       zcompile -U "$f" 2>/dev/null || true
@@ -221,21 +279,14 @@ ensure_ricksay() {
     pip=$(command -v pip3)
   fi
   if [[ -z "$pip" ]]; then
-    echo "⚠️  pip3 not found — skip ricksay (install python@3.11 / pip3, then re-run)"
+    echo "⚠️  pip3 not found — skip ricksay"
     return 0
   fi
   echo "🔧 Installing ricksay (pip)"
   "$pip" install --user ricksay || "$pip" install ricksay || echo "⚠️  ricksay install failed"
 }
 
-link_zshrc() {
-  echo "🔗 Linking ~/.zshrc → $DOTFILES/zsh/.zshrc"
-  link_file "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
-}
-
-# Cursor/VS Code zsh shell integration sources $USER_ZDOTDIR/.zshrc before normal startup
-# (see shellIntegration-rc.zsh). If USER_ZDOTDIR is unset, that path is wrong and ~/.zshrc
-# never runs — you get no aliases/Omz (bare hostname% prompt).
+# Cursor/VS Code zsh shell integration sources $USER_ZDOTDIR/.zshrc on Linux.
 ensure_user_zdotdir_for_ide_terminals() {
   if is_linux; then
     mkdir -p "$HOME/.config/environment.d"
@@ -245,8 +296,6 @@ ensure_user_zdotdir_for_ide_terminals() {
   fi
 }
 
-# vscode/ is a reference snapshot only — not auto-linked (live Cursor/Code User settings
-# are usually newer). See README "VS Code / Cursor".
 note_vscode_reference() {
   if [[ -d "$DOTFILES/vscode" ]]; then
     echo "💡 vscode/ is reference-only (not linked). Copy manually if you want those settings."
@@ -315,30 +364,26 @@ set_zsh_as_login_shell() {
 
 ensure_linux_basics
 ensure_linux_cli_shims
+ensure_mise_linux
+ensure_starship_linux
 ensure_zoxide_linux
 ensure_bun_linux
 symlink_dotfiles
-install_oh_my_zsh
+install_antidote
 run_macos_bundle_and_defaults
-link_zshrc
+ensure_mise_tools
+link_zsh_files
 ensure_user_zdotdir_for_ide_terminals
-install_zsh_plugin_repos
 ensure_ricksay
-zcompile_zsh_configs
+build_zsh_caches
 chmod_home_bin
 set_zsh_as_login_shell
 note_vscode_reference
 
 echo "🎉 Installation complete!"
-if [[ -x "${HOME}/.bun/bin/bun" ]] && ! command -v bun >/dev/null 2>&1; then
-  echo "💡 bun is installed but not on PATH in this shell yet — run: source ~/.zshrc"
-fi
 if is_linux && has_apt && [[ "${INSTALL_LINUX_EXTRAS:-1}" == "0" ]]; then
-  echo "💡 Skipped fd-find, fzf, jq, zoxide (INSTALL_LINUX_EXTRAS=0). Unset or set to 1 to install them next run."
-fi
-if is_linux && ! PATH="$HOME/.local/bin:$PATH" command -v bat >/dev/null 2>&1; then
-  echo "💡 bat is not on PATH yet — open a new terminal or run: source ~/.zshrc"
+  echo "💡 Skipped fd-find, fzf, jq, ripgrep, git-delta, zoxide (INSTALL_LINUX_EXTRAS=0)."
 fi
 if ! is_linux; then
-  echo "💡 VS Code/Cursor (zsh): if the integrated terminal skips your aliases, set USER_ZDOTDIR to your home directory in terminal.integrated.env.osx (or disable shell integration to test)."
+  echo "💡 VS Code/Cursor (zsh): if the integrated terminal skips your aliases, set USER_ZDOTDIR to your home directory in terminal.integrated.env.osx."
 fi

@@ -1,23 +1,80 @@
 is_macos() {
-  [[ "$(uname)" == "Darwin" ]]
+  [[ $OSTYPE == darwin* ]]
 }
 
 command_exists() {
-  command -v "$1" &> /dev/null
+  (( $+commands[$1] ))
 }
 
-## Cheatshet for everything you need
-## For example you forgot how to use map-like function for Objects
-## cht js/map+object
-## or forgot how to list directory
-## cht ls
-function cht() {
-  if [ -n "$1" ]; then
-    curl cht.sh/$1
+# Quick CLI cheatsheet (e.g. `cht js/map+object` or `cht ls`)
+cht() {
+  if [[ -n "$1" ]]; then
+    curl "cht.sh/$1"
   else
-    echo $c[bold] $c[bg_bright_blue] "⚠️  Your search query is missing  🔍" $c[reset]
+    print -P "%B%K{blue} ⚠️  Your search query is missing 🔍 %k%b"
   fi
 }
 
-## Create a folder and move into it in one command
-function mkcd() { mkdir -p "$@" && cd "$_"; }
+# Create a directory and cd into it
+mkcd() { mkdir -p "$@" && cd "$_"; }
+
+# Benchmark interactive zsh startup time (default: 5 runs)
+bench-zsh() {
+  local runs=${1:-5}
+  local i
+  for (( i = 1; i <= runs; i++ )); do
+    /usr/bin/time -p zsh -i -c exit 2>&1 | awk '/real/{printf "run %d: %ss\n", '"$i"', $2}'
+  done
+}
+
+# Permanent delete (bypasses Trash); `rm` moves to Trash when `trash` is available.
+rip() {
+  command rm "$@"
+}
+
+# Re-sourcing ~/.zshrc does not drop removed aliases; clear so `rm()` is used instead of `trash`.
+unalias rm 2>/dev/null
+
+rm() {
+  if (( ! $+commands[trash] )); then
+    command rm "$@"
+    return $?
+  fi
+
+  local -a paths trash_opts
+  local arg saw_dashdash=0 verbose=0 stop_on_error=0
+
+  for arg in "$@"; do
+    if (( saw_dashdash )); then
+      paths+=("$arg")
+      continue
+    fi
+    case $arg in
+      --) saw_dashdash=1 ;;
+      -v|--verbose) verbose=1 ;;
+      -s|--stopOnError) stop_on_error=1 ;;
+      -?*)
+        local opt_chars=${arg#-}
+        [[ $opt_chars == ?* ]] || continue
+        while [[ -n $opt_chars ]]; do
+          case ${opt_chars[1]} in
+            r|R|f|i) ;;
+            v) verbose=1 ;;
+            s) stop_on_error=1 ;;
+          esac
+          opt_chars=${opt_chars#?}
+        done
+        ;;
+      *) paths+=("$arg") ;;
+    esac
+  done
+
+  if (( ${#paths[@]} == 0 )); then
+    print -u2 "rm: missing operand"
+    return 1
+  fi
+
+  (( verbose )) && trash_opts+=(-v)
+  (( stop_on_error )) && trash_opts+=(-s)
+  command trash "${trash_opts[@]}" "${paths[@]}"
+}

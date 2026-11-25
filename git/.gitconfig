@@ -6,8 +6,26 @@
 	# Default push should only push the current branch to its push target, regardless of its remote name
 	default = upstream
 [pull]
-	rebase = false 
+	rebase = false
 [rebase]
 	autostash = true
+[fetch]
+	prune = true
+[branch]
+	sort = -committerdate
 [core]
 	fsmonitor = true
+	pager = sh -c 'command -v delta >/dev/null 2>&1 && exec delta || exec less -FRX'
+[interactive]
+	diffFilter = sh -c 'command -v delta >/dev/null 2>&1 && exec delta --color-only || exec cat'
+[delta]
+	navigate = true
+	line-numbers = true
+	dark = true
+[diff]
+	algorithm = histogram
+	colorMoved = default
+[merge]
+	conflictStyle = zdiff3
+[rerere]
+	enabled = true

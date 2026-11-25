@@ -1,0 +1,22 @@
+# Antidote plugin list — bundled statically to ~/.cache/zsh/zsh_plugins.zsh
+# Order matters: zsh-defer first, fast-syntax-highlighting last.
+
+# Deferred loader (enables `kind:defer`)
+romkatv/zsh-defer
+
+# Additional zsh completion definitions (fpath only, zero exec cost)
+zsh-users/zsh-completions path:src kind:fpath
+
+# Cross-platform clipboard helpers (pbcopy on macOS; wl-copy/xclip/xsel on Linux)
+ohmyzsh/ohmyzsh path:lib/clipboard.zsh
+ohmyzsh/ohmyzsh path:plugins/copyfile
+ohmyzsh/ohmyzsh path:plugins/copypath
+
+# Inline autosuggestions (~1.5ms eager so suggestions work on the very first prompt)
+zsh-users/zsh-autosuggestions
+
+# Deferred interactive plugins (loaded right after the first prompt renders)
+ohmyzsh/ohmyzsh path:lib/git.zsh kind:defer
+ohmyzsh/ohmyzsh path:plugins/git kind:defer
+MichaelAquilina/zsh-you-should-use kind:defer
+zdharma-continuum/fast-syntax-highlighting kind:defer

@@ -1,4 +1,3 @@
-
 ## `.dotfiles`
 
 Ballad of `Dotfiles`
@@ -40,6 +39,17 @@ Ballad of `Dotfiles`
 
 ![Unicorns](./unicorn.webp)
 
+## Architecture
+
+Cross-platform (**macOS** + **Ubuntu/Debian Linux**) ultra-fast Zsh setup:
+
+- **Pure Zsh + [Antidote](https://antidote.sh/)** static compiled plugin bundle (no Oh My Zsh overhead)
+- **[Starship](https://starship.rs/)** minimal single-line prompt (`starship/starship.toml`)
+- **[mise](https://mise.jdx.dev/)** unified runtime manager for Node, Ruby, Python (reads `.nvmrc`, `.node-version`, `.ruby-version`, `.python-version`; shims in `~/.zshenv` so IDEs, scripts, and agents always resolve Node immediately without lazy-loading hacks)
+- **Cached tool inits** (`~/.cache/zsh/*.zsh.zwc`): `starship`, `mise`, `zoxide`, `wt`, `fzf` (`fd` + `bat` preview), and deferred `atuin` (`Ctrl+R`)
+- **Modern Git defaults** (`git/.gitconfig`): `delta` diff pager (with automatic `less` fallback if `delta` is missing), `histogram` diff, `zdiff3` conflicts, `rerere`, and `fsmonitor`
+- **Startup time:** ~40–60 ms steady-state (`bench-zsh` to measure)
+
 ## Install
 
 Clone this repo to any path (for example `git clone <repo-url> ~/.dotfiles`), then from that directory:
@@ -49,19 +59,24 @@ chmod +x install.sh   # first clone only, if needed
 ./install.sh
 ```
 
-The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`, and `~/.zshrc` → `zsh/.zshrc` into your home directory (no GNU stow), installs Oh My Zsh if missing, then on **macOS** installs Homebrew if missing and runs `brew bundle` **only when the Brewfile has missing packages** (use `zsbrew` to sync/upgrade), and on **Debian/Ubuntu** runs `apt` to install `git`, `curl`, `zsh`, `eza`, `bat`, and by default `fd-find`, `fzf`, and `jq` (with `~/.local/bin/bat` linked to `batcat` and `~/.local/bin/fd` linked to `fdfind`). On Linux it also installs **zoxide** (the `z` directory jumper) into `~/.local/bin` via the [official installer](https://github.com/ajeetdsouza/zoxide) unless `INSTALL_LINUX_EXTRAS=0`. At the end it sets **zsh as your login shell** with `chsh` (you may be prompted for your account password). If your zsh binary is not listed in `/etc/shells` (common for Homebrew’s zsh on macOS), the script adds it with `sudo` first.
+The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`, `mise`, `starship`, and `~/.zshenv` / `~/.zprofile` / `~/.zshrc` into your home directory (no GNU stow), installs **Antidote** (`~/.antidote`), and pre-builds the static plugin bundle and `.zwc` caches.
+
+- **macOS:** installs Homebrew if missing, runs `brew bundle` only when `homebrew/Brewfile` has missing packages (use `zsbrew` to sync/upgrade), syncs `mise` tools, and applies `macos/set-defaults`.
+- **Ubuntu/Debian:** installs `git`, `curl`, `zsh`, `unzip`, `bat` (and `eza`, `fd-find`, `fzf`, `jq`, `ripgrep`, `git-delta` when available in `apt`), links `~/.local/bin/bat` → `batcat` and `~/.local/bin/fd` → `fdfind`, and installs `mise`, `starship`, `zoxide`, and `bun` into `~/.local/bin` / `~/.bun/bin`.
+
+At the end it sets **zsh as your login shell** with `chsh` (adding zsh to `/etc/shells` via `sudo` if needed).
 
 **Optional environment variables**
 
-- `SKIP_BREW_BUNDLE=1` — macOS only; skip `brew bundle` for a faster run when you only want symlinks, Oh My Zsh, and plugin clones.
-- `SKIP_CHSH=1` — do not change the login shell (skip `chsh` and `/etc/shells` updates).
-- `INSTALL_LINUX_EXTRAS=0` — Debian/Ubuntu only; skip installing `fd-find`, `fzf`, `jq`, and `zoxide` (`bat` is always installed; `~/.local/bin/bat` is linked to `batcat`).
+- `SKIP_BREW_BUNDLE=1` — macOS only; skip `brew bundle` for a faster re-link run.
+- `SKIP_CHSH=1` — do not change the login shell.
+- `INSTALL_LINUX_EXTRAS=0` — Debian/Ubuntu only; skip installing `fd-find`, `fzf`, `jq`, `ripgrep`, `git-delta`, and `zoxide`.
 
 **After install**
 
-- After you **pull** shell/config changes, open a new terminal (or `rzsh`) — `~/.zshrc` is a symlink into the repo, so pulls apply without re-running install. Re-run `./install.sh` when you need new brew packages, plugin clones, or bin/git/root re-links.
-- Open a **new** terminal (or log out and back in) so the login shell change applies.
-- On macOS, Xcode Command Line Tools are often required before Homebrew; if the Homebrew installer fails, install CLT first (`xcode-select --install`).
+- After pulling config changes, open a new terminal (or run `rzsh`). Re-run `./install.sh` when adding Brewfile packages or new scripts.
+- Run `bench-zsh` anytime to benchmark interactive shell startup speed.
+- On macOS, Xcode Command Line Tools are required before Homebrew (`xcode-select --install`).
 
 ### Custom binaries
 
@@ -69,7 +84,7 @@ Scripts under `bin/bin/` are symlinked into `~/bin`. See [bin/bin/Readme.md](./b
 
 ### VS Code / Cursor
 
-`vscode/settings.json` and `vscode/keybindings.json` are a **reference snapshot** — install does **not** overwrite live IDE settings (your Cursor/Code User files are usually newer). To apply manually:
+`vscode/settings.json` and `vscode/keybindings.json` are a **reference snapshot** — install does **not** overwrite live IDE settings. To apply manually:
 
 ```bash
 # Cursor (macOS)
@@ -83,16 +98,9 @@ cp "$DOTFILES/vscode/keybindings.json" "$HOME/Library/Application Support/Code/U
 
 Prefer diffing against your live files before copying.
 
-- Startup takes around 0.1 - 0.2 seconds 🎉
-- I use shitload of plugins & aliases
-- Oh my zsh 😱
-
 ## Interesting resources
 - 🔗 [The Art Of Command Line](https://github.com/jlevy/the-art-of-command-line)
 - 🔗 [Command Line Interface Guidelines](https://clig.dev/#foreword)
-
-## People to follow
-- 🔗 [Robby Russell](https://github.com/robbyrussell)
 
 ## Command-line tools
 - 📦 [Btop](https://github.com/aristocratos/btop)

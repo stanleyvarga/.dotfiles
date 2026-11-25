@@ -1,48 +1,73 @@
-# Optimized eval — on-demand lazy wrappers only (no background warmups).
+# Cached tool initialization (macOS + Ubuntu Linux).
+# Avoids spawning subprocesses on every shell start while keeping hooks active immediately.
 
-# Helper: command_exists
-command_exists() { command -v "$1" &>/dev/null }
+# Fallback if zsh-defer is unavailable (e.g. before Antidote is installed)
+(( $+functions[zsh-defer] )) || zsh-defer() { "$@"; }
 
-# Ensure zsh-defer is available (OMZ plugin or standalone), else define a shim
-if ! typeset -f zsh-defer >/dev/null; then
-  if [[ -r "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-defer/zsh-defer.plugin.zsh" ]]; then
-    source "${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-defer/zsh-defer.plugin.zsh"
-  elif [[ -r "$HOME/.zsh-defer/zsh-defer.plugin.zsh" ]]; then
-    source "$HOME/.zsh-defer/zsh-defer.plugin.zsh"
-  else
-    zsh-defer() { "$@"; }
+# Cache `bin args...` output to ~/.cache/zsh/<name>.zsh; auto-rebuilds when binary updates.
+_cached_eval() {
+  local name=$1 bin=$2
+  shift 2
+  local bin_path=${commands[$bin]:-}
+  [[ -n $bin_path ]] || return 1
+  local cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/${name}.zsh"
+  if [[ ! -s $cache || $bin_path -nt $cache ]]; then
+    mkdir -p "${cache:h}"
+    "$bin_path" "$@" >| "$cache" 2>/dev/null || { command rm -f "$cache"; return 1; }
+    zcompile -U "$cache" 2>/dev/null || true
   fi
+  source "$cache"
+}
+
+# 1. Directory jumper: zoxide (eager cached ~0.3ms so every `cd` trains frecency)
+if (( $+commands[zoxide] )); then
+  _cached_eval zoxide zoxide init zsh
 fi
 
-# Zero-cost lazy wrappers — init runs on first use only
-if command_exists zoxide; then
-  function z() {
-    unfunction z
-    eval "$(zoxide init zsh)"
-    z "$@"
-  }
+# 2. Worktrunk: wt (cached ~0.6ms instead of ~56ms live)
+if (( $+commands[wt] )); then
+  _cached_eval wt wt config shell init zsh
 fi
 
-if command_exists thefuck; then
-  function fuck() {
-    unfunction fuck
-    eval "$(thefuck --alias)"
-    fuck "$@"
-  }
+# 3. Runtime manager: mise
+# ~/.local/share/mise/shims is already first on PATH via ~/.zshenv so node/npm/npx
+# and global CLIs work immediately (0ms). Defer full `mise activate zsh` until after
+# first prompt so chpwd direct-PATH switching activates with the live PATH and 0ms lag.
+if (( $+commands[mise] )); then
+  zsh-defer -c 'eval "$(command mise activate zsh)"'
 fi
 
-if command_exists rbenv; then
-  function rbenv() {
-    unfunction rbenv
-    eval "$(command rbenv init - --no-rehash zsh)"
-    rbenv "$@"
-  }
-fi
+# Interactive TTY-only tools (skip under TERM=dumb to avoid ZLE / starship warnings)
+if [[ ${TERM:-dumb} != dumb ]]; then
+  # 4. Prompt: Starship (fallback to lightweight built-in prompt if not installed)
+  if (( $+commands[starship] )); then
+    _cached_eval starship starship init zsh
+  else
+    PROMPT='%F{cyan}%~%f %(?.%F{green}.%F{red})➜%f '
+  fi
 
-if command_exists atuin; then
-  function atuin() {
-    unfunction atuin
-    eval "$(command atuin init zsh)"
-    atuin "$@"
-  }
+  # 5. Fuzzy finder: fzf (Ctrl-T files, Alt-C cd; loaded BEFORE Atuin so Atuin owns Ctrl-R)
+  if (( $+commands[fzf] )); then
+    if (( $+commands[fd] )); then
+      export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+      export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+      export FZF_ALT_C_COMMAND='fd --type d --strip-cwd-prefix --hidden --follow --exclude .git'
+    fi
+    if (( $+commands[bat] )); then
+      export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}'"
+    elif (( $+commands[batcat] )); then
+      export FZF_CTRL_T_OPTS="--preview 'batcat --color=always --style=numbers --line-range=:200 {}'"
+    fi
+
+    # fzf >= 0.48 supports `fzf --zsh`; older Ubuntu apt packages ship example scripts instead.
+    if ! _cached_eval fzf fzf --zsh; then
+      [[ -r /usr/share/doc/fzf/examples/key-bindings.zsh ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+      [[ -r /usr/share/doc/fzf/examples/completion.zsh ]] && source /usr/share/doc/fzf/examples/completion.zsh
+    fi
+  fi
+
+  # 6. Shell history: Atuin (deferred cached — 0ms prompt lag, owns Ctrl-R & records all commands)
+  if (( $+commands[atuin] )); then
+    zsh-defer _cached_eval atuin atuin init zsh
+  fi
 fi

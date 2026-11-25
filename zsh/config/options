@@ -1,0 +1,70 @@
+# Pure Zsh options, completion styling, and keybindings (replaces Oh My Zsh lib defaults)
+
+# --- History ---
+export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+export HISTSIZE=50000
+export SAVEHIST=50000
+
+setopt EXTENDED_HISTORY          # Record timestamp and duration
+setopt HIST_EXPIRE_DUPS_FIRST    # Drop duplicates first when trimming history
+setopt HIST_IGNORE_DUPS          # Don't record consecutive duplicates
+setopt HIST_IGNORE_ALL_DUPS      # Remove older duplicate entries
+setopt HIST_IGNORE_SPACE         # Don't record commands starting with a space
+setopt HIST_FIND_NO_DUPS         # Skip duplicates when searching history
+setopt HIST_REDUCE_BLANKS        # Trim superfluous whitespace
+setopt SHARE_HISTORY             # Share history across open terminals immediately
+
+# --- Navigation & Ergonomics ---
+setopt AUTO_CD                   # Type a directory path to cd into it
+setopt AUTO_PUSHD                # Track directory history stack (enables cd -1, cd -2, etc.)
+setopt PUSHD_IGNORE_DUPS         # Don't push duplicate directories
+setopt PUSHD_MINUS               # Swap +/- meaning so `cd -1` goes to previous dir
+setopt INTERACTIVE_COMMENTS      # Allow # comments in interactive commands
+setopt COMPLETE_IN_WORD          # Complete from cursor position
+setopt ALWAYS_TO_END             # Move cursor to end after completion
+setopt NO_BEEP                   # Silence terminal bell
+setopt NO_FLOW_CONTROL           # Free up Ctrl-S / Ctrl-Q
+
+# --- Completion Styling ---
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}-- no matches found --%f'
+
+# --- Keybindings (Emacs mode + macOS & Linux terminal sequences) ---
+bindkey -e
+
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+# Up / Down prefix history search (Atuin overrides these if installed)
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search
+
+# Word navigation (Ctrl+Left/Right & Option+Left/Right across macOS/Linux terminals)
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;3C' forward-word
+bindkey '^[[1;3D' backward-word
+bindkey '^[f' forward-word
+bindkey '^[b' backward-word
+
+# Home / End / Delete / Shift-Tab
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey '^[OH' beginning-of-line
+bindkey '^[OF' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^[[Z' reverse-menu-complete
+
+# Autosuggestions tuning
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_USE_ASYNC=1

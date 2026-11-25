@@ -1,0 +1,6 @@
+[tools]
+node = "lts"
+
+[settings]
+# Auto-detect .nvmrc, .node-version, .ruby-version, .python-version
+idiomatic_version_file_enable_tools = ["node", "ruby", "python"]

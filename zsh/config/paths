@@ -1,101 +1,25 @@
-# Optimized paths with lazy NVM loading
-export PYENV_ROOT="$HOME/.pyenv"
-export NVM_DIR="$HOME/.nvm"
-if [[ -d "$HOME/.agentmemory/bin" ]]; then
-  export PATH="$HOME/.agentmemory/bin:$PATH"
-fi
+# Deduplicated, fork-free PATH & FPATH setup (macOS + Linux).
+# Node, Ruby, Python, and global CLIs are managed by mise (no lazy-loading wrappers).
 
-# Lazy load NVM — Homebrew layout on macOS, standard ~/.nvm on Linux
-_nvm_script() {
-  if [[ -s /opt/homebrew/opt/nvm/nvm.sh ]]; then
-    echo "/opt/homebrew/opt/nvm/nvm.sh"
-  elif [[ -s /usr/local/opt/nvm/nvm.sh ]]; then
-    echo "/usr/local/opt/nvm/nvm.sh"
-  elif [[ -s "$HOME/.nvm/nvm.sh" ]]; then
-    echo "$HOME/.nvm/nvm.sh"
-  fi
-}
+typeset -gU path PATH fpath FPATH
 
-_nvm_completion() {
-  if [[ -s /opt/homebrew/opt/nvm/etc/bash_completion.d/nvm ]]; then
-    echo "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-  elif [[ -s /usr/local/opt/nvm/etc/bash_completion.d/nvm ]]; then
-    echo "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
-  elif [[ -s "$HOME/.nvm/bash_completion" ]]; then
-    echo "$HOME/.nvm/bash_completion"
-  fi
-}
+[[ -d "$HOME/.agentmemory/bin" ]] && path=("$HOME/.agentmemory/bin" $path)
+[[ -d "$HOME/.bun/bin" ]] && path=("$HOME/.bun/bin" $path)
 
-function nvm() {
-  unfunction nvm node npm npx yarn
-  local ns
-  ns="$(_nvm_script)"
-  [[ -n "$ns" ]] && \. "$ns"
-  local nc
-  nc="$(_nvm_completion)"
-  [[ -n "$nc" && -r "$nc" ]] && \. "$nc"
-  nvm "$@"
-}
+if [[ $OSTYPE == darwin* ]]; then
+  [[ -d /opt/homebrew/bin ]] && path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
+  [[ -d /usr/local/bin ]] && path=(/usr/local/bin $path)
 
-function node() {
-  unfunction nvm node npm npx yarn
-  local ns
-  ns="$(_nvm_script)"
-  [[ -n "$ns" ]] && \. "$ns"
-  local nc
-  nc="$(_nvm_completion)"
-  [[ -n "$nc" && -r "$nc" ]] && \. "$nc"
-  node "$@"
-}
+  # Homebrew zsh completions
+  [[ -d /opt/homebrew/share/zsh/site-functions ]] && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+  [[ -d /usr/local/share/zsh/site-functions ]] && fpath=(/usr/local/share/zsh/site-functions $fpath)
 
-function npm() {
-  unfunction nvm node npm npx yarn
-  local ns
-  ns="$(_nvm_script)"
-  [[ -n "$ns" ]] && \. "$ns"
-  local nc
-  nc="$(_nvm_completion)"
-  [[ -n "$nc" && -r "$nc" ]] && \. "$nc"
-  npm "$@"
-}
+  [[ -d /opt/homebrew/opt/openjdk@11/bin ]] && path=(/opt/homebrew/opt/openjdk@11/bin $path)
+  [[ -d /opt/homebrew/opt/openjdk@17/bin ]] && path=(/opt/homebrew/opt/openjdk@17/bin $path)
+  [[ -d "$HOME/Library/Android/sdk/platform-tools" ]] && path=($path "$HOME/Library/Android/sdk/platform-tools")
 
-function npx() {
-  unfunction nvm node npm npx yarn
-  local ns
-  ns="$(_nvm_script)"
-  [[ -n "$ns" ]] && \. "$ns"
-  local nc
-  nc="$(_nvm_completion)"
-  [[ -n "$nc" && -r "$nc" ]] && \. "$nc"
-  npx "$@"
-}
-
-function yarn() {
-  unfunction nvm node npm npx yarn
-  local ns
-  ns="$(_nvm_script)"
-  [[ -n "$ns" ]] && \. "$ns"
-  local nc
-  nc="$(_nvm_completion)"
-  [[ -n "$nc" && -r "$nc" ]] && \. "$nc"
-  command yarn "$@"
-}
-
-export PATH="/usr/local/bin:$PATH"
-export PATH="$PATH:$HOME/bin"
-# Bun: install.sh may add ~/.bun/bin after this shell started — re-source ~/.zshrc (or prepend here if missing)
-if [[ -x "${HOME}/.bun/bin/bun" ]] && [[ ":${PATH}:" != *":${HOME}/.bun/bin:"* ]]; then
-  export PATH="${HOME}/.bun/bin:$PATH"
-fi
-
-if [[ "$(uname -s)" == Darwin ]]; then
-  export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
-  export PATH="/opt/homebrew/bin:$PATH"
-  export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
-  export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
-  # Optional local::lib (adjust username/path if you use this machine)
   if [[ -d "$HOME/perl5/bin" ]]; then
-    export PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
+    path=("$HOME/perl5/bin" $path)
     export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
     export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
     export PERL_MB_OPT="--install_base \"$HOME/perl5\""
@@ -103,24 +27,16 @@ if [[ "$(uname -s)" == Darwin ]]; then
   fi
 fi
 
-if [[ -d "$PYENV_ROOT/shims" ]]; then
-  export PATH="$PYENV_ROOT/shims:$PATH"
-fi
-if [[ -d "$PYENV_ROOT/bin" ]]; then
-  export PATH="$PYENV_ROOT/bin:$PATH"
-fi
-
 if [[ -d /usr/local/share/dotnet ]]; then
   export DOTNET_ROOT="/usr/local/share/dotnet"
-  export PATH="$DOTNET_ROOT:$PATH"
+  path=("$DOTNET_ROOT" $path)
 fi
 
-export PATH="$HOME/.local/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
+[[ -d "$HOME/bin" ]] && path=($path "$HOME/bin")
 
-# Last so shims beat /usr/bin/ruby. Full `rbenv init` stays lazy in config/eval.
-if [[ -d "${HOME}/.rbenv/shims" ]]; then
-  export PATH="${HOME}/.rbenv/shims:${PATH}"
-fi
+# Keep mise shims ahead of Homebrew/system bins before `mise activate` runs
+[[ -d "$HOME/.local/share/mise/shims" ]] && path=("$HOME/.local/share/mise/shims" $path)
 
 export EDITOR="vim"
 export OS_EDITOR="code"

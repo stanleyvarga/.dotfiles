@@ -1,6 +1,10 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
-# Install brew packages located in $DOTFILES/homebrew/Brewfile
+# Sync/upgrade Homebrew packages from $DOTFILES/homebrew/Brewfile (macOS only)
+if [[ $OSTYPE != darwin* ]]; then
+  echo "zsbrew is macOS-only (Homebrew)." >&2
+  exit 1
+fi
 
-cd $DOTFILES/homebrew
+cd "${DOTFILES:-$HOME/.dotfiles}/homebrew" || exit 1
 brew bundle install --file Brewfile
