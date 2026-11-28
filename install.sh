@@ -35,13 +35,16 @@ link_dir_contents() {
 }
 
 symlink_dotfiles() {
-  echo "🔗 Linking bin, git, root, mise, starship"
+  echo "🔗 Linking bin, config/git, config/mise, config/starship, root"
   link_dir_contents "$DOTFILES/bin/bin" "$HOME/bin"
-  link_file "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
+  mkdir -p "$HOME/.config/git" "$HOME/.config/mise"
+  link_file "$DOTFILES/config/git/config" "$HOME/.config/git/config"
+  link_file "$DOTFILES/config/git/ignore" "$HOME/.config/git/ignore"
+  link_file "$DOTFILES/config/git/ignore" "$HOME/.gitignore"
   link_file "$DOTFILES/root/.sleep" "$HOME/.sleep"
   link_file "$DOTFILES/root/.wakeup" "$HOME/.wakeup"
-  link_file "$DOTFILES/mise/config.toml" "$HOME/.config/mise/config.toml"
-  link_file "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
+  link_file "$DOTFILES/config/mise/config.toml" "$HOME/.config/mise/config.toml"
+  link_file "$DOTFILES/config/starship.toml" "$HOME/.config/starship.toml"
   if is_macos; then
     echo "🔗 Linking Homebrew files"
     link_file "$DOTFILES/homebrew/Brewfile" "$HOME/Brewfile"
@@ -202,6 +205,15 @@ run_linux_terminal_defaults() {
   "$DOTFILES/linux/set-terminal-defaults"
 }
 
+run_linux_keyboard_defaults() {
+  if ! is_linux; then
+    return 0
+  fi
+  echo "🔧 Setting Linux keyboard defaults (Caps Lock → Control)"
+  chmod +x "$DOTFILES/linux/set-keyboard-defaults"
+  "$DOTFILES/linux/set-keyboard-defaults"
+}
+
 run_macos_bundle_and_defaults() {
   if ! is_macos; then
     echo "💽 Not running on macOS — skipping Homebrew bundle and defaults"
@@ -232,7 +244,7 @@ ensure_mise_tools() {
     echo "⚠️  mise not found — skipping runtime install"
     return 0
   fi
-  echo "🔧 Syncing mise global tools (from mise/config.toml)"
+  echo "🔧 Syncing mise global tools (from config/mise/config.toml)"
   "$mise_bin" install --yes || echo "⚠️  mise install encountered an issue; run 'mise install' manually"
 }
 
@@ -381,6 +393,7 @@ symlink_dotfiles
 install_antidote
 run_macos_bundle_and_defaults
 run_linux_terminal_defaults
+run_linux_keyboard_defaults
 ensure_mise_tools
 link_zsh_files
 ensure_user_zdotdir_for_ide_terminals

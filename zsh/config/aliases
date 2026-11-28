@@ -11,7 +11,7 @@ alias e:alias="code $DOTFILES/zsh/config/aliases"
 alias e:path="code $DOTFILES/zsh/config/paths"
 alias e:zshrc="code $DOTFILES/zsh/.zshrc"
 alias e:plugins="code $DOTFILES/zsh/zsh_plugins.txt"
-alias e:starship="code $DOTFILES/starship/starship.toml"
+alias e:starship="code $DOTFILES/config/starship.toml"
 alias c="clear" # clear terminal
 alias x="exit"  # closes terminal
 # Never alias `source` to `source ~/.zshrc` — it shadows the builtin and causes recursion.
@@ -28,6 +28,16 @@ alias rzs="builtin source ~/.zshrc"
 # ........:::....::..:::::..:::......:::..::::::::........::....::........::........:::......:::
 
 alias ~="cd ~"
+alias home='cd ~'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias -- -='cd -'
+
+alias sudo='sudo '
+path() { print -l $path }
+myip() { dig +short myip.opendns.com @resolver1.opendns.com }
 
 alias d='dirs -v | head -10' # Directory stack lookup
 alias 1='cd -1'

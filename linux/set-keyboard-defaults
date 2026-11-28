@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Map Caps Lock to Left Control (xkb caps:ctrl_modifier). Safe to re-run.
+set -euo pipefail
+
+if [[ "$(uname -s)" != "Linux" ]]; then
+  exit 0
+fi
+
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+applied=0
+
+if command -v gsettings >/dev/null 2>&1; then
+  if gsettings list-keys org.gnome.desktop.input-sources &>/dev/null; then
+    opts=$(gsettings get org.gnome.desktop.input-sources xkb-options 2>/dev/null || echo "@as []")
+    if [[ "$opts" == *caps:ctrl_modifier* ]]; then
+      echo "✅ GNOME: caps:ctrl_modifier already set"
+    elif [[ "$opts" == "@as []" || "$opts" == "[]" ]]; then
+      gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
+      echo "✅ GNOME: set xkb-options to caps:ctrl_modifier"
+    else
+      new=${opts%\]}
+      new="${new}, 'caps:ctrl_modifier']"
+      gsettings set org.gnome.desktop.input-sources xkb-options "$new"
+      echo "✅ GNOME: appended caps:ctrl_modifier to xkb-options"
+    fi
+    applied=1
+  fi
+fi
+
+if command -v kwriteconfig6 >/dev/null 2>&1; then
+  kwriteconfig6 --file kxkbrc --group Layout --key Options caps:ctrl_modifier
+  echo "✅ KDE: set Options=caps:ctrl_modifier in ~/.config/kxkbrc (may require re-login)"
+  applied=1
+elif command -v kwriteconfig5 >/dev/null 2>&1; then
+  kwriteconfig5 --file kxkbrc --group Layout --key Options caps:ctrl_modifier
+  echo "✅ KDE: set Options=caps:ctrl_modifier in ~/.config/kxkbrc (may require re-login)"
+  applied=1
+fi
+
+if (( applied == 0 )); then
+  echo "⏭️  No GNOME gsettings or KDE kwriteconfig — skipping Caps Lock remap"
+fi

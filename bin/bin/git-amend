@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Amend the latest commit without changing its message.
+set -euo pipefail
+
+DRY_RUN=0
+for arg in "$@"; do
+  case "$arg" in
+    -n | --dry-run) DRY_RUN=1 ;;
+    -y | --yes | -f | --force)
+      echo "git-amend: refusing to run with $arg (explicit confirmation required)" >&2
+      exit 1
+      ;;
+  esac
+done
+
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "git-amend: not a git repository" >&2
+  exit 1
+fi
+
+if ! git rev-parse HEAD >/dev/null 2>&1; then
+  echo "git-amend: no commits to amend" >&2
+  exit 1
+fi
+
+echo "Plan: git commit --amend --no-edit"
+echo "Latest commit:"
+git log -1 --oneline
+
+if (( DRY_RUN )); then
+  echo "Dry run — no changes made."
+  exit 0
+fi
+
+if [[ ! -t 0 ]]; then
+  echo "git-amend: not a TTY; refusing to amend" >&2
+  exit 1
+fi
+
+printf 'Proceed? [y/N] '
+read -r reply
+case "$reply" in
+  y | yes) ;;
+  *)
+    echo "Aborted."
+    exit 0
+    ;;
+esac
+
+git commit --amend --no-edit
+echo "Done."

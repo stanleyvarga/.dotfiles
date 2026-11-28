@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Soft-reset HEAD by one commit, leaving changes staged.
+set -euo pipefail
+
+DRY_RUN=0
+for arg in "$@"; do
+  case "$arg" in
+    -n | --dry-run) DRY_RUN=1 ;;
+    -y | --yes | -f | --force)
+      echo "git-undo: refusing to run with $arg (explicit confirmation required)" >&2
+      exit 1
+      ;;
+  esac
+done
+
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "git-undo: not a git repository" >&2
+  exit 1
+fi
+
+if ! git rev-parse HEAD~1 >/dev/null 2>&1; then
+  echo "git-undo: no parent commit to reset to" >&2
+  exit 1
+fi
+
+echo "Plan: git reset --soft HEAD~1"
+echo "Commit that would be undone:"
+git log -1 --oneline
+
+if (( DRY_RUN )); then
+  echo "Dry run — no changes made."
+  exit 0
+fi
+
+if [[ ! -t 0 ]]; then
+  echo "git-undo: not a TTY; refusing to change history" >&2
+  exit 1
+fi
+
+printf 'Proceed? [y/N] '
+read -r reply
+case "$reply" in
+  y | yes) ;;
+  *)
+    echo "Aborted."
+    exit 0
+    ;;
+esac
+
+git reset --soft HEAD~1
+echo "Done. Previous commit's changes are staged."

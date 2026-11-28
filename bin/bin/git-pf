@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Force-push current branch with lease (safer than --force).
+set -euo pipefail
+
+DRY_RUN=0
+EXTRA=()
+for arg in "$@"; do
+  case "$arg" in
+    -n | --dry-run) DRY_RUN=1 ;;
+    -y | --yes | -f | --force)
+      echo "git-pf: refusing to run with $arg (explicit confirmation required)" >&2
+      exit 1
+      ;;
+    *) EXTRA+=("$arg") ;;
+  esac
+done
+
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "git-pf: not a git repository" >&2
+  exit 1
+fi
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [[ "$branch" == "HEAD" ]]; then
+  echo "git-pf: detached HEAD; checkout a branch first" >&2
+  exit 1
+fi
+
+echo "Plan: git push --force-with-lease origin $branch"
+git status -sb
+
+if (( DRY_RUN )); then
+  git push --force-with-lease --dry-run "${EXTRA[@]}"
+  exit 0
+fi
+
+if [[ ! -t 0 ]]; then
+  echo "git-pf: not a TTY; refusing to push" >&2
+  exit 1
+fi
+
+printf 'Proceed? [y/N] '
+read -r reply
+case "$reply" in
+  y | yes) ;;
+  *)
+    echo "Aborted."
+    exit 0
+    ;;
+esac
+
+git push --force-with-lease "${EXTRA[@]}"

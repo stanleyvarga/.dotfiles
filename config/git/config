@@ -1,6 +1,3 @@
-[user]
-	name = Stanley Varga
-	email = stanleyvarga1@gmail.com
 [push]
 	autoSetupRemote = true
 	# Default push should only push the current branch to its push target, regardless of its remote name
@@ -9,12 +6,20 @@
 	rebase = false
 [rebase]
 	autostash = true
+	autoSquash = true
+[init]
+	defaultBranch = main
+[log]
+	date = human
+[help]
+	autoCorrect = prompt
 [fetch]
 	prune = true
 [branch]
 	sort = -committerdate
 [core]
 	fsmonitor = true
+	excludesfile = ~/.config/git/ignore
 	pager = sh -c 'command -v delta >/dev/null 2>&1 && exec delta || exec less -FRX'
 [interactive]
 	diffFilter = sh -c 'command -v delta >/dev/null 2>&1 && exec delta --color-only || exec cat'
@@ -25,7 +30,10 @@
 [diff]
 	algorithm = histogram
 	colorMoved = default
+	renames = copies
 [merge]
 	conflictStyle = zdiff3
 [rerere]
 	enabled = true
+[include]
+	path = ~/.gitconfig.local

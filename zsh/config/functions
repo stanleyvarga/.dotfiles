@@ -78,3 +78,44 @@ rm() {
   (( stop_on_error )) && trash_opts+=(-s)
   command trash "${trash_opts[@]}" "${paths[@]}"
 }
+
+# Extract archives (keeps the archive file on disk).
+extract() {
+  if (( $# != 1 )); then
+    print -u2 "extract: usage: extract <archive>"
+    return 1
+  fi
+
+  local file=$1
+  [[ -f "$file" ]] || { print -u2 "extract: not a file: $file"; return 1; }
+
+  case $file in
+    *.tar.gz | *.tgz)
+      tar xzf "$file" || return $?
+      ;;
+    *.tar.bz2 | *.tbz2)
+      tar xjf "$file" || return $?
+      ;;
+    *.tar.xz | *.txz)
+      tar xJf "$file" || return $?
+      ;;
+    *.tar)
+      tar xf "$file" || return $?
+      ;;
+    *.zip)
+      (( $+commands[unzip] )) || { print -u2 "extract: unzip not installed"; return 1; }
+      unzip -q "$file" || return $?
+      ;;
+    *.7z)
+      (( $+commands[7z] )) || (( $+commands[7za] )) || {
+        print -u2 "extract: 7z not installed"
+        return 1
+      }
+      command 7z x "$file" || command 7za x "$file" || return $?
+      ;;
+    *)
+      print -u2 "extract: unsupported archive: $file"
+      return 1
+      ;;
+  esac
+}

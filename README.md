@@ -44,11 +44,18 @@ Ballad of `Dotfiles`
 Cross-platform (**macOS** + **Ubuntu/Debian Linux**) ultra-fast Zsh setup:
 
 - **Pure Zsh + [Antidote](https://antidote.sh/)** static compiled plugin bundle (no Oh My Zsh overhead)
-- **[Starship](https://starship.rs/)** minimal single-line prompt (`starship/starship.toml`)
+- **[Starship](https://starship.rs/)** minimal single-line prompt (`config/starship.toml`)
 - **[mise](https://mise.jdx.dev/)** unified runtime manager for Node, Ruby, Python (reads `.nvmrc`, `.node-version`, `.ruby-version`, `.python-version`; shims in `~/.zshenv` so IDEs, scripts, and agents always resolve Node immediately without lazy-loading hacks)
 - **Cached tool inits** (`~/.cache/zsh/*.zsh.zwc`): `starship`, `mise`, `zoxide`, `wt`, `fzf` (`fd` + `bat` preview), and deferred `atuin` (`Ctrl+R`)
-- **Modern Git defaults** (`git/.gitconfig`): `delta` diff pager (with automatic `less` fallback if `delta` is missing), `histogram` diff, `zdiff3` conflicts, `rerere`, and `fsmonitor`
+- **Modern Git defaults** (`config/git/config`): `delta` diff pager (with automatic `less` fallback if `delta` is missing), `histogram` diff, `zdiff3` conflicts, `rerere`, and `fsmonitor`
 - **Startup time:** ~40–60 ms steady-state (`bench-zsh` to measure)
+
+## Platform docs
+
+What to expect after install (Git helpers, Caps Lock, macOS defaults, config paths):
+
+- [docs/Linux.md](./docs/Linux.md)
+- [docs/Macos.md](./docs/Macos.md)
 
 ## Install
 

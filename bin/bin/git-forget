@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Delete local branches whose upstream remote branch is gone.
+set -euo pipefail
+
+DRY_RUN=0
+for arg in "$@"; do
+  case "$arg" in
+    -n | --dry-run) DRY_RUN=1 ;;
+    -y | --yes | -f | --force)
+      echo "git-forget: refusing to run with $arg (explicit confirmation required)" >&2
+      exit 1
+      ;;
+  esac
+done
+
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "git-forget: not a git repository" >&2
+  exit 1
+fi
+
+current=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo HEAD)
+mapfile -t to_delete < <(
+  git branch -vv |
+    awk '/: gone]/{print $1}' |
+    sed 's/^\*//' |
+    while read -r b; do
+      [[ -z "$b" ]] && continue
+      [[ "$b" == "$current" ]] && continue
+      [[ "$b" == "main" || "$b" == "master" ]] && continue
+      echo "$b"
+    done
+)
+
+if ((${#to_delete[@]} == 0)); then
+  echo "No local branches with a gone upstream (excluding main, master, and current branch)."
+  exit 0
+fi
+
+echo "Plan: delete the following local branch(es):"
+printf '  %s\n' "${to_delete[@]}"
+
+if (( DRY_RUN )); then
+  echo "Dry run — no branches deleted."
+  exit 0
+fi
+
+if [[ ! -t 0 ]]; then
+  echo "git-forget: not a TTY; refusing to delete branches" >&2
+  exit 1
+fi
+
+printf 'Proceed? [y/N] '
+read -r reply
+case "$reply" in
+  y | yes) ;;
+  *)
+    echo "Aborted."
+    exit 0
+    ;;
+esac
+
+for b in "${to_delete[@]}"; do
+  git branch -D "$b"
+done
+echo "Done."

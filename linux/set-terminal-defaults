@@ -19,7 +19,7 @@ link_konsole_shortcuts() {
   local dest_dir="$HOME/.local/share/kxmlgui5/konsole"
   local dest="$dest_dir/sessionui.rc"
   mkdir -p "$dest_dir"
-  ln -sf "$DOTFILES/linux/konsole/sessionui.rc" "$dest"
+  ln -sf "$DOTFILES/config/konsole/sessionui.rc" "$dest"
   echo "✅ Konsole: $dest → dotfiles (Ctrl+C copy, Ctrl+V paste, Ctrl+Shift+C SIGINT)"
 }
 
@@ -42,7 +42,7 @@ link_warp_keybindings() {
     echo "⏭️  Warp not installed — skipping Warp keybindings"
     return 0
   fi
-  local src="$DOTFILES/linux/warp-terminal/keybindings.yaml"
+  local src="$DOTFILES/config/warp-terminal/keybindings.yaml"
   local dest_dir="${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal"
   local dest="$dest_dir/keybindings.yaml"
   [[ -f "$src" ]] || { echo "⚠️  Missing $src"; return 1; }
