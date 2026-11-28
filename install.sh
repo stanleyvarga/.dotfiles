@@ -35,9 +35,9 @@ link_dir_contents() {
 }
 
 symlink_dotfiles() {
-  echo "🔗 Linking bin, config/git, config/mise, config/starship, root"
+  echo "🔗 Linking bin, config/git, config/mise, config/starship, config/bat, root"
   link_dir_contents "$DOTFILES/bin/bin" "$HOME/bin"
-  mkdir -p "$HOME/.config/git" "$HOME/.config/mise"
+  mkdir -p "$HOME/.config/git" "$HOME/.config/mise" "$HOME/.config/bat"
   link_file "$DOTFILES/config/git/config" "$HOME/.config/git/config"
   link_file "$DOTFILES/config/git/ignore" "$HOME/.config/git/ignore"
   link_file "$DOTFILES/config/git/ignore" "$HOME/.gitignore"
@@ -45,6 +45,7 @@ symlink_dotfiles() {
   link_file "$DOTFILES/root/.wakeup" "$HOME/.wakeup"
   link_file "$DOTFILES/config/mise/config.toml" "$HOME/.config/mise/config.toml"
   link_file "$DOTFILES/config/starship.toml" "$HOME/.config/starship.toml"
+  link_file "$DOTFILES/config/bat/config" "$HOME/.config/bat/config"
   if is_macos; then
     echo "🔗 Linking Homebrew files"
     link_file "$DOTFILES/homebrew/Brewfile" "$HOME/Brewfile"
@@ -293,18 +294,33 @@ ensure_ricksay() {
     echo "✅ ricksay is already installed"
     return 0
   fi
-  local pip=""
-  if [[ -x /opt/homebrew/opt/python@3.11/bin/pip3 ]]; then
-    pip=/opt/homebrew/opt/python@3.11/bin/pip3
-  elif command -v pip3 >/dev/null 2>&1; then
-    pip=$(command -v pip3)
-  fi
-  if [[ -z "$pip" ]]; then
-    echo "⚠️  pip3 not found — skip ricksay"
+
+  ensure_pipx() {
+    if command -v pipx >/dev/null 2>&1; then
+      return 0
+    fi
+    if is_linux && has_apt; then
+      echo "🔧 Installing pipx (apt) — required for ricksay on Debian/Ubuntu (PEP 668)"
+      sudo apt-get install -y pipx python3-venv
+      pipx ensurepath 2>/dev/null || true
+      return 0
+    fi
+    if is_macos && command -v brew >/dev/null 2>&1; then
+      echo "🔧 Installing pipx (Homebrew) for ricksay"
+      brew install pipx
+      pipx ensurepath 2>/dev/null || true
+      return 0
+    fi
+    return 1
+  }
+
+  if ! ensure_pipx; then
+    echo "⚠️  pipx not available — skip ricksay (install pipx, then: pipx install ricksay)"
     return 0
   fi
-  echo "🔧 Installing ricksay (pip)"
-  "$pip" install --user ricksay || "$pip" install ricksay || echo "⚠️  ricksay install failed"
+
+  echo "🔧 Installing ricksay (pipx)"
+  pipx install ricksay 2>/dev/null || pipx install --force ricksay || echo "⚠️  ricksay install failed"
 }
 
 # Cursor/VS Code zsh shell integration sources $USER_ZDOTDIR/.zshrc on Linux.

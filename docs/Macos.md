@@ -1,6 +1,6 @@
 # macOS — dotfiles behavior
 
-What this checkout configures on **macOS** after `./install.sh`. Zsh, Git, and `config/` layout match [Linux.md](./Linux.md) unless noted here.
+What this checkout configures on **macOS** after `./install.sh`. Git, aliases, and `~/bin` commands: [Commands.md](./Commands.md). `config/` symlink layout matches [Linux.md](./Linux.md).
 
 ## Install
 
@@ -11,10 +11,6 @@ What this checkout configures on **macOS** after `./install.sh`. Zsh, Git, and `
 ```bash
 SKIP_BREW_BUNDLE=1 SKIP_CHSH=1 ./install.sh
 ```
-
-## Git and shell
-
-Identical to [Linux — Git](./Linux.md#git) and [Linux — Shell](./Linux.md#shell-zsh). Identity stays in `~/.gitconfig.local`.
 
 ## Keyboard — Caps Lock → Control
 
@@ -48,15 +44,24 @@ Run manually when you want to apply or refresh (not run automatically from this 
 
 The script does **not** call `killall Finder`. After running it, verify with `defaults read …`, then restart Finder yourself if Finder UI did not update.
 
-Existing shell aliases on macOS: `show` / `hide` desktop files, `localip`, `copyssh` — see [`zsh/config/aliases`](../zsh/config/aliases).
-
 ## Homebrew additions
 
 From the Brewfile (macOS):
 
 - **`gh`** — GitHub CLI (`gh browse`, etc.). Credential helper for Git is **not** enabled by default; only add after `gh auth login` if you want it.
 - **`shellcheck`** — lint shell scripts (`install.sh`, `bin/bin/*`).
+- **`yt-dlp`**, **`parallel`**, **`ffmpeg`** — required for `ytdl` / `ytdl-all` (see [Commands.md](./Commands.md)).
+
+## Wallpapers (`wp-ngn` / `wpp`)
+
+Same program, two names. `--dynamic` picks a file from `~/Wallpapers/{night,dawn,sunrise,morning,afternoon,sunset,dusk}/` using the current month’s clock. Other modes: `--random`, `--screens`, `--sync-screens`.
+
+`jq` is in the Brewfile. The `wallpaper` CLI is not; install it separately. [`bin/bin/install-external`](../bin/bin/install-external) clones `wallpaper-ngn` and replaces `bin/bin/wp-ngn` with that checkout.
+
+## Sleep and wake
+
+`install.sh` links [`root/.sleep`](../root/.sleep) and [`root/.wakeup`](../root/.wakeup) to `~/.sleep` and `~/.wakeup`. `sleepwatcher` is in the Brewfile. Start the service yourself. The `wp-ngn --dynamic` line in `.wakeup` is commented out, so wake leaves the wallpaper alone until you uncomment it.
 
 ## Config paths
 
-Same as [Linux — config paths](./Linux.md#config-paths-quick-reference). On macOS, `Brewfile` also links to `~/Brewfile`.
+Same as [Linux — config paths](./Linux.md#config-paths-quick-reference) (includes `~/.config/bat/config`). On macOS, `Brewfile` also links to `~/Brewfile`.

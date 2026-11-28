@@ -12,7 +12,8 @@ alias e:path="code $DOTFILES/zsh/config/paths"
 alias e:zshrc="code $DOTFILES/zsh/.zshrc"
 alias e:plugins="code $DOTFILES/zsh/zsh_plugins.txt"
 alias e:starship="code $DOTFILES/config/starship.toml"
-alias c="clear" # clear terminal
+alias c="code ."
+alias csr="cursor ."
 alias x="exit"  # closes terminal
 # Never alias `source` to `source ~/.zshrc` — it shadows the builtin and causes recursion.
 alias rzsh="builtin source ~/.zshrc"
@@ -193,9 +194,9 @@ fi
 
 # Better cat alternative with syntax highlighting (Debian/Ubuntu package is batcat)
 if (( $+commands[bat] )); then
-  alias bat="bat --theme=OneHalfDark --paging=never --style=full"
+  alias bat="bat --theme=OneHalfDark --paging=never"
 elif (( $+commands[batcat] )); then
-  alias bat="batcat --theme=OneHalfDark --paging=never --style=full"
+  alias bat="batcat --theme=OneHalfDark --paging=never"
 fi
 [[ -n "${aliases[bat]:-}" ]] && alias cat="bat"
 

@@ -52,12 +52,7 @@ Useful to check what runs on a given port
 
 ### git undo, git pf, git amend, git forget
 
-Safe Git helpers (always dry-run with `-n` / `--dry-run`, otherwise `Proceed? [y/N]`):
-
-- **git undo** — soft-reset last commit (changes stay staged)
-- **git pf** — `push --force-with-lease`
-- **git amend** — amend last commit without editing the message
-- **git forget** — delete local branches whose upstream is gone (skips `main`, `master`, current branch)
+Full usage: [docs/Commands.md](../../docs/Commands.md#git). Safe Git helpers (dry-run with `-n` / `--dry-run`, otherwise `Proceed? [y/N]`).
 
 ### $
 

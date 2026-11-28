@@ -52,10 +52,10 @@ Cross-platform (**macOS** + **Ubuntu/Debian Linux**) ultra-fast Zsh setup:
 
 ## Platform docs
 
-What to expect after install (Git helpers, Caps Lock, macOS defaults, config paths):
-
-- [docs/Linux.md](./docs/Linux.md)
-- [docs/Macos.md](./docs/Macos.md)
+- [docs/Commands.md](./docs/Commands.md) — Git helpers, aliases, and `~/bin` (macOS and Linux)
+- [docs/Linux.md](./docs/Linux.md) — Ubuntu/Debian install, keyboard, terminals
+- [docs/Macos.md](./docs/Macos.md) — Homebrew, defaults, wallpapers, sleep/wake
+- [docs/Apps.md](./docs/Apps.md) — other projects (not installed by this repo)
 
 ## Install
 
@@ -159,7 +159,7 @@ Entering any repo with `.nvmrc`, `.node-version`, `.ruby-version`, or `.python-v
 
 ### Custom binaries
 
-Scripts under `bin/bin/` are symlinked into `~/bin`. See [bin/bin/Readme.md](./bin/bin/Readme.md) for the available commands (`dotfiles`, `zsbrew`, `ytdl`, `ytdl-all`, etc.).
+Scripts under `bin/bin/` are symlinked into `~/bin`. See [docs/Commands.md](./docs/Commands.md) and [bin/bin/Readme.md](./bin/bin/Readme.md) (`dotfiles`, `zsbrew`, `ytdl`, `ytdl-all`, git helpers, etc.).
 
 ### VS Code / Cursor
 
