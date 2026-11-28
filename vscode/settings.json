@@ -163,5 +163,22 @@
     "key": "ctrl+j",
     "command": "workbench.action.previousEditor",
     "when": "!inQuickOpen"
+  },
+  // Linux terminal: Ctrl+C/V copy-paste (selection → copy; else → SIGINT)
+  {
+    "key": "ctrl+c",
+    "command": "workbench.action.terminal.copySelection",
+    "when": "terminalFocus && terminalTextSelected"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "\u0003" },
+    "when": "terminalFocus && !terminalTextSelected"
+  },
+  {
+    "key": "ctrl+v",
+    "command": "workbench.action.terminal.paste",
+    "when": "terminalFocus"
   }
 ]

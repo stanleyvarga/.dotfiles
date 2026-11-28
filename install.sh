@@ -193,6 +193,15 @@ install_antidote() {
   git clone --depth=1 https://github.com/mattmc3/antidote.git "$HOME/.antidote"
 }
 
+run_linux_terminal_defaults() {
+  if ! is_linux; then
+    return 0
+  fi
+  echo "🔧 Setting Linux terminal defaults (Ctrl+C / Ctrl+V copy-paste)"
+  chmod +x "$DOTFILES/linux/set-terminal-defaults"
+  "$DOTFILES/linux/set-terminal-defaults"
+}
+
 run_macos_bundle_and_defaults() {
   if ! is_macos; then
     echo "💽 Not running on macOS — skipping Homebrew bundle and defaults"
@@ -371,6 +380,7 @@ ensure_bun_linux
 symlink_dotfiles
 install_antidote
 run_macos_bundle_and_defaults
+run_linux_terminal_defaults
 ensure_mise_tools
 link_zsh_files
 ensure_user_zdotdir_for_ide_terminals

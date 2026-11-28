@@ -62,7 +62,7 @@ chmod +x install.sh   # first clone only, if needed
 The script sets `DOTFILES` from its own location, symlinks `bin`, `git`, `root`, `mise`, `starship`, and `~/.zshenv` / `~/.zprofile` / `~/.zshrc` into your home directory (no GNU stow), installs **Antidote** (`~/.antidote`), and pre-builds the static plugin bundle and `.zwc` caches.
 
 - **macOS:** installs Homebrew if missing, runs `brew bundle` only when `homebrew/Brewfile` has missing packages (use `zsbrew` to sync/upgrade), syncs `mise` tools, and applies `macos/set-defaults`.
-- **Ubuntu/Debian:** installs `git`, `curl`, `zsh`, `unzip`, `bat` (and `eza`, `fd-find`, `fzf`, `jq`, `ripgrep`, `git-delta` when available in `apt`), links `~/.local/bin/bat` → `batcat` and `~/.local/bin/fd` → `fdfind`, and installs `mise`, `starship`, `zoxide`, and `bun` into `~/.local/bin` / `~/.bun/bin`.
+- **Ubuntu/Debian:** installs `git`, `curl`, `zsh`, `unzip`, `bat` (and `eza`, `fd-find`, `fzf`, `jq`, `ripgrep`, `git-delta` when available in `apt`), links `~/.local/bin/bat` → `batcat` and `~/.local/bin/fd` → `fdfind`, installs `mise`, `starship`, `zoxide`, and `bun` into `~/.local/bin` / `~/.bun/bin`, and applies `linux/set-terminal-defaults` (**Konsole**, **GNOME Terminal**, and **Warp**: **Ctrl+C / Ctrl+V** for copy-paste; **Ctrl+Shift+C** for interrupt/cancel). **Quit and reopen Warp** after install so `keybindings.yaml` loads.
 
 At the end it sets **zsh as your login shell** with `chsh` (adding zsh to `/etc/shells` via `sudo` if needed).
 

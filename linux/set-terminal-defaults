@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+# Linux terminal copy/paste: Ctrl+C / Ctrl+V (no Shift), like Windows / macOS habit.
+# Safe to re-run (install.sh calls this on every Linux install).
+
+set -euo pipefail
+
+if [[ "$(uname -s)" != "Linux" ]]; then
+  exit 0
+fi
+
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+GT_KEYBIND_SCHEMA='org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/'
+
+link_konsole_shortcuts() {
+  if ! command -v konsole >/dev/null 2>&1; then
+    echo "⏭️  konsole not installed — skipping Konsole shortcuts"
+    return 0
+  fi
+  local dest_dir="$HOME/.local/share/kxmlgui5/konsole"
+  local dest="$dest_dir/sessionui.rc"
+  mkdir -p "$dest_dir"
+  ln -sf "$DOTFILES/linux/konsole/sessionui.rc" "$dest"
+  echo "✅ Konsole: $dest → dotfiles (Ctrl+C copy, Ctrl+V paste, Ctrl+Shift+C SIGINT)"
+}
+
+set_gnome_terminal_keybindings() {
+  if ! command -v gsettings >/dev/null 2>&1; then
+    echo "⏭️  gsettings not found — skipping GNOME Terminal"
+    return 0
+  fi
+  if ! gsettings get "$GT_KEYBIND_SCHEMA" copy &>/dev/null; then
+    echo "⏭️  GNOME Terminal keybindings unavailable — skipping gsettings"
+    return 0
+  fi
+  gsettings set "$GT_KEYBIND_SCHEMA" copy '<Control>c'
+  gsettings set "$GT_KEYBIND_SCHEMA" paste '<Control>v'
+  echo "✅ GNOME Terminal: copy/paste → Ctrl+C / Ctrl+V (Ctrl+C no longer sends SIGINT; use Ctrl+\\ or Ctrl+Shift+C in other apps)"
+}
+
+link_warp_keybindings() {
+  if ! command -v warp-terminal >/dev/null 2>&1 && ! command -v warp >/dev/null 2>&1; then
+    echo "⏭️  Warp not installed — skipping Warp keybindings"
+    return 0
+  fi
+  local src="$DOTFILES/linux/warp-terminal/keybindings.yaml"
+  local dest_dir="${XDG_CONFIG_HOME:-$HOME/.config}/warp-terminal"
+  local dest="$dest_dir/keybindings.yaml"
+  [[ -f "$src" ]] || { echo "⚠️  Missing $src"; return 1; }
+  mkdir -p "$dest_dir"
+
+  if [[ -L "$dest" ]] || [[ ! -e "$dest" ]]; then
+    ln -sf "$src" "$dest"
+    echo "✅ Warp: $dest → dotfiles (Ctrl+C copy, Ctrl+V paste, Ctrl+Shift+C cancel; restart Warp)"
+    return 0
+  fi
+
+  if [[ -f "$dest" ]]; then
+    if ! command -v python3 >/dev/null 2>&1; then
+      cp -a "$dest" "$dest.bak.$(date +%Y%m%d%H%M%S)"
+      ln -sf "$src" "$dest"
+      echo "✅ Warp: replaced $dest with dotfiles symlink (prior file backed up; restart Warp)"
+      return 0
+    fi
+    WARP_KEYBINDINGS_DEST="$dest" WARP_KEYBINDINGS_SRC="$src" python3 <<'PY'
+import os
+import re
+from pathlib import Path
+
+dest = Path(os.environ["WARP_KEYBINDINGS_DEST"])
+src = Path(os.environ["WARP_KEYBINDINGS_SRC"])
+
+bindings: dict[str, str] = {}
+for line in src.read_text().splitlines():
+    m = re.match(r'^"([^"]+)":\s*(\S+)\s*$', line)
+    if m:
+        bindings[m.group(1)] = m.group(2)
+
+text = dest.read_text() if dest.exists() else "---\n"
+out: list[str] = []
+seen: set[str] = set()
+for line in text.splitlines(keepends=True):
+    stripped = line.strip()
+    m = re.match(r'^"([^"]+)":\s*(\S+)\s*$', stripped)
+    if m and m.group(1) in bindings:
+        key = m.group(1)
+        seen.add(key)
+        out.append(f'"{key}": {bindings[key]}\n')
+    else:
+        out.append(line if line.endswith("\n") else line + "\n")
+
+for key, val in bindings.items():
+    if key not in seen:
+        if out and not out[-1].endswith("\n"):
+            out[-1] += "\n"
+        out.append(f'"{key}": {val}\n')
+
+dest.write_text("".join(out))
+PY
+    echo "✅ Warp: merged copy/paste bindings into $dest (custom shortcuts kept; restart Warp)"
+    return 0
+  fi
+
+  ln -sf "$src" "$dest"
+  echo "✅ Warp: $dest → dotfiles (restart Warp)"
+}
+
+link_konsole_shortcuts
+set_gnome_terminal_keybindings
+link_warp_keybindings

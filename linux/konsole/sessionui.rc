@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="session" version="43" translationDomain="konsole">
+ <ActionProperties scheme="Default">
+  <Action name="edit_copy" shortcut="Ctrl+C"/>
+  <Action name="edit_paste" shortcut="Ctrl+V"/>
+  <!-- Ctrl+C is copy; keep interrupt on the old copy chord -->
+  <Action name="sigint-signal" shortcut="Ctrl+Shift+C"/>
+ </ActionProperties>
+</gui>

@@ -1,0 +1,4 @@
+---
+"terminal:copy": ctrl-c
+"terminal:paste": ctrl-v
+"terminal:cancel_command": ctrl-shift-C

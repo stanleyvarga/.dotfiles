@@ -21,6 +21,6 @@ Puts the contents of a file in your system **clipboard** 📋 so you can paste i
 
 ### safe-paste
 
-Since I'm using Warp, I don't use this plugin now
+Since I'm using Warp, I don't use this plugin now (terminal copy/paste: `linux/warp-terminal/keybindings.yaml` via `./linux/set-terminal-defaults`)
 
 🔗 [safe-paste](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/safe-paste)
